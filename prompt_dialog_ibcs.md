@@ -474,7 +474,7 @@ If you only have topic headings (not assessment statements), Claude will fill in
 | Session | Markdown | Mindmap | HTML |
 |---|---|---|---|
 | Paper 1 (29 Apr 2026) | `IBCS_lastminute_revision.md` | `IBCS_mindmap.md` | `IBCS_Paper1_Revision.html` |
-| Paper 2 (suggested) | `IBCS_Paper2_Revision.md` | `IBCS_Paper2_mindmap.md` | `IBCS_Paper2_Revision.html` |
+| Paper 2 (30 Apr 2026) | `IBCS_Paper2_Revision.md` | `IBCS_Paper2_mindmap.md` | `IBCS_Paper2_Revision.html` |
 
 **Other files in this project:**
 
@@ -513,4 +513,35 @@ Executed the `/update-dialog` slash command by following its six-step instructio
 
 ---
 
-*End of conversation record — 29 April 2026*
+---
+
+## Session — Thursday, 30 April 2026
+
+### Turn 12 — User (Paper 2 revision files — all four options)
+
+> I am doing last-minute revision for "IB Computer Science SL". Today I need you to produce three revision files for "Paper 2 — All Options" [followed by the full syllabus for Options A, B, C, D and the complete Task 1 / Task 2 / Task 3 specification].
+
+**What Claude did:**
+Created three complete Paper 2 revision files covering all four options (A: Databases, B: Modelling & Simulation, C: Web Science, D: Object-Oriented Programming). Worked through the tasks sequentially: (1) wrote `IBCS_Paper2_Revision.md` applying the Gist / Key line-items / Examples structure to every sub-topic across all four options, plus a Quick Reference section with command terms table, formulas, and a 45-term glossary; (2) wrote `IBCS_Paper2_mindmap.md` as a single large Mermaid mindmap covering all four options in one diagram; (3) wrote `IBCS_Paper2_Revision.html` as a self-contained print-ready HTML file (1,858 lines, ~91 KB) with a framed cover block, full revision content, B&W CSS typography, Mermaid CDN, and `@media print` A4 layout. Ran 42 automated shell checks on the HTML — all 42 passed.
+
+---
+
+### Turn 13 — User (split Paper 2 mindmap into four separate diagrams)
+
+> one change needed, on @ibcs_paper2_mindmap.md can you breakdown the mindmap into four mindmaps, one per Option. also arrange the mindmaps so that they are printer friendly and use black and white colors so that i can print this on a black and white printer
+
+**What Claude did:**
+Rewrote `IBCS_Paper2_mindmap.md` entirely, replacing the single large Mermaid diagram with four separate `mindmap` blocks — one per option — each rooted at its own option node (e.g., `root((Option A\nDatabases))`). Added `## Option X` section headings and `---` dividers between maps for clear page separation when printing. Expanded the leaf nodes relative to the Paper 1 maps: each option has 5–6 topic branches with 6–10 concept leaves each, giving a much more readable layout per page. Added a structured "Printing" how-to table with step-by-step instructions for exporting from mermaid.live and a reference table of editors that render Mermaid natively. All node labels use plain text only — no special characters that could break Mermaid parsing.
+
+---
+
+### Turn 14 — User (ran /update-dialog command)
+
+> run the command at `.claude/commands/update-dialog.md`
+
+**What Claude did:**
+Executed the update-dialog command following its six-step instructions. Read `prompt_dialog.md` to confirm the last recorded turn was Turn 11 on 29 April 2026. Noted a new session date (30 April 2026) and inserted a new `## Session` heading. Reconstructed Turns 12, 13, and 14 from the context window (active session not accessible via transcript tool). Updated the Paper 2 row in the Quick reference filenames table from "(suggested)" to "(30 Apr 2026)". Three new turns appended; no new files beyond those already in the filenames table.
+
+---
+
+*End of conversation record — 30 April 2026*

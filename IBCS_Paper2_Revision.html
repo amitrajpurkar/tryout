@@ -1,0 +1,1858 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>IB CS SL — Paper 2 Revision · All Options</title>
+<script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+<style>
+/* ── Reset & Base ─────────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: 11pt;
+  line-height: 1.7;
+  color: #000;
+  background: #fff;
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 30px 40px;
+}
+
+/* ── Typography ───────────────────────────────────────────────── */
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  color: #000;
+  line-height: 1.3;
+  page-break-after: avoid;
+}
+
+h1 { font-size: 22pt; border-bottom: 2px solid #000; padding-bottom: 8px; margin-bottom: 16px; margin-top: 0; }
+h2 { font-size: 16pt; border-bottom: 1px solid #444; padding-bottom: 5px; margin-top: 40px; margin-bottom: 14px; page-break-before: always; }
+h3 { font-size: 13pt; margin-top: 28px; margin-bottom: 10px; border-left: 4px solid #000; padding-left: 10px; }
+h4 { font-size: 11pt; font-weight: bold; margin-top: 18px; margin-bottom: 6px; color: #222; }
+
+p { margin-bottom: 10px; }
+
+a { color: #000; text-decoration: underline; }
+
+/* ── Cover Block ──────────────────────────────────────────────── */
+.cover {
+  border: 2px solid #000;
+  padding: 32px 36px;
+  margin-bottom: 48px;
+  background: #f4f4f4;
+  page-break-after: avoid;
+}
+.cover h1 {
+  font-size: 26pt;
+  border-bottom: none;
+  margin-bottom: 4px;
+}
+.cover .subtitle {
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-size: 14pt;
+  color: #444;
+  margin-bottom: 20px;
+}
+.cover .meta {
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-size: 10pt;
+  color: #444;
+  margin-bottom: 20px;
+}
+.cover .topic-list {
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-size: 10pt;
+  margin-left: 0;
+  padding-left: 0;
+  list-style: none;
+}
+.cover .topic-list li {
+  display: inline-block;
+  background: #000;
+  color: #fff;
+  padding: 3px 10px;
+  margin: 3px 4px 3px 0;
+  font-weight: bold;
+  font-size: 9pt;
+}
+
+/* ── Intro note ───────────────────────────────────────────────── */
+.intro-note {
+  border: 1px solid #999;
+  background: #f9f9f9;
+  padding: 12px 18px;
+  margin-bottom: 30px;
+  font-size: 10pt;
+  font-style: italic;
+  color: #444;
+}
+
+/* ── Section dividers ─────────────────────────────────────────── */
+.option-header {
+  background: #000;
+  color: #fff;
+  padding: 12px 20px;
+  margin-top: 0;
+  margin-bottom: 0;
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-size: 15pt;
+  font-weight: bold;
+  border-bottom: none;
+  page-break-before: always;
+  page-break-after: avoid;
+}
+.option-core-idea {
+  background: #f4f4f4;
+  border-left: 4px solid #000;
+  padding: 8px 14px;
+  font-style: italic;
+  color: #333;
+  margin-bottom: 20px;
+  font-size: 10pt;
+}
+
+/* ── Sub-topic structure ─────────────────────────────────────── */
+.subtopic {
+  margin-bottom: 36px;
+  border: 1px solid #ccc;
+  padding: 18px 20px;
+  background: #fff;
+  page-break-inside: avoid;
+}
+.subtopic-label {
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-size: 9pt;
+  font-weight: bold;
+  color: #fff;
+  background: #444;
+  display: inline-block;
+  padding: 2px 8px;
+  margin-bottom: 4px;
+  letter-spacing: 0.05em;
+}
+.subtopic h3 {
+  border-left: none;
+  padding-left: 0;
+  margin-top: 6px;
+  margin-bottom: 12px;
+  font-size: 12pt;
+}
+
+.section-label {
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-size: 8.5pt;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #444;
+  margin-top: 14px;
+  margin-bottom: 4px;
+}
+
+/* ── Lists ────────────────────────────────────────────────────── */
+ul, ol { margin-left: 22px; margin-bottom: 10px; }
+li { margin-bottom: 4px; }
+ul li { list-style-type: disc; }
+ul ul li { list-style-type: circle; }
+
+/* ── Code / Pre ───────────────────────────────────────────────── */
+code {
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 9.5pt;
+  background: #f4f4f4;
+  border: 1px solid #ccc;
+  padding: 1px 4px;
+  color: #000;
+}
+
+pre {
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 9.5pt;
+  background: #f4f4f4;
+  border-left: 4px solid #000;
+  border: 1px solid #ccc;
+  border-left: 4px solid #000;
+  padding: 12px 16px;
+  overflow-x: auto;
+  margin-bottom: 12px;
+  line-height: 1.5;
+  white-space: pre;
+  page-break-inside: avoid;
+  color: #000;
+}
+
+/* ── Blockquotes ──────────────────────────────────────────────── */
+blockquote {
+  border-left: 5px solid #000;
+  background: #f9f9f9;
+  padding: 10px 16px;
+  font-style: italic;
+  color: #333;
+  margin: 14px 0;
+}
+
+/* ── Tables ───────────────────────────────────────────────────── */
+table {
+  border-collapse: collapse;
+  width: 100%;
+  margin-bottom: 16px;
+  font-size: 9.5pt;
+  page-break-inside: avoid;
+}
+thead tr {
+  background: #000;
+  color: #fff;
+}
+thead th {
+  padding: 7px 10px;
+  text-align: left;
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-size: 8.5pt;
+  letter-spacing: 0.04em;
+  border: 1px solid #000;
+}
+tbody tr:nth-child(even) { background: #f4f4f4; }
+tbody tr:nth-child(odd) { background: #fff; }
+tbody td {
+  padding: 6px 10px;
+  border: 1px solid #ccc;
+  vertical-align: top;
+}
+
+/* ── Quick Reference ──────────────────────────────────────────── */
+.quick-ref {
+  page-break-before: always;
+  border: 2px solid #000;
+  padding: 24px 28px;
+  margin-top: 40px;
+  background: #f9f9f9;
+}
+.quick-ref h2 {
+  border-bottom: 2px solid #000;
+  page-break-before: avoid;
+  margin-top: 0;
+}
+
+/* ── Mindmap Section ──────────────────────────────────────────── */
+.mindmap-section {
+  page-break-before: always;
+  margin-top: 0;
+}
+.mindmap-section h2 {
+  page-break-before: avoid;
+  margin-top: 0;
+  border-bottom: 2px solid #000;
+}
+.mindmap-container {
+  border: 1px solid #ccc;
+  padding: 20px;
+  background: #fff;
+  overflow-x: auto;
+  margin-top: 20px;
+}
+.reading-note {
+  background: #f4f4f4;
+  border: 1px solid #999;
+  padding: 14px 18px;
+  margin-top: 20px;
+  font-size: 10pt;
+}
+
+/* ── Footer ───────────────────────────────────────────────────── */
+footer {
+  margin-top: 60px;
+  padding-top: 12px;
+  border-top: 1px solid #999;
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-size: 8.5pt;
+  color: #999;
+  text-align: center;
+}
+
+/* ── Strong / Em ──────────────────────────────────────────────── */
+strong { font-weight: bold; color: #000; }
+em { font-style: italic; color: #222; }
+
+/* ── @media print ─────────────────────────────────────────────── */
+@media print {
+  @page {
+    size: A4 portrait;
+    margin: 18mm 15mm;
+  }
+
+  body {
+    font-size: 10pt;
+    max-width: 100%;
+    padding: 0;
+    margin: 0;
+  }
+
+  h1 { font-size: 18pt; }
+  h2 { font-size: 13pt; }
+  h3 { font-size: 11pt; }
+  h4 { font-size: 10pt; }
+
+  h1, h2, h3 { page-break-after: avoid; }
+
+  .option-header { page-break-before: always; page-break-after: avoid; }
+  .option-core-idea { page-break-after: avoid; }
+
+  h2.topic-heading { page-break-before: always; }
+
+  .subtopic { page-break-inside: avoid; }
+
+  pre {
+    font-size: 8pt;
+    page-break-inside: avoid;
+    white-space: pre-wrap;
+    word-break: break-all;
+  }
+
+  code { font-size: 8pt; }
+
+  table { font-size: 8pt; page-break-inside: avoid; }
+  thead th { font-size: 7.5pt; }
+
+  .quick-ref { page-break-before: always; }
+  .mindmap-section { page-break-before: always; }
+
+  footer { position: fixed; bottom: 0; width: 100%; font-size: 7.5pt; }
+
+  a { text-decoration: none; color: #000; }
+
+  .cover { page-break-after: always; }
+}
+</style>
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════════════════════════════
+     COVER BLOCK
+══════════════════════════════════════════════════════════════════ -->
+<div class="cover">
+  <div class="subtopic-label">IB DIPLOMA PROGRAMME</div>
+  <h1>Computer Science SL</h1>
+  <div class="subtitle">Paper 2 — All Options Revision</div>
+  <div class="meta">
+    Last-minute revision notes &nbsp;·&nbsp; Options A, B, C, D &nbsp;·&nbsp; For personal study use only
+  </div>
+  <ul class="topic-list">
+    <li>Option A: Databases</li>
+    <li>Option B: Modelling &amp; Simulation</li>
+    <li>Option C: Web Science</li>
+    <li>Option D: Object-Oriented Programming</li>
+  </ul>
+  <p style="margin-top:18px; font-family:'Helvetica Neue',Helvetica,Arial,sans-serif; font-size:9.5pt; color:#444;">
+    <strong>Paper 2 format:</strong> 1 hour 20 minutes &nbsp;·&nbsp; 65 marks &nbsp;·&nbsp; Short-answer and structured questions on your chosen option
+  </p>
+</div>
+
+<!-- Intro note -->
+<div class="intro-note">
+  <strong>How to use this file:</strong> Every sub-topic follows the same three-part structure —
+  <strong>Gist</strong> (big idea) · <strong>Key line-items</strong> (facts to know cold) · <strong>Examples</strong> (exam-style illustrations).
+  A Quick Reference section (command terms · formulas · glossary) closes the notes, followed by the visual mindmap.
+</div>
+
+
+<!-- ═══════════════════════════════════════════════════════════════
+     OPTION A: DATABASES
+══════════════════════════════════════════════════════════════════ -->
+<div class="option-header">Option A &nbsp;·&nbsp; Databases</div>
+<div class="option-core-idea">Core idea: How data is stored, structured, and queried.</div>
+
+<h2 class="topic-heading">A1 — Database Concepts</h2>
+
+<!-- A1.1 -->
+<div class="subtopic">
+  <div class="subtopic-label">A1.1</div>
+  <h3>Data vs Information</h3>
+
+  <div class="section-label">Gist</div>
+  <p>Data is raw, unprocessed facts with no context; information is data that has been processed, organised, or given meaning so that it is useful to a decision-maker. The distinction matters in databases because a database stores data, but the queries and reports it produces deliver information.</p>
+
+  <div class="section-label">Key line-items</div>
+  <ul>
+    <li><strong>Data</strong> — raw facts, figures, or symbols (e.g., <code>42</code>, <code>"Smith"</code>, <code>2024-03-15</code>)</li>
+    <li><strong>Information</strong> — data processed into a meaningful, contextual form (e.g., "Smith's order placed on 15 March 2024 totals £42")</li>
+    <li>Processing steps: collecting → organising → structuring → presenting</li>
+    <li>Quality of information depends on: accuracy, completeness, timeliness, relevance</li>
+    <li><strong>Metadata</strong> — data about data (e.g., field names, data types, creation date of a record)</li>
+  </ul>
+
+  <div class="section-label">Examples</div>
+  <ul>
+    <li><code>85</code> is data; "Amit scored 85% in Paper 2" is information.</li>
+    <li>A temperature sensor outputs <code>23.4</code> (data); a weather app shows "Currently 23°C, feels warm" (information).</li>
+    <li><em>Exam question style:</em> "Distinguish between data and information, using an example from a student database."</li>
+  </ul>
+</div>
+
+<!-- A1.2 -->
+<div class="subtopic">
+  <div class="subtopic-label">A1.2</div>
+  <h3>Flat-file vs Relational Databases</h3>
+
+  <div class="section-label">Gist</div>
+  <p>A flat-file database stores everything in a single table (like a spreadsheet), leading to data redundancy and update anomalies. A relational database splits data into multiple linked tables, eliminating redundancy and making maintenance far more efficient.</p>
+
+  <div class="section-label">Key line-items</div>
+  <ul>
+    <li><strong>Flat-file database</strong> — single table; all data in one place
+      <ul>
+        <li>Advantages: simple, easy to create, no specialist software needed</li>
+        <li>Disadvantages: data redundancy, update anomalies, insertion anomalies, deletion anomalies</li>
+      </ul>
+    </li>
+    <li><strong>Relational database</strong> — multiple tables linked by keys
+      <ul>
+        <li>Advantages: no/minimal redundancy, easier updates, data integrity, supports complex queries</li>
+        <li>Disadvantages: more complex to design, requires DBMS software</li>
+      </ul>
+    </li>
+    <li><strong>DBMS</strong> — software layer managing storage, access, and security (e.g., MySQL, PostgreSQL)</li>
+    <li><strong>Redundancy</strong> — the same piece of data stored in more than one place</li>
+    <li><strong>Update anomaly</strong> — changing a value in one row but forgetting others</li>
+    <li><strong>Insertion anomaly</strong> — cannot add data without unrelated mandatory fields</li>
+    <li><strong>Deletion anomaly</strong> — deleting one row loses unrelated data</li>
+  </ul>
+
+  <div class="section-label">Examples</div>
+  <ul>
+    <li>Flat-file Orders table: every row repeats the customer's name and address → update anomaly if address changes.</li>
+    <li>Relational fix: <code>Customers</code> + <code>Orders</code> linked by <code>CustomerID</code> — address stored once.</li>
+    <li><em>Exam question style:</em> "Explain one disadvantage of using a flat-file database to store this data."</li>
+  </ul>
+</div>
+
+<h2 class="topic-heading">A2 — Relational Databases</h2>
+
+<!-- A2.1 -->
+<div class="subtopic">
+  <div class="subtopic-label">A2.1</div>
+  <h3>Tables, Records, Fields</h3>
+
+  <div class="section-label">Gist</div>
+  <p>The foundational vocabulary of a relational database. A table holds data about one entity type; each row is one instance; each column is one characteristic.</p>
+
+  <div class="section-label">Key line-items</div>
+  <ul>
+    <li><strong>Table (relation)</strong> — a 2D structure holding data about one entity; has rows and columns</li>
+    <li><strong>Record (row / tuple)</strong> — one instance/entry in a table (e.g., one student)</li>
+    <li><strong>Field (column / attribute)</strong> — one characteristic of the entity (e.g., StudentName)</li>
+    <li><strong>Domain</strong> — the set of permitted values for a field</li>
+    <li><strong>Degree</strong> — number of fields (columns) in a table</li>
+    <li><strong>Cardinality</strong> — number of records (rows) in a table</li>
+    <li><strong>Null</strong> — a field value that is absent or unknown (not zero or empty string)</li>
+  </ul>
+
+  <div class="section-label">Examples</div>
+  <ul>
+    <li>Table <code>Students(StudentID, Name, DateOfBirth, Grade)</code> has degree 4.</li>
+    <li>One row <code>(1001, "Ana", "2007-04-10", 11)</code> is one record.</li>
+    <li><em>Exam question style:</em> "Using the table above, state the number of records and fields."</li>
+  </ul>
+</div>
+
+<!-- A2.2 -->
+<div class="subtopic">
+  <div class="subtopic-label">A2.2</div>
+  <h3>Primary Keys &amp; Foreign Keys</h3>
+
+  <div class="section-label">Gist</div>
+  <p>A primary key uniquely identifies each record in its own table; a foreign key in one table references the primary key of another, creating the link between tables. Without keys, joins are impossible and data integrity cannot be enforced.</p>
+
+  <div class="section-label">Key line-items</div>
+  <ul>
+    <li><strong>Primary key (PK)</strong> — field (or combination) that uniquely identifies every record; must be unique and NOT NULL</li>
+    <li><strong>Composite primary key</strong> — PK made of two or more fields; used in junction/linking tables</li>
+    <li><strong>Foreign key (FK)</strong> — field in one table that references the PK of another table</li>
+    <li><strong>Referential integrity</strong> — FK value must match an existing PK value or be NULL</li>
+    <li><strong>Candidate key</strong> — any field that could serve as PK (unique + not null)</li>
+    <li><strong>Natural key</strong> — real-world identifier used as PK (e.g., ISBN)</li>
+    <li><strong>Surrogate key</strong> — artificial PK with no real-world meaning (e.g., auto-increment ID)</li>
+  </ul>
+
+  <div class="section-label">Examples</div>
+  <ul>
+    <li><code>Students(StudentID [PK], Name, Grade)</code> — StudentID is the PK.</li>
+    <li><code>Enrolments(StudentID [FK], CourseID [FK], EnrolDate)</code> — composite PK = (StudentID, CourseID).</li>
+    <li>Deleting a student whose StudentID appears in <code>Enrolments</code> would violate referential integrity.</li>
+    <li><em>Exam question style:</em> "Identify the primary key and foreign key(s) in the schema shown."</li>
+  </ul>
+</div>
+
+<!-- A2.3 -->
+<div class="subtopic">
+  <div class="subtopic-label">A2.3</div>
+  <h3>Relationships: 1–1, 1–Many, Many–Many</h3>
+
+  <div class="section-label">Gist</div>
+  <p>Relationships describe how records in one table associate with records in another. A many-to-many relationship always requires a junction table in a relational database.</p>
+
+  <div class="section-label">Key line-items</div>
+  <ul>
+    <li><strong>One-to-one (1:1)</strong> — one record in Table A links to exactly one in Table B; rare; e.g., Person ↔ Passport</li>
+    <li><strong>One-to-many (1:N)</strong> — one record in A links to many in B; most common; FK goes in the "many" side; e.g., Customer → Orders</li>
+    <li><strong>Many-to-many (M:N)</strong> — requires a junction/linking table with two FKs; e.g., Students ↔ Courses via Enrolments</li>
+  </ul>
+
+  <div class="section-label">Examples</div>
+  <ul>
+    <li>Library: <code>Member</code> (1) → <code>Loans</code> (many); <code>Loans</code> → <code>Book</code> (many-to-one). Members ↔ Books is M:N resolved by <code>Loans</code>.</li>
+    <li><em>Exam question style:</em> "Describe the relationship between Students and Courses. Explain how this is implemented."</li>
+  </ul>
+</div>
+
+<h2 class="topic-heading">A3 — Database Design</h2>
+
+<!-- A3.1 -->
+<div class="subtopic">
+  <div class="subtopic-label">A3.1</div>
+  <h3>Entity-Relationship (ER) Models</h3>
+
+  <div class="section-label">Gist</div>
+  <p>An ER diagram is the blueprint for a relational database. It shows entities, their attributes, and relationships between them, including cardinality. Drawing and interpreting ER diagrams is a core exam skill.</p>
+
+  <div class="section-label">Key line-items</div>
+  <ul>
+    <li><strong>Entity</strong> — a distinct "thing" to store data about; becomes a table; drawn as a rectangle</li>
+    <li><strong>Attribute</strong> — a property of an entity; becomes a field; drawn as an ellipse</li>
+    <li><strong>Relationship</strong> — association between entities; drawn as a diamond with labelled line</li>
+    <li>Cardinality annotated on lines: 1, N, M, or crow's-foot notation</li>
+    <li>Steps: identify entities → attributes → relationships → cardinality → resolve M:N</li>
+    <li>PK attribute is typically underlined in the diagram</li>
+  </ul>
+
+  <div class="section-label">Examples</div>
+  <ul>
+    <li>Hospital: <code>Patient</code> — has-many — <code>Appointment</code> — involves — <code>Doctor</code>; Patient ↔ Doctor is M:N resolved by Appointment.</li>
+    <li><em>Exam question style:</em> "Draw an ER diagram for a booking system with Customers, Rooms, and Bookings."</li>
+  </ul>
+</div>
+
+<!-- A3.2 -->
+<div class="subtopic">
+  <div class="subtopic-label">A3.2</div>
+  <h3>Normalization (1NF, 2NF, 3NF)</h3>
+
+  <div class="section-label">Gist</div>
+  <p>Normalization systematically restructures a database to reduce redundancy and improve integrity. Each normal form removes a specific type of dependency. The IB expects you to recognise violations and know how to fix them up to 3NF.</p>
+
+  <div class="section-label">Key line-items</div>
+  <ul>
+    <li><strong>1NF</strong> — every cell contains one atomic value; no lists in a cell; unique column names; row order irrelevant</li>
+    <li><strong>2NF</strong> — 1NF + no partial dependency (every non-key attribute depends on the whole PK; only relevant with composite PKs)</li>
+    <li><strong>3NF</strong> — 2NF + no transitive dependency (no non-key attribute depends on another non-key attribute)</li>
+    <li><strong>Functional dependency</strong> — A → B means "knowing A determines B"</li>
+  </ul>
+
+  <div class="section-label">Examples</div>
+  <ul>
+    <li><strong>1NF violation:</strong> <code>PhoneNumbers = "07123, 07456"</code> → split into separate rows.</li>
+    <li><strong>2NF violation:</strong> <code>OrderDetails(OrderID, ProductID, ProductName, Qty)</code> — ProductName depends only on ProductID → move to <code>Products</code> table.</li>
+    <li><strong>3NF violation:</strong> <code>Employee(EmpID, DeptID, DeptName)</code> — DeptName depends on DeptID, not EmpID → move to <code>Departments</code> table.</li>
+    <li><em>Exam question style:</em> "The table below is not in 2NF. Identify the partial dependency and show the tables after normalisation."</li>
+  </ul>
+</div>
+
+<h2 class="topic-heading">A4 — SQL</h2>
+
+<!-- A4.1 -->
+<div class="subtopic">
+  <div class="subtopic-label">A4.1</div>
+  <h3>SELECT — Querying Data</h3>
+
+  <div class="section-label">Gist</div>
+  <p><code>SELECT</code> is the most important SQL command for exams. It retrieves data from one or more tables and can filter, sort, and join results. Mastering clause order and JOIN syntax is essential.</p>
+
+  <div class="section-label">Key line-items</div>
+  <ul>
+    <li>Basic syntax: <code>SELECT col FROM table WHERE condition ORDER BY col ASC|DESC;</code></li>
+    <li><code>SELECT *</code> — retrieve all columns</li>
+    <li><code>WHERE</code> operators: <code>=</code>, <code>&lt;&gt;</code>, <code>&lt;</code>, <code>&gt;</code>, <code>LIKE</code>, <code>IN</code>, <code>BETWEEN</code>, <code>AND</code>, <code>OR</code></li>
+    <li><code>LIKE</code> wildcards: <code>%</code> = any sequence, <code>_</code> = exactly one character</li>
+    <li>Aggregate functions: <code>COUNT()</code>, <code>SUM()</code>, <code>AVG()</code>, <code>MAX()</code>, <code>MIN()</code></li>
+    <li><code>GROUP BY</code> — group rows for aggregates; <code>HAVING</code> — filter groups</li>
+    <li><code>INNER JOIN</code> — only matching rows; <code>LEFT JOIN</code> — all left rows + matched right</li>
+  </ul>
+
+  <div class="section-label">Examples</div>
+<pre>-- All students in Grade 11, alphabetically
+SELECT Name, Grade
+FROM Students
+WHERE Grade = 11
+ORDER BY Name ASC;
+
+-- Count of orders per customer with more than 5 orders
+SELECT CustomerID, COUNT(*) AS OrderCount
+FROM Orders
+GROUP BY CustomerID
+HAVING COUNT(*) &gt; 5;
+
+-- Join: student names with their course names
+SELECT s.Name, c.CourseName
+FROM Students s
+JOIN Enrolments e ON s.StudentID = e.StudentID
+JOIN Courses c ON e.CourseID = c.CourseID;</pre>
+</div>
+
+<!-- A4.2 -->
+<div class="subtopic">
+  <div class="subtopic-label">A4.2</div>
+  <h3>INSERT, UPDATE, DELETE</h3>
+
+  <div class="section-label">Gist</div>
+  <p>These three DML commands modify data. Exams often ask you to write or trace them, and to understand the danger of a missing <code>WHERE</code> clause.</p>
+
+  <div class="section-label">Key line-items</div>
+  <ul>
+    <li><strong>INSERT:</strong> <code>INSERT INTO table (col1, col2) VALUES (val1, val2);</code></li>
+    <li><strong>UPDATE:</strong> <code>UPDATE table SET col1 = val WHERE condition;</code> — without <code>WHERE</code>, every row is updated</li>
+    <li><strong>DELETE:</strong> <code>DELETE FROM table WHERE condition;</code> — without <code>WHERE</code>, all rows deleted (structure remains)</li>
+    <li><code>DROP TABLE</code> removes the table entirely; <code>DELETE</code> only removes rows</li>
+  </ul>
+
+  <div class="section-label">Examples</div>
+<pre>-- Add a new student
+INSERT INTO Students (StudentID, Name, Grade)
+VALUES (1042, 'Priya', 11);
+
+-- Update a student's grade
+UPDATE Students SET Grade = 12 WHERE StudentID = 1042;
+
+-- Remove a student record
+DELETE FROM Students WHERE StudentID = 1042;</pre>
+  <p><em>Exam question style:</em> "Write an SQL statement to update the price of product 'P005' to 29.99."</p>
+</div>
+
+<h2 class="topic-heading">A5 — Data Integrity &amp; Security</h2>
+
+<!-- A5.1 -->
+<div class="subtopic">
+  <div class="subtopic-label">A5.1</div>
+  <h3>Validation &amp; Verification</h3>
+
+  <div class="section-label">Gist</div>
+  <p>Validation checks that data conforms to expected rules before acceptance; verification checks that data has been entered accurately against the original source. Both reduce the risk of incorrect data.</p>
+
+  <div class="section-label">Key line-items</div>
+  <ul>
+    <li><strong>Type check</strong> — correct data type (e.g., integer, date)</li>
+    <li><strong>Range check</strong> — value within an acceptable range (e.g., mark 0–100)</li>
+    <li><strong>Length check</strong> — string not too long or too short</li>
+    <li><strong>Presence check</strong> — field cannot be empty / NULL</li>
+    <li><strong>Format check</strong> — matches a pattern (e.g., email must contain @)</li>
+    <li><strong>Check digit</strong> — calculated digit appended to verify code (e.g., ISBN-13)</li>
+    <li><strong>Double entry</strong> (verification) — data typed twice; discrepancy flagged</li>
+    <li><strong>Proof-reading</strong> (verification) — human reviews output against source document</li>
+    <li>Validation ≠ Verification: validation = wrong format; verification = transcription error</li>
+  </ul>
+
+  <div class="section-label">Examples</div>
+  <ul>
+    <li>Age = −5 fails a range check; date "31/02/2024" fails a format/calendar check.</li>
+    <li><em>Exam question style:</em> "Describe two validation checks that could be applied to the 'Date of Birth' field."</li>
+  </ul>
+</div>
+
+<!-- A5.2 -->
+<div class="subtopic">
+  <div class="subtopic-label">A5.2</div>
+  <h3>Access Control</h3>
+
+  <div class="section-label">Gist</div>
+  <p>Access control restricts who can see or modify data. It is the primary tool for maintaining confidentiality and data integrity in a multi-user DBMS.</p>
+
+  <div class="section-label">Key line-items</div>
+  <ul>
+    <li><strong>Authentication</strong> — verifying identity (username + password, biometrics, 2FA)</li>
+    <li><strong>Authorisation</strong> — determining what an authenticated user may do</li>
+    <li>Privileges: <code>SELECT</code>, <code>INSERT</code>, <code>UPDATE</code>, <code>DELETE</code>, <code>CREATE</code>, <code>DROP</code></li>
+    <li>SQL <code>GRANT SELECT ON Students TO 'teacher_user';</code> and <code>REVOKE</code></li>
+    <li><strong>RBAC</strong> — Role-Based Access Control; permissions assigned to roles</li>
+    <li><strong>Views</strong> — virtual tables restricting which rows/columns a user sees</li>
+    <li><strong>Encryption</strong> — data at rest or in transit encrypted</li>
+    <li><strong>Audit logs</strong> — record all database actions for accountability</li>
+  </ul>
+
+  <div class="section-label">Examples</div>
+  <ul>
+    <li>School DBMS: Student role can SELECT own record; Teacher can SELECT all; Admin can INSERT/UPDATE/DELETE.</li>
+    <li><em>Exam question style:</em> "Explain two methods a database administrator could use to protect student data."</li>
+  </ul>
+</div>
+
+
+<!-- ═══════════════════════════════════════════════════════════════
+     OPTION B: MODELLING & SIMULATION
+══════════════════════════════════════════════════════════════════ -->
+<div class="option-header">Option B &nbsp;·&nbsp; Modelling &amp; Simulation</div>
+<div class="option-core-idea">Core idea: Using computational models to represent real-world systems.</div>
+
+<h2 class="topic-heading">B1 — Principles of Modelling</h2>
+
+<div class="subtopic">
+  <div class="subtopic-label">B1.1</div>
+  <h3>Abstraction</h3>
+
+  <div class="section-label">Gist</div>
+  <p>Abstraction is the process of simplifying a complex real-world system by including only the details relevant to the model's purpose, and deliberately ignoring everything else. Without abstraction, a model would be as complex as reality itself — and therefore useless.</p>
+
+  <div class="section-label">Key line-items</div>
+  <ul>
+    <li><strong>Abstraction</strong> — removing unnecessary detail to focus on what matters for the model's purpose</li>
+    <li>A model is always a simplification — no model is perfectly accurate</li>
+    <li>What is omitted depends on what questions the model must answer (purpose-driven)</li>
+    <li>Abstraction enables: faster computation, clearer analysis, generalisability</li>
+    <li>Examples of abstracted elements: ignoring air resistance in a projectile model; treating all cars as identical particles in a traffic model</li>
+  </ul>
+
+  <div class="section-label">Examples</div>
+  <ul>
+    <li>Weather model: abstracts the atmosphere into grid cells with temperature, pressure, humidity — ignores individual molecules.</li>
+    <li><em>Exam question style:</em> "Explain how abstraction is used when creating a simulation of road traffic."</li>
+  </ul>
+</div>
+
+<div class="subtopic">
+  <div class="subtopic-label">B1.2</div>
+  <h3>Assumptions and Limitations</h3>
+
+  <div class="section-label">Gist</div>
+  <p>Every model rests on assumptions — simplifications accepted as true for the model to work. These assumptions are the source of the model's limitations. Identifying and evaluating assumptions is a key exam skill.</p>
+
+  <div class="section-label">Key line-items</div>
+  <ul>
+    <li><strong>Assumption</strong> — a condition accepted as true to make the model workable</li>
+    <li><strong>Limitation</strong> — a way in which model output may differ from reality, often caused by an assumption</li>
+    <li>Common assumptions: constant rates, closed systems, uniform behaviour, linear relationships</li>
+    <li><strong>Sensitivity analysis</strong> — testing how much output changes when assumptions are varied</li>
+    <li>More assumptions → simpler model → faster but less accurate → less realistic</li>
+  </ul>
+
+  <div class="section-label">Examples</div>
+  <ul>
+    <li>Disease model assumes constant R0 — reality varies by individual and environment.</li>
+    <li><em>Exam question style:</em> "State one assumption made in this simulation and explain how it limits the model's accuracy."</li>
+  </ul>
+</div>
+
+<h2 class="topic-heading">B2 — Types of Simulations</h2>
+
+<div class="subtopic">
+  <div class="subtopic-label">B2.1</div>
+  <h3>Discrete vs Continuous</h3>
+
+  <div class="section-label">Gist</div>
+  <p>Discrete simulations change state at specific events or time steps; continuous simulations change state constantly according to mathematical equations. Choosing the right type depends on the system.</p>
+
+  <div class="section-label">Key line-items</div>
+  <ul>
+    <li><strong>Discrete</strong> — state changes at distinct time steps or events; easier to implement; e.g., daily case counts, queuing model</li>
+    <li><strong>Continuous</strong> — state changes are instantaneous and ongoing; requires numerical integration; e.g., fluid flow, projectile motion</li>
+    <li>Computers always discretise time; step size determines accuracy</li>
+  </ul>
+
+  <div class="section-label">Examples</div>
+  <ul>
+    <li>COVID-19 daily case counts → discrete; aircraft wing stress → continuous.</li>
+    <li><em>Exam question style:</em> "Explain why a discrete simulation might be chosen to model customer queuing."</li>
+  </ul>
+</div>
+
+<div class="subtopic">
+  <div class="subtopic-label">B2.2</div>
+  <h3>Deterministic vs Stochastic</h3>
+
+  <div class="section-label">Gist</div>
+  <p>Deterministic simulations always produce the same output for the same input. Stochastic simulations include randomness, so outputs vary. Real-world systems usually have randomness, making stochastic models more realistic but harder to analyse.</p>
+
+  <div class="section-label">Key line-items</div>
+  <ul>
+    <li><strong>Deterministic</strong> — same input → always same output; no randomness; e.g., billiard ball trajectory</li>
+    <li><strong>Stochastic</strong> — includes random variables; run many times to get distributions; e.g., customer arrival simulation</li>
+    <li><strong>Monte Carlo method</strong> — repeated random sampling to estimate outcomes</li>
+    <li><strong>Seed</strong> — initial RNG value; same seed → same "random" sequence (enables reproducibility)</li>
+  </ul>
+
+  <div class="section-label">Examples</div>
+  <ul>
+    <li>Planet orbit = deterministic; queuing simulation with random arrivals = stochastic (Monte Carlo).</li>
+    <li><em>Exam question style:</em> "State one reason why a stochastic simulation is more appropriate for modelling customer arrivals."</li>
+  </ul>
+</div>
+
+<h2 class="topic-heading">B3 — Developing Models</h2>
+
+<div class="subtopic">
+  <div class="subtopic-label">B3.1</div>
+  <h3>Variables &amp; Parameters</h3>
+
+  <div class="section-label">Gist</div>
+  <p>Variables change as the simulation runs; parameters are fixed values set before the simulation starts. Understanding this distinction is essential for designing and critiquing a model.</p>
+
+  <div class="section-label">Key line-items</div>
+  <ul>
+    <li><strong>Variable</strong> — quantity whose value changes during simulation (e.g., population size, temperature)</li>
+    <li><strong>Parameter</strong> — fixed input set before the run (e.g., birth rate, infection probability, speed limit)</li>
+    <li><strong>Initial conditions</strong> — starting values of all state variables at time = 0</li>
+    <li>Changing parameters = "what-if" scenario analysis</li>
+    <li><strong>Time step (Δt)</strong> — increment between updates; smaller Δt → more accurate but slower</li>
+  </ul>
+
+  <div class="section-label">Examples</div>
+  <ul>
+    <li>Population model: variable = current population N; parameters = birth rate r, carrying capacity K.</li>
+    <li><em>Exam question style:</em> "Identify one variable and one parameter in the simulation described."</li>
+  </ul>
+</div>
+
+<div class="subtopic">
+  <div class="subtopic-label">B3.2</div>
+  <h3>Algorithms for Simulation</h3>
+
+  <div class="section-label">Gist</div>
+  <p>The simulation algorithm updates the system's state at each time step. Tracing or writing pseudocode for simple simulation loops is an exam skill.</p>
+
+  <div class="section-label">Key line-items</div>
+  <ul>
+    <li>Loop structure: Initialise → Repeat (calculate new state → record → advance time) → Analyse</li>
+    <li><strong>Euler method:</strong> <code>new_value = old_value + rate × Δt</code></li>
+    <li><strong>Event-driven simulation</strong> — advances to next event; efficient for sparse events</li>
+    <li><strong>Validation</strong> — comparing output to real-world data (is the model correct?)</li>
+    <li><strong>Verification</strong> — checking code implements intended algorithm (is the code correct?)</li>
+  </ul>
+
+  <div class="section-label">Examples</div>
+  <ul>
+    <li>Population growth (Euler): <code>N_new = N + (birth_rate - death_rate) × N × Δt</code></li>
+    <li><em>Exam question style:</em> "Trace the algorithm for the first three time steps of this population simulation."</li>
+  </ul>
+</div>
+
+<h2 class="topic-heading">B4 — Applications</h2>
+
+<div class="subtopic">
+  <div class="subtopic-label">B4.1</div>
+  <h3>Scientific Simulations</h3>
+
+  <div class="section-label">Gist</div>
+  <p>Simulations are used across science when real experiments are impossible, too dangerous, too expensive, or too slow. Knowing common application areas and why simulation is preferred is an important exam point.</p>
+
+  <div class="section-label">Key line-items</div>
+  <ul>
+    <li>Why simulate? Too dangerous / expensive / slow / ethically prohibited / impossible to observe directly</li>
+    <li><strong>Weather modelling</strong> — 3D grid cells, fluid dynamics equations, updated every few minutes</li>
+    <li><strong>Traffic simulation</strong> — optimises signal timing, detects congestion</li>
+    <li><strong>SIR epidemic model</strong> — Susceptible → Infected → Recovered; evaluates interventions</li>
+    <li><strong>Population models</strong> — predator-prey, resource consumption</li>
+    <li><strong>Structural engineering</strong> — finite element analysis of bridges under load</li>
+  </ul>
+
+  <div class="section-label">Examples</div>
+  <ul>
+    <li>SIR model helped governments decide lockdown timing during COVID-19.</li>
+    <li><em>Exam question style:</em> "Describe two advantages of simulation over a physical experiment for vehicle crash safety."</li>
+  </ul>
+</div>
+
+<h2 class="topic-heading">B5 — Evaluation</h2>
+
+<div class="subtopic">
+  <div class="subtopic-label">B5.1</div>
+  <h3>Accuracy vs Realism</h3>
+
+  <div class="section-label">Gist</div>
+  <p>A simulation can be accurate without being fully realistic, and vice versa. The trade-off between accuracy and computational cost is central to evaluating any model.</p>
+
+  <div class="section-label">Key line-items</div>
+  <ul>
+    <li><strong>Accuracy</strong> — how closely output matches observed real-world data</li>
+    <li><strong>Realism</strong> — how closely internal mechanics reflect actual processes</li>
+    <li><strong>Calibration</strong> — adjusting parameters to match known historical data</li>
+    <li><strong>Validation</strong> — testing calibrated model against new, unseen data</li>
+    <li>More complex ≠ more accurate; over-fitting and incorrect assumptions can reduce accuracy</li>
+  </ul>
+
+  <div class="section-label">Examples</div>
+  <ul>
+    <li>Simple SIR model may match overall epidemic curve (accurate) but ignores age stratification (not fully realistic).</li>
+    <li><em>Exam question style:</em> "Evaluate the accuracy of this simulation by identifying two assumptions that may reduce its reliability."</li>
+  </ul>
+</div>
+
+<div class="subtopic">
+  <div class="subtopic-label">B5.2</div>
+  <h3>Ethical Implications</h3>
+
+  <div class="section-label">Gist</div>
+  <p>Simulations influence major decisions in healthcare, policy, finance, and engineering. When models are wrong or misused, the consequences can be severe. Ethical awareness is expected by the IB.</p>
+
+  <div class="section-label">Key line-items</div>
+  <ul>
+    <li>Over-reliance on model output without understanding limitations</li>
+    <li>Assumptions can embed bias (demographic assumptions in health models)</li>
+    <li>Results can be selectively reported to support a pre-determined conclusion</li>
+    <li>Privacy: personal data used to train/validate a model</li>
+    <li><strong>Transparency</strong> and <strong>reproducibility</strong> required for public-policy models</li>
+    <li>Environmental impact of large-scale simulation (energy consumption)</li>
+  </ul>
+
+  <div class="section-label">Examples</div>
+  <ul>
+    <li>Financial risk models failed to predict the 2008 crash → over-confidence without stress-testing edge cases.</li>
+    <li><em>Exam question style:</em> "Discuss one ethical issue arising from using a simulation to make public health decisions."</li>
+  </ul>
+</div>
+
+
+<!-- ═══════════════════════════════════════════════════════════════
+     OPTION C: WEB SCIENCE
+══════════════════════════════════════════════════════════════════ -->
+<div class="option-header">Option C &nbsp;·&nbsp; Web Science</div>
+<div class="option-core-idea">Core idea: How the web works and its societal impact.</div>
+
+<h2 class="topic-heading">C1 — Internet Fundamentals</h2>
+
+<div class="subtopic">
+  <div class="subtopic-label">C1.1</div>
+  <h3>TCP/IP and DNS</h3>
+
+  <div class="section-label">Gist</div>
+  <p>The internet runs on TCP/IP — protocols that break data into packets, route them across networks, and reassemble them at the destination. DNS translates human-readable domain names into the IP addresses computers use to locate each other.</p>
+
+  <div class="section-label">Key line-items</div>
+  <ul>
+    <li><strong>Protocol</strong> — agreed rules for communication between devices</li>
+    <li><strong>IP</strong> — addressing and routing of packets; every device has a unique IP address</li>
+    <li><strong>TCP</strong> — reliable, ordered delivery; breaks data into packets; acknowledges receipt; retransmits lost packets</li>
+    <li><strong>Packet</strong> — small chunk of data: header (source IP, dest IP, sequence no.) + payload</li>
+    <li><strong>Packet switching</strong> — packets may travel different routes; robust, no single point of failure</li>
+    <li>IPv4: 32-bit (e.g., <code>192.168.1.1</code>); IPv6: 128-bit (e.g., <code>2001:0db8::1</code>)</li>
+    <li><strong>DNS</strong> — translates domain names to IP addresses; hierarchy: root → TLD → authoritative server</li>
+    <li><strong>Port</strong> — identifies a process/service: HTTP = 80, HTTPS = 443, FTP = 21</li>
+  </ul>
+
+  <div class="section-label">Examples</div>
+  <ul>
+    <li>Typing <code>www.ibo.org</code> → DNS lookup → IP returned → TCP on port 443 → data transferred in packets.</li>
+    <li><em>Exam question style:</em> "Outline the role of DNS in accessing a web page."</li>
+  </ul>
+</div>
+
+<div class="subtopic">
+  <div class="subtopic-label">C1.2</div>
+  <h3>Client-Server Model</h3>
+
+  <div class="section-label">Gist</div>
+  <p>Clients request resources; servers respond. The HTTP request-response cycle, methods, and status codes are the language of the web and regularly appear in exam questions.</p>
+
+  <div class="section-label">Key line-items</div>
+  <ul>
+    <li><strong>Client</strong> — requests service (e.g., browser); <strong>Server</strong> — provides service (e.g., web server)</li>
+    <li><strong>HTTP/HTTPS</strong> — application-layer protocol for web communication; HTTPS adds TLS encryption</li>
+    <li>HTTP methods: <code>GET</code> (fetch data), <code>POST</code> (send data), <code>PUT</code> (update), <code>DELETE</code> (remove)</li>
+    <li>Status codes: 200 OK, 301 Redirect, 404 Not Found, 500 Internal Server Error</li>
+    <li>Request-response cycle: client sends request → server processes → server returns response</li>
+  </ul>
+
+  <div class="section-label">Examples</div>
+  <ul>
+    <li>Browser sends <code>GET /index.html HTTP/1.1</code> → server responds <code>200 OK</code> + HTML content.</li>
+    <li>Login form data sent via <code>POST</code> (not <code>GET</code>) to hide credentials from the URL.</li>
+    <li><em>Exam question style:</em> "Describe the client-server interaction when a user submits a search query."</li>
+  </ul>
+</div>
+
+<h2 class="topic-heading">C2 — Web Technologies</h2>
+
+<div class="subtopic">
+  <div class="subtopic-label">C2.1</div>
+  <h3>HTML and CSS Basics</h3>
+
+  <div class="section-label">Gist</div>
+  <p>HTML provides structure and content; CSS controls visual presentation. Together they form the foundation of every webpage. The IB expects basic literacy: tag identification, attribute use, and the CSS box model.</p>
+
+  <div class="section-label">Key line-items</div>
+  <ul>
+    <li>HTML uses tags: <code>&lt;h1&gt;</code>, <code>&lt;p&gt;</code>, <code>&lt;a href=""&gt;</code>, <code>&lt;img src="" alt=""&gt;</code>, <code>&lt;table&gt;</code>, <code>&lt;form&gt;</code></li>
+    <li>HTML is not a programming language — no logic or loops</li>
+    <li>CSS rule format: <code>selector { property: value; }</code></li>
+    <li>Selectors: element (<code>p</code>), class (<code>.menu</code>), ID (<code>#header</code>)</li>
+    <li><strong>Box model</strong> — content + padding + border + margin</li>
+    <li>CSS can be inline, internal (<code>&lt;style&gt;</code>), or external (linked <code>.css</code> file)</li>
+    <li><strong>Separation of concerns</strong> — HTML structure, CSS style, JavaScript behaviour</li>
+  </ul>
+
+  <div class="section-label">Examples</div>
+<pre>&lt;a href="https://www.ibo.org" target="_blank"&gt;Visit IBO&lt;/a&gt;
+&lt;img src="logo.png" alt="School logo" width="200"&gt;
+
+h1 { font-family: Arial; color: #333; font-size: 24pt; }</pre>
+  <p><em>Exam question style:</em> "Write HTML to create a hyperlink that opens in a new tab."</p>
+</div>
+
+<div class="subtopic">
+  <div class="subtopic-label">C2.2</div>
+  <h3>Dynamic vs Static Web Pages</h3>
+
+  <div class="section-label">Gist</div>
+  <p>Static pages deliver the same content to every user; dynamic pages are generated on the fly, tailoring content to the user or data. Understanding this distinction explains why most modern websites use scripting.</p>
+
+  <div class="section-label">Key line-items</div>
+  <ul>
+    <li><strong>Static</strong> — fixed HTML file; same for all visitors; fast, simple, no server processing</li>
+    <li><strong>Dynamic</strong> — generated at request time; varies by user, session, or database query</li>
+    <li><strong>Server-side</strong> — server script (PHP, Python, Node.js) queries DB, builds HTML, sends to client</li>
+    <li><strong>Client-side</strong> — JavaScript runs in browser, updates DOM after page load (AJAX, React)</li>
+    <li><strong>Cookies</strong> — small data files stored on client; persist session info (login state, cart)</li>
+  </ul>
+
+  <div class="section-label">Examples</div>
+  <ul>
+    <li>School homepage with opening hours = static; personalised newsfeed = dynamic.</li>
+    <li><em>Exam question style:</em> "Explain the difference between a static and dynamic web page in the context of an online shop."</li>
+  </ul>
+</div>
+
+<h2 class="topic-heading">C3 — Search Engines</h2>
+
+<div class="subtopic">
+  <div class="subtopic-label">C3.1</div>
+  <h3>Indexing and Ranking Algorithms</h3>
+
+  <div class="section-label">Gist</div>
+  <p>Search engines work in three stages: crawling, indexing, ranking. The ranking algorithm — notably PageRank — is the commercially critical part.</p>
+
+  <div class="section-label">Key line-items</div>
+  <ul>
+    <li><strong>Web crawler (spider/bot)</strong> — follows hyperlinks to discover and download pages</li>
+    <li><strong>Inverted index</strong> — maps every word to the documents containing it; enables fast keyword lookups</li>
+    <li><strong>PageRank</strong> — a page's importance is based on the number and quality of inbound links</li>
+    <li>Ranking factors: keyword relevance, PageRank/authority, freshness, user engagement, personalisation</li>
+    <li><strong>SEO</strong> — white-hat (quality content, meta tags, backlinks) vs black-hat (keyword stuffing, link farms)</li>
+    <li><strong>Meta tags</strong> — HTML tags providing info to search engines: <code>&lt;meta name="description" content="..."&gt;</code></li>
+  </ul>
+
+  <div class="section-label">Examples</div>
+  <ul>
+    <li>Searching "IB CS revision" → crawler indexed relevant pages → inverted index finds matching pages → PageRank + relevance determines order.</li>
+    <li><em>Exam question style:</em> "Explain how a search engine uses a crawler and index to respond to a query."</li>
+  </ul>
+</div>
+
+<h2 class="topic-heading">C4 — Social &amp; Ethical Issues</h2>
+
+<div class="subtopic">
+  <div class="subtopic-label">C4.1</div>
+  <h3>Privacy and Security</h3>
+
+  <div class="section-label">Gist</div>
+  <p>The web collects enormous personal data, creating significant privacy risks. Security threats — from phishing to SQL injection — are constant. The IB expects awareness of risks and countermeasures.</p>
+
+  <div class="section-label">Key line-items</div>
+  <ul>
+    <li>Privacy issues: data harvesting by cookies/trackers, data breaches, GDPR requirements</li>
+    <li><strong>Phishing</strong> — fake emails/sites tricking users into revealing credentials</li>
+    <li><strong>Man-in-the-middle</strong> — attacker intercepts communication</li>
+    <li><strong>SQL injection</strong> — malicious SQL inserted via form field to manipulate database</li>
+    <li><strong>XSS</strong> — injecting malicious scripts into pages viewed by other users</li>
+    <li><strong>DDoS</strong> — flooding a server with requests to make it unavailable</li>
+    <li>Countermeasures: HTTPS/TLS, firewalls, input validation, parameterised queries, 2FA</li>
+  </ul>
+
+  <div class="section-label">Examples</div>
+  <ul>
+    <li>SQL injection: entering <code>' OR '1'='1</code> in a login field could bypass authentication if queries are not parameterised.</li>
+    <li><em>Exam question style:</em> "Describe two security measures a website could use to protect user data."</li>
+  </ul>
+</div>
+
+<div class="subtopic">
+  <div class="subtopic-label">C4.2</div>
+  <h3>Digital Divide</h3>
+
+  <div class="section-label">Gist</div>
+  <p>The digital divide is the gap between those with reliable access to digital technology and those without. It has significant social, economic, and educational consequences.</p>
+
+  <div class="section-label">Key line-items</div>
+  <ul>
+    <li>Dimensions: global (developed vs developing), social (urban vs rural, wealthy vs poor), gender</li>
+    <li>Causes: cost of devices/connectivity, lack of infrastructure, language barriers, digital literacy</li>
+    <li>Consequences: educational disadvantage, limited economic opportunity, political exclusion</li>
+    <li>Bridging: government investment, low-cost devices, community Wi-Fi, digital literacy programmes</li>
+    <li><strong>Second-level divide</strong> — even among those with access, quality of use varies</li>
+  </ul>
+
+  <div class="section-label">Examples</div>
+  <ul>
+    <li>Rural communities in developing countries without fibre broadband: students lack online learning access.</li>
+    <li><em>Exam question style:</em> "Discuss the impact of the digital divide on educational opportunities."</li>
+  </ul>
+</div>
+
+<h2 class="topic-heading">C5 — Web Trends</h2>
+
+<div class="subtopic">
+  <div class="subtopic-label">C5.1</div>
+  <h3>Social Media and Big Data</h3>
+
+  <div class="section-label">Gist</div>
+  <p>Social media platforms generate vast quantities of user-generated data, contributing to the "big data" phenomenon. Understanding big data's characteristics and its social/ethical implications is essential.</p>
+
+  <div class="section-label">Key line-items</div>
+  <ul>
+    <li><strong>Big data</strong> — characterised by the <strong>3 Vs: Volume, Velocity, Variety</strong></li>
+    <li><strong>Data mining</strong> — discovering patterns in large datasets</li>
+    <li><strong>Filter bubble</strong> — algorithmic curation reinforcing existing views</li>
+    <li><strong>Personalisation</strong> — using data to tailor content to individual users</li>
+    <li>Monetisation: user data sold to advertisers — "if the product is free, you are the product"</li>
+    <li><strong>Data sovereignty</strong> — questions about who owns and controls personal data</li>
+  </ul>
+
+  <div class="section-label">Examples</div>
+  <ul>
+    <li>Facebook analyses likes/shares to target advertising; Netflix uses viewing data + ML for personalised recommendations.</li>
+    <li><em>Exam question style:</em> "Explain two ethical concerns raised by the use of big data by social media companies."</li>
+  </ul>
+</div>
+
+
+<!-- ═══════════════════════════════════════════════════════════════
+     OPTION D: OBJECT-ORIENTED PROGRAMMING
+══════════════════════════════════════════════════════════════════ -->
+<div class="option-header">Option D &nbsp;·&nbsp; Object-Oriented Programming</div>
+<div class="option-core-idea">Core idea: Designing software using classes and objects.</div>
+
+<h2 class="topic-heading">D1 — Basic OOP Concepts</h2>
+
+<div class="subtopic">
+  <div class="subtopic-label">D1.1</div>
+  <h3>Classes and Objects</h3>
+
+  <div class="section-label">Gist</div>
+  <p>A class is a blueprint defining a category of things — its characteristics (attributes) and behaviours (methods). An object is a specific instance created from that blueprint. OOP organises code around these real-world abstractions.</p>
+
+  <div class="section-label">Key line-items</div>
+  <ul>
+    <li><strong>Class</strong> — a user-defined type; defines structure and behaviour shared by all objects of that type</li>
+    <li><strong>Object (instance)</strong> — a concrete realisation of a class in memory</li>
+    <li><strong>Constructor</strong> — special method called when object is created; initialises attributes</li>
+    <li><strong><code>this</code> / <code>self</code></strong> — keyword referring to the current object instance</li>
+    <li><strong>State</strong> — current values of an object's attributes; <strong>Behaviour</strong> — its methods</li>
+    <li><strong>Instantiation</strong> — the act of creating an object from a class</li>
+  </ul>
+
+  <div class="section-label">Examples</div>
+<pre>public class Dog {
+    String name;
+    String breed;
+    public Dog(String name, String breed) {
+        this.name = name;
+        this.breed = breed;
+    }
+    public void bark() {
+        System.out.println(name + " says: Woof!");
+    }
+}
+Dog d1 = new Dog("Rex", "Labrador");
+d1.bark(); // Rex says: Woof!</pre>
+  <p><em>Exam question style:</em> "Define 'class' and 'object', giving one example of each from a library system."</p>
+</div>
+
+<div class="subtopic">
+  <div class="subtopic-label">D1.2</div>
+  <h3>Attributes and Methods</h3>
+
+  <div class="section-label">Gist</div>
+  <p>Attributes store what an object knows (state); methods define what an object can do (behaviour). Identifying and writing both in code is a foundational OOP exam skill.</p>
+
+  <div class="section-label">Key line-items</div>
+  <ul>
+    <li><strong>Instance attribute</strong> — unique to each object; created in the constructor</li>
+    <li><strong>Class attribute (static field)</strong> — shared by all objects; declared with <code>static</code> in Java</li>
+    <li><strong><code>void</code> method</strong> — returns nothing; performs an action</li>
+    <li><strong>Value-returning method</strong> — returns a value of a specified type</li>
+    <li><strong>Method signature</strong> — method name + parameter list</li>
+    <li>Calling a method: <code>object.methodName(arguments)</code></li>
+  </ul>
+
+  <div class="section-label">Examples</div>
+<pre>public class BankAccount {
+    private double balance;
+    public void deposit(double amount) { balance += amount; }
+    public double getBalance() { return balance; }
+}</pre>
+  <p><em>Exam question style:</em> "Identify two attributes and one method for a Product class in an e-commerce system."</p>
+</div>
+
+<h2 class="topic-heading">D2 — Encapsulation</h2>
+
+<div class="subtopic">
+  <div class="subtopic-label">D2.1</div>
+  <h3>Access Modifiers</h3>
+
+  <div class="section-label">Gist</div>
+  <p>Encapsulation bundles data and methods into a class and restricts direct external access. Access modifiers enforce information hiding, protecting internal state from unintended modification.</p>
+
+  <div class="section-label">Key line-items</div>
+  <ul>
+    <li><strong><code>private</code></strong> — accessible only within the same class (recommended for attributes)</li>
+    <li><strong><code>public</code></strong> — accessible from anywhere</li>
+    <li><strong><code>protected</code></strong> — accessible within the class and its subclasses</li>
+    <li>Benefits: protects data integrity, reduces coupling, allows internal changes without breaking external code</li>
+  </ul>
+
+  <div class="section-label">Examples</div>
+  <ul>
+    <li><code>private double balance;</code> in BankAccount prevents other classes from setting <code>balance = -999;</code> directly.</li>
+    <li><em>Exam question style:</em> "Explain why it is good practice to declare attributes as <code>private</code>."</li>
+  </ul>
+</div>
+
+<div class="subtopic">
+  <div class="subtopic-label">D2.2</div>
+  <h3>Getters and Setters</h3>
+
+  <div class="section-label">Gist</div>
+  <p>Getters and setters provide controlled, indirect access to private attributes. They allow validation logic to be inserted, maintaining data integrity while preserving the interface.</p>
+
+  <div class="section-label">Key line-items</div>
+  <ul>
+    <li><strong>Getter (accessor)</strong> — returns the value of a private attribute; named <code>getAttributeName()</code></li>
+    <li><strong>Setter (mutator)</strong> — sets the value with validation; named <code>setAttributeName(value)</code></li>
+    <li>Enables: input validation, read-only attributes (getter without setter), internal representation changes</li>
+  </ul>
+
+  <div class="section-label">Examples</div>
+<pre>public class Student {
+    private int age;
+    public int getAge() { return age; }
+    public void setAge(int age) {
+        if (age &gt; 0 &amp;&amp; age &lt; 120) { this.age = age; }
+    }
+}</pre>
+  <p><em>Exam question style:</em> "Write a getter and setter for the <code>price</code> attribute, ensuring price cannot be negative."</p>
+</div>
+
+<h2 class="topic-heading">D3 — Inheritance</h2>
+
+<div class="subtopic">
+  <div class="subtopic-label">D3.1</div>
+  <h3>Superclass and Subclass</h3>
+
+  <div class="section-label">Gist</div>
+  <p>Inheritance allows a subclass to acquire the attributes and methods of a superclass, extending or specialising its behaviour. It implements the "is-a" relationship and is the primary mechanism for code reuse in OOP.</p>
+
+  <div class="section-label">Key line-items</div>
+  <ul>
+    <li><strong>Superclass (parent)</strong> — the class being extended; <strong>Subclass (child)</strong> — the class that inherits</li>
+    <li>Java syntax: <code>class Dog extends Animal { ... }</code></li>
+    <li>Subclass inherits all <code>public</code> and <code>protected</code> members</li>
+    <li>Subclass can add new members or <strong>override</strong> superclass methods</li>
+    <li><strong><code>super</code></strong> — calls the superclass constructor or method from the subclass</li>
+    <li>Java: single inheritance only; interfaces provide a workaround for multiple inheritance</li>
+  </ul>
+
+  <div class="section-label">Examples</div>
+<pre>class Animal {
+    String name;
+    public void eat() { System.out.println(name + " eats."); }
+}
+class Dog extends Animal {
+    public void bark() { System.out.println(name + " barks."); }
+}
+Dog d = new Dog();
+d.name = "Rex";
+d.eat();  // inherited from Animal
+d.bark(); // defined in Dog</pre>
+  <p><em>Exam question style:</em> "Draw a class hierarchy for a vehicle system. Explain what ElectricCar inherits."</p>
+</div>
+
+<div class="subtopic">
+  <div class="subtopic-label">D3.2</div>
+  <h3>Code Reuse</h3>
+
+  <div class="section-label">Gist</div>
+  <p>Inheritance's primary practical benefit is code reuse — writing a method once in a superclass and having it available in all subclasses. This reduces duplication and centralises bug fixes.</p>
+
+  <div class="section-label">Key line-items</div>
+  <ul>
+    <li><strong>DRY principle</strong> — Don't Repeat Yourself; inheritance achieves this</li>
+    <li><strong>"is-a" test</strong> — use inheritance if SubclassObject is-a SuperclassObject (e.g., Dog is-a Animal ✓)</li>
+    <li><strong>"has-a" test</strong> — use composition instead (e.g., Car has-a Engine; don't inherit from Engine)</li>
+    <li>Fix in superclass automatically updates all subclasses</li>
+    <li>Inheritance can be overused — deep hierarchies become difficult to maintain</li>
+  </ul>
+
+  <div class="section-label">Examples</div>
+  <ul>
+    <li><code>BankAccount</code> has <code>deposit()</code> and <code>withdraw()</code>; <code>SavingsAccount</code> and <code>CurrentAccount</code> inherit these and add their own methods.</li>
+    <li><em>Exam question style:</em> "Explain how inheritance promotes code reuse in the class hierarchy shown."</li>
+  </ul>
+</div>
+
+<h2 class="topic-heading">D4 — Polymorphism</h2>
+
+<div class="subtopic">
+  <div class="subtopic-label">D4.1</div>
+  <h3>Method Overriding</h3>
+
+  <div class="section-label">Gist</div>
+  <p>Overriding lets a subclass provide its own implementation of a superclass method. At runtime, the correct version is called based on the actual object type — this is dynamic (runtime) polymorphism.</p>
+
+  <div class="section-label">Key line-items</div>
+  <ul>
+    <li>Same name, return type, and parameters as the superclass method; different body in the subclass</li>
+    <li><code>@Override</code> annotation — optional but best practice; compiler verifies the override</li>
+    <li><strong>Dynamic dispatch</strong> — at runtime, Java calls the most derived version based on actual object type</li>
+    <li>Superclass reference can point to subclass object: <code>Animal a = new Dog();</code></li>
+    <li><strong>Abstract method</strong> — declared with no body; forces all subclasses to override</li>
+    <li><strong>Abstract class</strong> — cannot be instantiated; exists only to be subclassed</li>
+  </ul>
+
+  <div class="section-label">Examples</div>
+<pre>class Animal { public void makeSound() { System.out.println("..."); } }
+class Dog extends Animal {
+    @Override
+    public void makeSound() { System.out.println("Woof!"); }
+}
+class Cat extends Animal {
+    @Override
+    public void makeSound() { System.out.println("Meow!"); }
+}
+Animal a = new Dog();
+a.makeSound(); // prints "Woof!" — runtime polymorphism</pre>
+  <p><em>Exam question style:</em> "Explain how polymorphism is demonstrated above. State the output of each method call."</p>
+</div>
+
+<div class="subtopic">
+  <div class="subtopic-label">D4.2</div>
+  <h3>Method Overloading</h3>
+
+  <div class="section-label">Gist</div>
+  <p>Overloading allows multiple methods with the same name in the same class, as long as they have different parameter lists. This is compile-time (static) polymorphism.</p>
+
+  <div class="section-label">Key line-items</div>
+  <ul>
+    <li>Same method name, different parameter signature (number, type, or order of parameters)</li>
+    <li>Return type alone is NOT sufficient to distinguish overloads</li>
+    <li>Resolved at <strong>compile time</strong> (unlike overriding, which is runtime)</li>
+    <li>Constructor overloading — multiple constructors with different parameter lists</li>
+    <li>Key distinction: Overloading = same class, different signatures; Overriding = subclass, same signature</li>
+  </ul>
+
+  <div class="section-label">Examples</div>
+<pre>public class Calculator {
+    public int add(int a, int b) { return a + b; }
+    public double add(double a, double b) { return a + b; }
+    public int add(int a, int b, int c) { return a + b + c; }
+}</pre>
+  <p><em>Exam question style:</em> "Distinguish between method overloading and method overriding."</p>
+</div>
+
+<h2 class="topic-heading">D5 — Program Design</h2>
+
+<div class="subtopic">
+  <div class="subtopic-label">D5.1</div>
+  <h3>UML Diagrams</h3>
+
+  <div class="section-label">Gist</div>
+  <p>UML class diagrams are the standard notation for visualising OOP designs. They show classes, attributes, methods, and relationships. Reading and drawing them is a testable IB skill.</p>
+
+  <div class="section-label">Key line-items</div>
+  <ul>
+    <li>Class box: name (top) | attributes (middle) | methods (bottom)</li>
+    <li>Visibility: <code>+</code> public, <code>-</code> private, <code>#</code> protected</li>
+    <li>Attribute format: <code>- name : DataType</code></li>
+    <li>Method format: <code>+ methodName(param: Type) : ReturnType</code></li>
+    <li>Inheritance: solid line with open arrowhead pointing to superclass</li>
+    <li>Aggregation: open diamond; Composition: filled diamond; Multiplicity: <code>1</code>, <code>0..*</code>, <code>1..*</code></li>
+  </ul>
+
+  <div class="section-label">Examples</div>
+<pre>+------------------+
+|     Student      |
++------------------+
+| - studentID: int |
+| - name: String   |
++------------------+
+| + getID(): int   |
+| + getName(): Str |
++------------------+</pre>
+  <p><em>Exam question style:</em> "Draw a UML diagram for a Shape superclass and Circle, Rectangle subclasses with two attributes and two methods each."</p>
+</div>
+
+<div class="subtopic">
+  <div class="subtopic-label">D5.2</div>
+  <h3>Class Relationships</h3>
+
+  <div class="section-label">Gist</div>
+  <p>Beyond inheritance, classes relate through association, aggregation, and composition. Choosing the right relationship type reflects real-world connections and has practical implications for object lifecycle.</p>
+
+  <div class="section-label">Key line-items</div>
+  <ul>
+    <li><strong>Association</strong> — "uses" relationship; both can exist independently (e.g., Teacher teaches Course)</li>
+    <li><strong>Aggregation</strong> — weak "has-a"; contained object can exist independently (e.g., Department has Employees)</li>
+    <li><strong>Composition</strong> — strong "has-a"; part cannot exist without whole (e.g., House has Rooms)</li>
+    <li><strong>Inheritance</strong> — "is-a" relationship</li>
+    <li><strong>Dependency</strong> — one class temporarily uses another (e.g., method receives object as parameter)</li>
+  </ul>
+
+  <div class="section-label">Examples</div>
+  <ul>
+    <li><code>Library</code> aggregates <code>Book</code> — books exist independently of the library.</li>
+    <li><code>Order</code> composes <code>OrderLine</code> — an order line makes no sense outside an order.</li>
+    <li><em>Exam question style:</em> "Explain the difference between aggregation and composition with a suitable example."</li>
+  </ul>
+</div>
+
+<h2 class="topic-heading">D6 — Programming Practice</h2>
+
+<div class="subtopic">
+  <div class="subtopic-label">D6.1</div>
+  <h3>Writing and Debugging Code</h3>
+
+  <div class="section-label">Gist</div>
+  <p>Option D is the most code-heavy. Exams include writing, tracing, and debugging Java programs. Knowing error types, debugging strategies, and testing techniques is essential for full marks.</p>
+
+  <div class="section-label">Key line-items</div>
+  <ul>
+    <li><strong>Syntax error</strong> — violates grammar rules; detected by compiler (e.g., missing semicolon)</li>
+    <li><strong>Logic error</strong> — code compiles and runs but produces wrong output; found by testing and tracing</li>
+    <li><strong>Runtime error (exception)</strong> — occurs during execution (e.g., <code>NullPointerException</code>, division by zero)</li>
+    <li>Debugging: print statements, rubber duck debugging, IDE debugger with breakpoints</li>
+    <li><strong>White-box testing</strong> — tester has source code; tests internal paths</li>
+    <li><strong>Black-box testing</strong> — tester knows only inputs/outputs; tests against requirements</li>
+    <li><strong>Boundary testing</strong> — testing at the limits of valid input ranges</li>
+    <li>Exception handling: <code>try { } catch (ExType e) { } finally { }</code></li>
+  </ul>
+
+  <div class="section-label">Examples</div>
+  <ul>
+    <li>Boundary test for <code>setAge()</code>: test ages −1 (invalid), 0 (boundary), 1 (valid), 119 (valid), 120 (boundary), 121 (invalid).</li>
+    <li><em>Exam question style:</em> "Identify the error in the following code and explain how it would manifest at runtime."</li>
+  </ul>
+</div>
+
+<div class="subtopic">
+  <div class="subtopic-label">D6.2</div>
+  <h3>Tracing Algorithms</h3>
+
+  <div class="section-label">Gist</div>
+  <p>Tracing (dry-running) means manually executing code step-by-step, recording variable state in a trace table, and determining output. Exams frequently include trace tables.</p>
+
+  <div class="section-label">Key line-items</div>
+  <ul>
+    <li><strong>Trace table</strong> — one column per variable plus output; one row per step or iteration</li>
+    <li>Read line by line; update table for each assignment, condition, output statement</li>
+    <li>Common patterns: linear search, bubble sort, recursion (track call stack), accumulator</li>
+    <li>Always note final output and return values</li>
+  </ul>
+
+  <div class="section-label">Examples</div>
+  <p>Trace <code>factorial(3)</code>:</p>
+<pre>factorial(3) → 3 × factorial(2)
+  factorial(2) → 2 × factorial(1)
+    factorial(1) → 1
+  factorial(2) = 2
+factorial(3) = 6</pre>
+  <p>Trace table for <code>sum = 0; for i in 1..3: sum += i</code>:</p>
+  <table>
+    <thead><tr><th>i</th><th>sum</th></tr></thead>
+    <tbody>
+      <tr><td>—</td><td>0</td></tr>
+      <tr><td>1</td><td>1</td></tr>
+      <tr><td>2</td><td>3</td></tr>
+      <tr><td>3</td><td>6</td></tr>
+    </tbody>
+  </table>
+  <p><em>Exam question style:</em> "Trace the algorithm for the input array [5, 3, 8, 1] and complete the trace table."</p>
+</div>
+
+
+<!-- ═══════════════════════════════════════════════════════════════
+     QUICK REFERENCE
+══════════════════════════════════════════════════════════════════ -->
+<div class="quick-ref">
+  <h2>Quick Reference</h2>
+
+  <h3>Command Terms</h3>
+  <table>
+    <thead>
+      <tr><th>Term</th><th>What it demands</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><strong>State</strong></td><td>Give a specific fact with no explanation; one or two words or a phrase</td></tr>
+      <tr><td><strong>Define</strong></td><td>Give the precise formal meaning of a term</td></tr>
+      <tr><td><strong>Outline</strong></td><td>Give a brief account of the main points; more than State but less than Describe</td></tr>
+      <tr><td><strong>Describe</strong></td><td>Give a detailed account of a process, feature, or system</td></tr>
+      <tr><td><strong>Explain</strong></td><td>Give reasons or causes; show how or why something works</td></tr>
+      <tr><td><strong>Construct</strong></td><td>Build or draw something following rules (e.g., write SQL, draw ER diagram)</td></tr>
+      <tr><td><strong>Analyse</strong></td><td>Break something into parts; examine each part critically</td></tr>
+      <tr><td><strong>Evaluate</strong></td><td>Assess strengths and weaknesses; reach a judgement</td></tr>
+      <tr><td><strong>Suggest</strong></td><td>Propose an answer knowing there may be other valid answers</td></tr>
+      <tr><td><strong>Justify</strong></td><td>Give reasons to support a claim or decision</td></tr>
+    </tbody>
+  </table>
+
+  <h3>Key Formulas &amp; Rules</h3>
+  <table>
+    <thead>
+      <tr><th>Context</th><th>Formula / Rule</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>Euler method</td><td><code>new_value = old_value + rate × Δt</code></td></tr>
+      <tr><td>Population growth (simple)</td><td><code>N_new = N + r × N × Δt</code> (r = net growth rate)</td></tr>
+      <tr><td>Normalization test</td><td>1NF → 2NF: remove partial deps; 2NF → 3NF: remove transitive deps</td></tr>
+      <tr><td>PageRank (concept)</td><td>PR(A) ∝ Σ (PR of pages linking to A / their outbound links)</td></tr>
+      <tr><td>Big Data 3 Vs</td><td>Volume · Velocity · Variety</td></tr>
+      <tr><td>URL structure</td><td><code>protocol://domain:port/path?query#fragment</code></td></tr>
+    </tbody>
+  </table>
+
+  <h3>Must-Know Definitions Glossary</h3>
+  <table>
+    <thead>
+      <tr><th>Term</th><th>One-line definition</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><strong>Data</strong></td><td>Raw, unprocessed facts with no context</td></tr>
+      <tr><td><strong>Information</strong></td><td>Data processed into a meaningful, contextual form</td></tr>
+      <tr><td><strong>Flat-file database</strong></td><td>A single-table database with no links between tables</td></tr>
+      <tr><td><strong>Relational database</strong></td><td>A database using multiple linked tables to minimise redundancy</td></tr>
+      <tr><td><strong>Primary key</strong></td><td>A field that uniquely identifies every record in its table</td></tr>
+      <tr><td><strong>Foreign key</strong></td><td>A field that references the primary key of another table</td></tr>
+      <tr><td><strong>Referential integrity</strong></td><td>Rule ensuring every foreign key matches an existing primary key</td></tr>
+      <tr><td><strong>1NF</strong></td><td>All cells contain atomic values; no repeating groups</td></tr>
+      <tr><td><strong>2NF</strong></td><td>1NF + no partial dependencies on the primary key</td></tr>
+      <tr><td><strong>3NF</strong></td><td>2NF + no transitive dependencies between non-key attributes</td></tr>
+      <tr><td><strong>SQL</strong></td><td>Structured Query Language — used to query and manipulate relational databases</td></tr>
+      <tr><td><strong>JOIN</strong></td><td>SQL clause combining rows from two tables based on a related column</td></tr>
+      <tr><td><strong>Validation</strong></td><td>Automated check that input data meets defined rules</td></tr>
+      <tr><td><strong>Verification</strong></td><td>Check that data has been entered accurately against the source</td></tr>
+      <tr><td><strong>Abstraction</strong></td><td>Simplifying a system by removing irrelevant details</td></tr>
+      <tr><td><strong>Assumption</strong></td><td>A condition accepted as true to make a model workable</td></tr>
+      <tr><td><strong>Discrete simulation</strong></td><td>State changes at specific time steps or events</td></tr>
+      <tr><td><strong>Continuous simulation</strong></td><td>State changes are ongoing and described by continuous equations</td></tr>
+      <tr><td><strong>Deterministic</strong></td><td>Same input always produces same output; no randomness</td></tr>
+      <tr><td><strong>Stochastic</strong></td><td>Contains random elements; outputs vary between runs</td></tr>
+      <tr><td><strong>Monte Carlo method</strong></td><td>Using repeated random sampling to estimate outcomes</td></tr>
+      <tr><td><strong>TCP/IP</strong></td><td>Protocol suite governing internet data transmission</td></tr>
+      <tr><td><strong>DNS</strong></td><td>System that translates domain names to IP addresses</td></tr>
+      <tr><td><strong>HTTP</strong></td><td>Protocol for communication between web clients and servers</td></tr>
+      <tr><td><strong>Static web page</strong></td><td>Fixed HTML page delivering the same content to all visitors</td></tr>
+      <tr><td><strong>Dynamic web page</strong></td><td>Page generated on the fly, varying by user or data</td></tr>
+      <tr><td><strong>Web crawler</strong></td><td>Automated bot that follows links to index web pages</td></tr>
+      <tr><td><strong>PageRank</strong></td><td>Algorithm ranking pages by quality and quantity of inbound links</td></tr>
+      <tr><td><strong>Digital divide</strong></td><td>Gap between those with and without reliable access to digital technology</td></tr>
+      <tr><td><strong>Filter bubble</strong></td><td>Algorithmic reinforcement of existing beliefs through personalised content</td></tr>
+      <tr><td><strong>Big data</strong></td><td>Extremely large datasets characterised by Volume, Velocity, and Variety</td></tr>
+      <tr><td><strong>Class</strong></td><td>A blueprint defining attributes and methods shared by all objects of a type</td></tr>
+      <tr><td><strong>Object</strong></td><td>A specific instance of a class with its own attribute values</td></tr>
+      <tr><td><strong>Encapsulation</strong></td><td>Bundling data and methods in a class and hiding internal state</td></tr>
+      <tr><td><strong>Inheritance</strong></td><td>A subclass acquiring attributes and methods from a superclass</td></tr>
+      <tr><td><strong>Polymorphism</strong></td><td>Different objects responding to the same method call differently</td></tr>
+      <tr><td><strong>Method overriding</strong></td><td>A subclass providing its own implementation of a superclass method</td></tr>
+      <tr><td><strong>Method overloading</strong></td><td>Multiple methods with the same name but different parameter lists in one class</td></tr>
+      <tr><td><strong>UML class diagram</strong></td><td>A visual diagram showing classes, attributes, methods, and relationships</td></tr>
+      <tr><td><strong>Composition</strong></td><td>A strong has-a relationship where the part cannot exist without the whole</td></tr>
+      <tr><td><strong>Aggregation</strong></td><td>A weak has-a relationship where the part can exist independently</td></tr>
+    </tbody>
+  </table>
+</div>
+
+
+<!-- ═══════════════════════════════════════════════════════════════
+     MINDMAP SECTION
+══════════════════════════════════════════════════════════════════ -->
+<div class="mindmap-section">
+  <h2>Visual Mindmap — All Options</h2>
+  <p>The diagram below maps every option, topic, sub-topic, and key concept from the revision notes above. Use it for a quick orientation sweep before the exam.</p>
+
+  <div class="mindmap-container">
+    <div class="mermaid">
+mindmap
+  root((IB CS SL Paper 2))
+    A(Option A: Databases)
+      A1(A1 Database Concepts)
+        A1a(Data vs Information)
+          A1a1[Data: raw unprocessed facts]
+          A1a2[Information: processed meaningful data]
+          A1a3[Metadata: data about data]
+        A1b(Flat-file vs Relational)
+          A1b1[Flat-file: single table, redundancy]
+          A1b2[Update Insert Delete anomalies]
+          A1b3[Relational: multiple linked tables]
+          A1b4[DBMS manages access and storage]
+      A2(A2 Relational Databases)
+        A2a(Tables Records Fields)
+          A2a1[Table: entity type]
+          A2a2[Record: one instance row]
+          A2a3[Field: one attribute column]
+          A2a4[Domain Degree Cardinality]
+        A2b(Primary and Foreign Keys)
+          A2b1[PK: unique not null]
+          A2b2[FK: references another PK]
+          A2b3[Referential integrity]
+          A2b4[Composite PK in junction tables]
+        A2c(Relationships)
+          A2c1[1-to-1: rare security split]
+          A2c2[1-to-many: FK on many side]
+          A2c3[Many-to-many: junction table needed]
+      A3(A3 Database Design)
+        A3a(ER Models)
+          A3a1[Entity: rectangle]
+          A3a2[Attribute: ellipse]
+          A3a3[Relationship: diamond]
+          A3a4[Cardinality on lines]
+        A3b(Normalization)
+          A3b1[1NF: atomic values no repeating groups]
+          A3b2[2NF: remove partial dependencies]
+          A3b3[3NF: remove transitive dependencies]
+      A4(A4 SQL)
+        A4a(SELECT)
+          A4a1[WHERE ORDER BY DISTINCT]
+          A4a2[COUNT SUM AVG MAX MIN]
+          A4a3[GROUP BY and HAVING]
+          A4a4[INNER JOIN and LEFT JOIN]
+        A4b(Data Modification)
+          A4b1[INSERT INTO ... VALUES]
+          A4b2[UPDATE ... SET ... WHERE]
+          A4b3[DELETE FROM ... WHERE]
+          A4b4[Missing WHERE: all rows affected]
+      A5(A5 Integrity and Security)
+        A5a(Validation and Verification)
+          A5a1[Type Range Length Presence checks]
+          A5a2[Format check Check digit]
+          A5a3[Verification: double entry proofreading]
+        A5b(Access Control)
+          A5b1[Authentication: who you are]
+          A5b2[Authorisation: what you can do]
+          A5b3[GRANT and REVOKE privileges]
+          A5b4[Views RBAC Audit logs]
+    B(Option B: Modelling and Simulation)
+      B1(B1 Principles)
+        B1a(Abstraction)
+          B1a1[Remove irrelevant detail]
+          B1a2[Purpose-driven simplification]
+          B1a3[All models are simplifications]
+        B1b(Assumptions and Limitations)
+          B1b1[Assumption: condition treated as true]
+          B1b2[Limitation: model diverges from reality]
+          B1b3[Sensitivity analysis]
+      B2(B2 Types of Simulation)
+        B2a(Discrete vs Continuous)
+          B2a1[Discrete: fixed time steps or events]
+          B2a2[Continuous: equations change state constantly]
+          B2a3[Computers always discretise time]
+        B2b(Deterministic vs Stochastic)
+          B2b1[Deterministic: same input same output]
+          B2b2[Stochastic: random variables varied output]
+          B2b3[Monte Carlo: repeated random sampling]
+          B2b4[Seed controls reproducibility]
+      B3(B3 Developing Models)
+        B3a(Variables and Parameters)
+          B3a1[Variable: changes during simulation]
+          B3a2[Parameter: fixed input set before run]
+          B3a3[Initial conditions at time zero]
+          B3a4[Time step affects accuracy]
+        B3b(Algorithms for Simulation)
+          B3b1[Initialise loop update record advance]
+          B3b2[Euler: new equals old plus rate times dt]
+          B3b3[Event-driven: jump to next event]
+          B3b4[Validation vs Verification of model]
+      B4(B4 Applications)
+        B4a(When to Simulate)
+          B4a1[Too dangerous: nuclear pandemic]
+          B4a2[Too expensive: crash testing]
+          B4a3[Too slow: climate geology]
+          B4a4[Ethical: human trials]
+        B4b(Example Simulations)
+          B4b1[Weather: 3D grid fluid dynamics]
+          B4b2[Traffic: vehicle flow signal timing]
+          B4b3[Epidemic: SIR model]
+          B4b4[Population: predator-prey]
+      B5(B5 Evaluation)
+        B5a(Accuracy vs Realism)
+          B5a1[Accuracy: output matches real data]
+          B5a2[Realism: mechanics match real processes]
+          B5a3[Calibration then validation]
+          B5a4[More complexity not always more accurate]
+        B5b(Ethical Implications)
+          B5b1[Over-reliance on model output]
+          B5b2[Bias embedded in assumptions]
+          B5b3[Transparency and reproducibility]
+          B5b4[Privacy of data used]
+    C(Option C: Web Science)
+      C1(C1 Internet Fundamentals)
+        C1a(TCP/IP and DNS)
+          C1a1[IP: addressing and routing]
+          C1a2[TCP: reliable ordered delivery]
+          C1a3[Packet switching: resilient routing]
+          C1a4[IPv4 32-bit IPv6 128-bit]
+          C1a5[DNS: domain name to IP address]
+          C1a6[Ports: HTTP 80 HTTPS 443]
+        C1b(Client-Server Model)
+          C1b1[Client: requests service]
+          C1b2[Server: provides service]
+          C1b3[HTTP and HTTPS protocol]
+          C1b4[GET POST PUT DELETE methods]
+          C1b5[Status codes: 200 404 500]
+          C1b6[Request-response cycle]
+      C2(C2 Web Technologies)
+        C2a(HTML and CSS)
+          C2a1[HTML: structure and content]
+          C2a2[Tags attributes elements]
+          C2a3[CSS: visual presentation]
+          C2a4[Selectors properties box model]
+          C2a5[Separation of concerns]
+        C2b(Static vs Dynamic Pages)
+          C2b1[Static: same content for all visitors]
+          C2b2[Dynamic: generated per request]
+          C2b3[Server-side: PHP Python Node]
+          C2b4[Client-side: JavaScript AJAX]
+          C2b5[Cookies and sessions]
+      C3(C3 Search Engines)
+        C3a(Indexing and Ranking)
+          C3a1[Crawler follows links to discover pages]
+          C3a2[Inverted index: word to pages]
+          C3a3[PageRank: inbound links as votes]
+          C3a4[Ranking: relevance freshness engagement]
+          C3a5[SEO: white-hat vs black-hat]
+      C4(C4 Social and Ethical Issues)
+        C4a(Privacy and Security)
+          C4a1[Cookies and tracking]
+          C4a2[Data breaches GDPR]
+          C4a3[Phishing man-in-middle DDoS]
+          C4a4[SQL injection XSS attacks]
+          C4a5[HTTPS firewalls 2FA]
+        C4b(Digital Divide)
+          C4b1[Global: developed vs developing nations]
+          C4b2[Social: urban vs rural rich vs poor]
+          C4b3[Causes: cost infrastructure literacy]
+          C4b4[Consequences: education economy]
+          C4b5[Second-level divide in quality of use]
+      C5(C5 Web Trends)
+        C5a(Social Media and Big Data)
+          C5a1[UGC: user-generated content]
+          C5a2[Big data: Volume Velocity Variety]
+          C5a3[Data mining and machine learning]
+          C5a4[Filter bubble: algorithmic bias]
+          C5a5[Monetisation: data sold to advertisers]
+    D(Option D: OOP)
+      D1(D1 Basic OOP Concepts)
+        D1a(Classes and Objects)
+          D1a1[Class: blueprint or template]
+          D1a2[Object: instance of a class]
+          D1a3[Constructor: initialises object]
+          D1a4[this/self: current instance]
+          D1a5[State: current attribute values]
+        D1b(Attributes and Methods)
+          D1b1[Instance attribute: unique per object]
+          D1b2[Class attribute: shared static]
+          D1b3[Method: function inside a class]
+          D1b4[void vs value-returning]
+      D2(D2 Encapsulation)
+        D2a(Access Modifiers)
+          D2a1[private: within class only]
+          D2a2[public: accessible anywhere]
+          D2a3[protected: class and subclasses]
+          D2a4[Information hiding principle]
+        D2b(Getters and Setters)
+          D2b1[Getter: returns private attribute]
+          D2b2[Setter: sets with validation]
+          D2b3[Controlled read-only or write access]
+      D3(D3 Inheritance)
+        D3a(Superclass and Subclass)
+          D3a1[extends keyword in Java]
+          D3a2[Inherits public and protected members]
+          D3a3[super: calls parent constructor or method]
+          D3a4[Can add new or override existing methods]
+        D3b(Code Reuse)
+          D3b1[DRY: Do Not Repeat Yourself]
+          D3b2[is-a test for inheritance]
+          D3b3[has-a test for composition]
+          D3b4[Fix in superclass updates all subclasses]
+      D4(D4 Polymorphism)
+        D4a(Method Overriding)
+          D4a1[Same signature different body in subclass]
+          D4a2[Override annotation best practice]
+          D4a3[Dynamic dispatch at runtime]
+          D4a4[Abstract methods and abstract classes]
+        D4b(Method Overloading)
+          D4b1[Same name different parameter list]
+          D4b2[Resolved at compile time]
+          D4b3[Constructor overloading]
+          D4b4[Return type alone not sufficient]
+      D5(D5 Program Design)
+        D5a(UML Diagrams)
+          D5a1[Three sections: name attributes methods]
+          D5a2[Visibility: plus public minus private]
+          D5a3[Inheritance: open arrowhead to superclass]
+          D5a4[Multiplicity on association lines]
+        D5b(Class Relationships)
+          D5b1[Association: uses relationship]
+          D5b2[Aggregation: weak has-a]
+          D5b3[Composition: strong has-a]
+          D5b4[Dependency: temporary use]
+      D6(D6 Programming Practice)
+        D6a(Writing and Debugging)
+          D6a1[Syntax error: compiler catches]
+          D6a2[Logic error: wrong output]
+          D6a3[Runtime error: exception at execution]
+          D6a4[White-box vs black-box testing]
+          D6a5[Boundary and edge case testing]
+          D6a6[try-catch-finally exception handling]
+        D6b(Tracing Algorithms)
+          D6b1[Trace table: column per variable]
+          D6b2[One row per step or iteration]
+          D6b3[Track loop counters and conditions]
+          D6b4[Note output and return values]
+    </div>
+  </div>
+
+  <div class="reading-note">
+    <strong>Reading the Map:</strong> This mindmap radiates outward from the central root through four options (A–D), then into topics, sub-topics, and condensed concept nodes.
+    Use it to spot gaps (a leaf node you can't explain → go back to the revision notes), self-quiz (cover outer nodes and recall from inner labels), or for a last-minute sweep before the exam.
+    <br><br>
+    <strong>Editors that render Mermaid natively:</strong> VS Code (Mermaid Preview extension) · Obsidian (built-in) · GitHub / GitLab (auto in .md files) · <a href="https://mermaid.live" target="_blank">mermaid.live</a> (paste and preview instantly) · Typora · Notion (/code block, select Mermaid).
+  </div>
+</div>
+
+
+<!-- ═══════════════════════════════════════════════════════════════
+     FOOTER
+══════════════════════════════════════════════════════════════════ -->
+<footer>
+  IB Computer Science SL &nbsp;·&nbsp; Paper 2 — All Options &nbsp;·&nbsp; For personal study use only
+</footer>
+
+<script>
+  mermaid.initialize({
+    startOnLoad: true,
+    theme: 'base',
+    themeVariables: {
+      primaryColor: '#e8e8e8',
+      primaryTextColor: '#000000',
+      primaryBorderColor: '#000000',
+      lineColor: '#444444',
+      secondaryColor: '#f4f4f4',
+      background: '#ffffff',
+      mainBkg: '#e8e8e8',
+      nodeBorder: '#000000',
+      clusterBkg: '#f4f4f4',
+      titleColor: '#000000',
+      edgeLabelBackground: '#ffffff',
+      fontFamily: 'Helvetica Neue, Helvetica, Arial, sans-serif',
+      fontSize: '13px'
+    }
+  });
+</script>
+
+</body>
+</html>
