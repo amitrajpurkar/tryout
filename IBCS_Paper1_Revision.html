@@ -1,0 +1,2360 @@
+<\!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>IB CS SL — Paper 1 Last Minute Revision</title>
+  <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+  <style>
+/* ═══════════════════════════════════════════════════════════════════════════
+   BASE RESET & TYPOGRAPHY
+═══════════════════════════════════════════════════════════════════════════ */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --font-serif:   Georgia, "Times New Roman", serif;
+  --font-sans:    "Helvetica Neue", Arial, sans-serif;
+  --font-mono:    "Courier New", Courier, monospace;
+  --black:        #000;
+  --dark:         #111;
+  --mid:          #444;
+  --rule:         #999;
+  --light-rule:   #ccc;
+  --bg-code:      #f4f4f4;
+  --bg-head:      #e8e8e8;
+  --bg-alt:       #f9f9f9;
+  --accent-dark:  #222;
+}
+
+html { font-size: 13px; }
+
+body {
+  font-family:  var(--font-serif);
+  color:        var(--dark);
+  background:   #fff;
+  line-height:  1.65;
+  max-width:    900px;
+  margin:       0 auto;
+  padding:      2rem 2.5rem;
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   COVER / TITLE BLOCK
+═══════════════════════════════════════════════════════════════════════════ */
+.cover {
+  text-align:     center;
+  border:         3px double var(--black);
+  padding:        2.5rem 2rem;
+  margin-bottom:  2.5rem;
+}
+.cover h1 {
+  font-family:  var(--font-sans);
+  font-size:    2rem;
+  font-weight:  800;
+  letter-spacing: 0.02em;
+  margin-bottom: 0.4rem;
+  border: none;
+  padding: 0;
+  page-break-before: auto;
+}
+.cover .subtitle {
+  font-size:  1rem;
+  color:      var(--mid);
+  font-style: italic;
+}
+.cover .meta {
+  margin-top:   1.2rem;
+  font-family:  var(--font-sans);
+  font-size:    0.78rem;
+  color:        var(--mid);
+  border-top:   1px solid var(--rule);
+  padding-top:  0.8rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   HEADINGS
+═══════════════════════════════════════════════════════════════════════════ */
+h1, h2, h3, h4 {
+  font-family:  var(--font-sans);
+  color:        var(--black);
+  line-height:  1.25;
+}
+
+/* H1 = Topic heading (Topic 1 / 2 / 3 / 4 / Quick Reference) */
+h1 {
+  font-size:      1.55rem;
+  font-weight:    800;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  border-top:     4px solid var(--black);
+  border-bottom:  2px solid var(--black);
+  padding:        0.55rem 0;
+  margin:         2.2rem 0 1.1rem;
+}
+h1.topic-break { page-break-before: always; }
+
+/* H2 = Sub-topic heading (1.1 / 2.3 etc.) */
+h2 {
+  font-size:    1.2rem;
+  font-weight:  700;
+  border-bottom: 1.5px solid var(--rule);
+  padding-bottom: 0.25rem;
+  margin:       1.8rem 0 0.7rem;
+}
+
+/* H3 = Algorithm / concept section */
+h3 {
+  font-size:    1rem;
+  font-weight:  700;
+  margin:       1.2rem 0 0.4rem;
+}
+
+h4 {
+  font-size:   0.9rem;
+  font-weight: 700;
+  margin:      0.9rem 0 0.3rem;
+  font-style:  italic;
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   PARAGRAPHS & LISTS
+═══════════════════════════════════════════════════════════════════════════ */
+p {
+  margin: 0.5rem 0 0.75rem;
+}
+
+ul, ol {
+  margin:      0.4rem 0 0.75rem 1.6rem;
+  padding:     0;
+}
+li {
+  margin-bottom: 0.2rem;
+}
+li > ul, li > ol {
+  margin-top:    0.15rem;
+  margin-bottom: 0.15rem;
+}
+
+strong { font-weight: 700; }
+em     { font-style:  italic; }
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   BLOCKQUOTE (gist / exam tip boxes)
+═══════════════════════════════════════════════════════════════════════════ */
+blockquote {
+  border-left:  4px solid var(--black);
+  margin:       0.8rem 0;
+  padding:      0.5rem 1rem;
+  background:   var(--bg-alt);
+  font-style:   italic;
+  font-size:    0.9rem;
+  color:        var(--mid);
+}
+blockquote p { margin: 0.2rem 0; }
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   HORIZONTAL RULES
+═══════════════════════════════════════════════════════════════════════════ */
+hr {
+  border:        none;
+  border-top:    1px solid var(--light-rule);
+  margin:        1.5rem 0;
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   TABLES
+═══════════════════════════════════════════════════════════════════════════ */
+table {
+  width:           100%;
+  border-collapse: collapse;
+  margin:          0.8rem 0 1.2rem;
+  font-family:     var(--font-sans);
+  font-size:       0.82rem;
+  page-break-inside: avoid;
+}
+thead tr {
+  background: var(--bg-head);
+}
+th {
+  font-weight: 700;
+  text-align:  left;
+  padding:     0.38rem 0.6rem;
+  border:      1px solid var(--rule);
+}
+td {
+  padding:     0.32rem 0.6rem;
+  border:      1px solid var(--light-rule);
+  vertical-align: top;
+}
+tr:nth-child(even) td {
+  background: var(--bg-alt);
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   CODE & PRE
+═══════════════════════════════════════════════════════════════════════════ */
+code {
+  font-family: var(--font-mono);
+  font-size:   0.85em;
+  background:  var(--bg-code);
+  padding:     0.1em 0.35em;
+  border:      1px solid var(--light-rule);
+  border-radius: 2px;
+}
+
+pre {
+  background:     var(--bg-code);
+  border:         1px solid var(--rule);
+  border-left:    4px solid var(--accent-dark);
+  padding:        0.85rem 1rem;
+  margin:         0.75rem 0 1rem;
+  overflow-x:     auto;
+  font-family:    var(--font-mono);
+  font-size:      0.8rem;
+  line-height:    1.5;
+  page-break-inside: avoid;
+  white-space:    pre-wrap;
+  word-break:     break-word;
+}
+pre code {
+  background: none;
+  border:     none;
+  padding:    0;
+  font-size:  inherit;
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   MINDMAP SECTION
+═══════════════════════════════════════════════════════════════════════════ */
+.mindmap-section {
+  page-break-before: always;
+  margin-top: 2rem;
+}
+.mindmap-section h1 {
+  page-break-before: auto;
+}
+.mermaid-wrapper {
+  border:   2px solid var(--black);
+  padding:  1rem;
+  margin:   1rem 0;
+  background: #fff;
+  overflow: hidden;
+}
+.mermaid {
+  display:     flex;
+  align-items: center;
+  justify-content: center;
+  min-height:  400px;
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   FOOTER
+═══════════════════════════════════════════════════════════════════════════ */
+.doc-footer {
+  margin-top:  3rem;
+  padding-top: 0.8rem;
+  border-top:  2px solid var(--black);
+  font-family: var(--font-sans);
+  font-size:   0.72rem;
+  color:       var(--mid);
+  text-align:  center;
+  letter-spacing: 0.04em;
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   PRINT MEDIA RULES
+═══════════════════════════════════════════════════════════════════════════ */
+@media print {
+  html { font-size: 10pt; }
+
+  body {
+    max-width:  100%;
+    padding:    0;
+    margin:     0;
+    color:      #000;
+    background: #fff;
+  }
+
+  .cover {
+    border: 3px double #000;
+    padding: 1.5rem;
+    page-break-after: always;
+  }
+
+  h1.topic-break, .mindmap-section { page-break-before: always; }
+
+  h1, h2, h3 { page-break-after: avoid; }
+
+  p, li { orphans: 3; widows: 3; }
+
+  pre, table, blockquote {
+    page-break-inside: avoid;
+  }
+
+  pre {
+    font-size:  8pt;
+    border-left: 3px solid #000;
+  }
+
+  table {
+    font-size: 8pt;
+  }
+
+  thead { display: table-header-group; }
+  tr     { page-break-inside: avoid; }
+
+  a { color: #000; text-decoration: none; }
+
+  /* ensure mermaid diagram prints */
+  .mermaid-wrapper {
+    border: 1.5pt solid #000;
+  }
+  .mermaid svg {
+    max-width: 100% \!important;
+    height:    auto \!important;
+  }
+
+  @page {
+    size:   A4 portrait;
+    margin: 18mm 15mm 18mm 15mm;
+    @bottom-center {
+      content: "IB CS SL Paper 1 — Last Minute Revision | Page " counter(page);
+      font-size: 8pt;
+    }
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   SCREEN-ONLY ENHANCEMENTS
+═══════════════════════════════════════════════════════════════════════════ */
+@media screen {
+  body {
+    padding: 2rem 3rem;
+    background: #fafafa;
+  }
+  .cover {
+    box-shadow: 0 2px 8px rgba(0,0,0,0.10);
+  }
+}
+
+/* ─── Per-topic map cards ─────────────────────────────────── */
+.map-heading {
+  font-family:   var(--font-sans);
+  font-size:     1.05rem;
+  font-weight:   700;
+  margin:        1.4rem 0 0.2rem;
+  border-bottom: 1.5px solid var(--rule);
+  padding-bottom: 0.2rem;
+}
+.map-subs {
+  font-family: var(--font-sans);
+  font-size:   0.78rem;
+  color:       var(--mid);
+  margin:      0 0 0.6rem;
+  font-style:  italic;
+}
+.topic-map { margin-bottom: 1.2rem; }
+@media print {
+  .map-heading { font-size: 10pt; }
+  .map-subs    { font-size:  8pt; }
+}
+  </style>
+</head>
+<body>
+
+<\!-- ── COVER ───────────────────────────────────────────────────────────── -->
+<div class="cover">
+  <h1>IB Computer Science SL</h1>
+  <div class="subtitle">Paper 1 &mdash; Last Minute Revision Guide</div>
+  <div class="meta">
+    Topics 1 &ndash; 4 &nbsp;|&nbsp; System Fundamentals &nbsp;&middot;&nbsp;
+    Computer Organisation &nbsp;&middot;&nbsp; Networks &nbsp;&middot;&nbsp;
+    Computational Thinking &amp; Programming
+    <br><br>
+    Paper 1 &nbsp;&middot;&nbsp; 1h 30min &nbsp;&middot;&nbsp; 45 marks &nbsp;&middot;&nbsp; 40% of final grade
+  </div>
+</div>
+
+<\!-- ── REVISION CONTENT (converted from markdown) ─────────────────────── -->
+<div class="revision-body">
+<h1>IB Computer Science SL — Last Minute Revision</h1>
+<h3>Paper 1 · Topics 1–4</h3>
+<blockquote>
+<p><strong>Paper 1:</strong> 1h 30min · 45 marks · 40% of final grade<br />
+Command terms: <em>State, Define, Identify, Outline, Describe, Explain, Construct, Analyse, Evaluate, Suggest, Justify</em></p>
+</blockquote>
+<hr />
+<h1 class="topic-break">TOPIC 1 — System Fundamentals</h1>
+<hr />
+<h2>1.1 Systems in Organisations</h2>
+<p><strong>Gist:</strong> This sub-topic is about how and why organisations adopt new computer systems — from the moment a need is identified through to maintaining the system after deployment. The key theme is <em>managing change</em> responsibly: identifying stakeholders, gathering requirements, and handling the risks of transitioning from an old system to a new one.</p>
+<p><strong>Key line-items:</strong><br />
+- <strong>System lifecycle (PADIEM):</strong> Planning → Analysis → Design → Implementation → Evaluation → Maintenance<br />
+- <strong>Feasibility study (TELOS):</strong> Technical · Economic · Legal · Operational · Schedule — determines if a project <em>should</em> proceed<br />
+- <strong>Stakeholders:</strong> anyone with a stake in the system — users, managers, clients, developers, shareholders; each has different needs and concerns<br />
+- <strong>Functional requirements</strong> = <em>what</em> the system does (e.g., "user can search a database")<br />
+- <strong>Non-functional requirements</strong> = <em>how well</em> it performs (speed, security, reliability, usability, portability)<br />
+- <strong>Data collection methods</strong> for requirements gathering: interviews, questionnaires, observation, analysing existing documents<br />
+- <strong>Changeover strategies:</strong><br />
+  - <em>Direct</em> – old system replaced all at once; fast and cheap but high risk<br />
+  - <em>Parallel</em> – both systems run simultaneously; safe but expensive and labour-intensive<br />
+  - <em>Pilot</em> – new system trialled in one location first; limits risk but slows rollout<br />
+  - <em>Phased</em> – system introduced module by module; manageable but slow and may cause compatibility issues<br />
+- <strong>Legacy systems</strong> – old systems still in operation; problems: hard to maintain, security vulnerabilities, incompatibility, but replacement is costly<br />
+- <strong>Data migration</strong> – moving data from old to new system; risks: format mismatch, data corruption, data loss</p>
+<p><strong>Examples:</strong><br />
+- A hospital switching from paper records to an electronic patient management system would use <em>parallel changeover</em> to ensure no patient data is lost during transition<br />
+- A school adding an online enrolment module while the rest of the system remains the same = <em>phased</em> changeover<br />
+- A payroll system calculates salaries every two weeks (batch processing) — a <em>functional</em> requirement; it must do this within 2 hours of the pay cycle end — a <em>non-functional</em> (performance) requirement</p>
+<hr />
+<h2>1.2 System Design Basics</h2>
+<p><strong>Gist:</strong> Once requirements are known, the system must be <em>designed</em>. This covers the tools used to represent how data flows through a system, how to ensure that data entering the system is correct, and the difference between checking data is reasonable versus checking it was typed correctly.</p>
+<p><strong>Key line-items:</strong><br />
+- <strong>Data Flow Diagram (DFD):</strong> models how data moves through a system<br />
+  - Rectangle = external entity (person/system outside)<br />
+  - Circle/oval = process (transforms data)<br />
+  - Open rectangle = data store (database, file)<br />
+  - Arrow = data flow (labelled with what data is moving)<br />
+- <strong>Data dictionary</strong> – describes each data item: name, type, length, validation rules, example value<br />
+- <strong>Validation</strong> – checking data is <em>reasonable/within expected range</em> (automated by the system)<br />
+- <strong>Verification</strong> – checking data was <em>entered correctly</em> (involves human checking or double-entry)<br />
+- <strong>Validation types:</strong><br />
+  - <em>Range check</em> – value within min–max (e.g., age 0–120)<br />
+  - <em>Type check</em> – correct data type (e.g., numbers only in a phone field)<br />
+  - <em>Presence check</em> – field is not left empty<br />
+  - <em>Length check</em> – string is the correct length (e.g., password ≥ 8 characters)<br />
+  - <em>Format check</em> – matches a pattern (e.g., email contains @ and .)<br />
+  - <em>Check digit</em> – mathematical self-checking number (e.g., ISBN, barcode last digit)<br />
+- <strong>Human data entry errors:</strong><br />
+  - <em>Transcription</em> – mistyping a value (e.g., typing 5 instead of 6)<br />
+  - <em>Transposition</em> – swapping characters (e.g., 12 → 21)</p>
+<p><strong>Examples:</strong><br />
+- A form for entering a student's date of birth: <em>range check</em> (year between 1900–2026), <em>format check</em> (DD/MM/YYYY), <em>presence check</em> (field cannot be empty)<br />
+- Double-entry of a new password (type it twice) = <em>verification</em>, not validation<br />
+- A barcode scanner using a check digit = <em>validation</em> — the system itself detects if the barcode was misread</p>
+<hr />
+<h2>1.3 Human Interaction with the System</h2>
+<p><strong>Gist:</strong> A system is only as good as its usability. This sub-topic focuses on <em>how people interact</em> with systems — the quality of the interface, how users are trained, and how documentation supports ongoing use. It also covers accessibility: designing systems that work for everyone, including people with disabilities.</p>
+<p><strong>Key line-items:</strong><br />
+- <strong>Usability factors:</strong> learnability, efficiency, memorability, error rate, user satisfaction<br />
+- <strong>User documentation types:</strong> user manuals, online help/FAQs, tooltips, tutorials, wizards, quick-start guides<br />
+- <strong>Training methods:</strong><br />
+  - <em>Self-instruction</em> – manuals, e-learning modules, video tutorials<br />
+  - <em>Formal training</em> – classroom instruction, workshops<br />
+  - <em>On-the-job</em> – mentoring, shadowing a colleague<br />
+- <strong>Accessibility</strong> – designing for users with disabilities (e.g., screen readers for visually impaired, keyboard-only navigation, high-contrast colour schemes, captioning for audio)<br />
+- <strong>Ergonomics</strong> – designing hardware/software to fit human physical use safely and comfortably (e.g., adjustable monitors, keyboard layout)<br />
+- <strong>GUI vs CLI:</strong><br />
+  - <em>GUI</em> – graphical; icons, mouse; easier for non-technical users<br />
+  - <em>CLI</em> – text commands; harder to learn; faster and more powerful for experienced users</p>
+<p><strong>Examples:</strong><br />
+- A screen reader converting text to audio = accessibility feature for visually impaired users<br />
+- A new employee is shown the system by an experienced colleague for a week = <em>on-the-job training</em><br />
+- An online banking system with tooltips explaining each field = <em>embedded user documentation</em></p>
+<hr />
+<h2>1.4 Different Types of Systems</h2>
+<p><strong>Gist:</strong> Not all computer systems work the same way. This sub-topic classifies systems by <em>purpose</em> (TPS, MIS, DSS, Expert Systems) and by <em>processing type</em> (real-time, batch, online). Understanding the differences — and when each is appropriate — is a frequent exam focus.</p>
+<p><strong>Key line-items:</strong><br />
+- <strong>Types of information systems:</strong><br />
+  - <em>TPS (Transaction Processing System)</em> – handles routine daily transactions; immediate, repetitive (e.g., ATM withdrawals, point-of-sale)<br />
+  - <em>MIS (Management Information System)</em> – processes raw data into useful reports for managers (e.g., weekly sales summary)<br />
+  - <em>DSS (Decision Support System)</em> – interactive tools that help with complex, non-routine decisions; often uses models and "what-if" analysis<br />
+  - <em>Expert System</em> – mimics a human expert using a knowledge base and inference engine (e.g., medical diagnosis, fault-finding)<br />
+- <strong>Expert system components:</strong><br />
+  1. <em>Knowledge base</em> – facts and IF-THEN rules about the domain<br />
+  2. <em>Inference engine</em> – applies rules to facts to reach conclusions<br />
+  3. <em>User interface</em> – allows the user to ask questions<br />
+  4. <em>Explanation facility</em> – explains <em>why</em> a conclusion was reached<br />
+- <strong>Processing types:</strong><br />
+  - <em>Real-time</em> – processes input immediately and responds at once (e.g., autopilot, ATM, air traffic control); required where delays are dangerous or unacceptable<br />
+  - <em>Batch</em> – data collected over a period then processed all at once at a scheduled time (e.g., payroll, bank statements, utility bills); no immediate response needed<br />
+  - <em>Online</em> – continuously available, interactive, but not necessarily instantaneous (e.g., web search, online shopping)</p>
+<p><strong>Examples:</strong><br />
+- An ATM dispenses cash instantly → <em>real-time</em> TPS<br />
+- A bank generates monthly statements overnight → <em>batch</em> processing<br />
+- A doctor's diagnosis support tool uses IF symptoms THEN suggest condition rules → <em>expert system</em><br />
+- A manager views a dashboard of this month's sales vs last month → <em>MIS</em><br />
+- A supermarket forecasting stock orders using historical data and promotions → <em>DSS</em></p>
+<hr />
+<h1 class="topic-break">TOPIC 2 — Computer Organisation</h1>
+<hr />
+<h2>2.1 Computer Architecture</h2>
+<p><strong>Gist:</strong> The CPU is the brain of the computer. This sub-topic explains <em>what the CPU is made of</em>, <em>how it processes instructions</em> (the fetch-execute cycle), and <em>what factors make it faster or slower</em>. Understanding the role of each register and the path data takes through the processor is essential.</p>
+<p><strong>Key line-items:</strong><br />
+- <strong>Von Neumann architecture</strong> – CPU fetches and executes instructions stored in memory; single shared memory for data and instructions; instructions processed sequentially<br />
+- <strong>CPU components:</strong><br />
+  - <em>ALU (Arithmetic Logic Unit)</em> – performs arithmetic (+, −, ×, ÷) and logical operations (AND, OR, NOT, comparisons)<br />
+  - <em>CU (Control Unit)</em> – directs and coordinates all CPU activity; fetches, decodes, and controls execution of instructions<br />
+  - <em>MAR (Memory Address Register)</em> – holds the address in memory that is being accessed<br />
+  - <em>MDR/MBR (Memory Data Register)</em> – holds data being read from or written to memory<br />
+  - <em>PC (Program Counter)</em> – holds address of the <em>next</em> instruction to fetch; auto-incremented after each fetch<br />
+  - <em>IR (Instruction Register)</em> – holds the <em>current</em> instruction being decoded and executed<br />
+  - <em>Accumulator</em> – holds intermediate results from ALU operations<br />
+  - <em>Cache</em> – small, ultra-fast memory between CPU and RAM; stores recently/frequently accessed data to reduce RAM access time<br />
+- <strong>Fetch-Execute Cycle (FEC):</strong><br />
+  1. <em>Fetch</em> – PC → MAR; memory[MAR] → MDR; MDR → IR; PC incremented<br />
+  2. <em>Decode</em> – CU interprets the instruction in IR<br />
+  3. <em>Execute</em> – ALU performs operation, or CU controls data movement<br />
+  4. Repeat<br />
+- <strong>CPU performance factors:</strong><br />
+  - <em>Clock speed</em> (GHz) – cycles per second; more cycles = more instructions processed per second<br />
+  - <em>Number of cores</em> – each core is an independent processor; more cores = true parallel execution<br />
+  - <em>Cache size</em> – larger cache reduces frequency of slow RAM accesses<br />
+  - <em>Bus width</em> – number of bits transferred at once across the bus; wider = more data per transfer<br />
+  - <em>Word size</em> – bits processed in one CPU operation; larger word = more data per instruction</p>
+<p><strong>Examples:</strong><br />
+- A 3.2 GHz CPU completes 3.2 billion clock cycles per second<br />
+- A quad-core processor can run 4 threads simultaneously, useful for video rendering<br />
+- When a program accesses the same array repeatedly, cache stores those values to avoid fetching from RAM each time<br />
+- PC holds address 1000 → fetched → IR holds "ADD R1, R2" → PC becomes 1001</p>
+<hr />
+<h2>2.2 Memory</h2>
+<p><strong>Gist:</strong> Computers use different types of memory with different characteristics: speed, volatility, and cost. The <em>memory hierarchy</em> explains why multiple types coexist — the fastest memory is smallest and most expensive, while the slowest is cheapest and largest. Knowing what each type is used for and why is key.</p>
+<p><strong>Key line-items:</strong><br />
+- <strong>RAM (Random Access Memory)</strong> – volatile (lost on power off); read/write; holds the OS, running applications, and active data; directly accessible by CPU<br />
+- <strong>ROM (Read-Only Memory)</strong> – non-volatile; stores firmware/BIOS; contents set at manufacture; cannot normally be overwritten<br />
+- <strong>Memory hierarchy (fastest → slowest, smallest → largest capacity):</strong><br />
+<code>Registers → Cache → RAM → Secondary storage (HDD/SSD)</code><br />
+- <strong>Virtual memory</strong> – section of secondary storage used as overflow RAM when physical RAM is full; much slower than RAM; involves <em>paging</em> (swapping pages in/out of RAM)<br />
+- <strong>Cache</strong> – stores copies of frequently accessed RAM data; reduces average memory access time; L1/L2/L3 levels (L1 fastest, closest to CPU core)</p>
+<table>
+<thead>
+<tr>
+<th>Memory</th>
+<th>Volatile?</th>
+<th>Writable?</th>
+<th>Speed</th>
+<th>Typical use</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Register</td>
+<td>Yes</td>
+<td>Yes</td>
+<td>Fastest</td>
+<td>Immediate CPU calculations</td>
+</tr>
+<tr>
+<td>Cache</td>
+<td>Yes</td>
+<td>Yes</td>
+<td>Very fast</td>
+<td>Frequently used instructions/data</td>
+</tr>
+<tr>
+<td>RAM</td>
+<td>Yes</td>
+<td>Yes</td>
+<td>Fast</td>
+<td>Active programs and data</td>
+</tr>
+<tr>
+<td>ROM</td>
+<td>No</td>
+<td>No</td>
+<td>Fast</td>
+<td>Firmware/BIOS</td>
+</tr>
+<tr>
+<td>SSD</td>
+<td>No</td>
+<td>Yes</td>
+<td>Medium</td>
+<td>Secondary storage</td>
+</tr>
+<tr>
+<td>HDD</td>
+<td>No</td>
+<td>Yes</td>
+<td>Slow</td>
+<td>Secondary storage, bulk files</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Examples:</strong><br />
+- When you power off a laptop and lose unsaved work → RAM is volatile<br />
+- BIOS (boot instructions) stored in ROM → non-volatile, present even after power loss<br />
+- A computer with 8GB RAM running many programs starts using virtual memory → performance slows significantly (disk access instead of RAM)</p>
+<hr />
+<h2>2.3 Secondary Storage</h2>
+<p><strong>Gist:</strong> Secondary storage holds data <em>permanently</em>, even when the computer is off. Different storage technologies offer different trade-offs between speed, capacity, durability, and cost. You need to know the <em>physics</em> behind each type and when to recommend one over another.</p>
+<p><strong>Key line-items:</strong><br />
+- <strong>HDD (Hard Disk Drive)</strong> – magnetic storage; spinning platters with read/write head; slow (mechanical movement); cheap per GB; large capacity; susceptible to physical damage<br />
+- <strong>SSD (Solid State Drive)</strong> – NAND flash memory (no moving parts); faster than HDD; more expensive per GB; lightweight; durable; silent; used in laptops and phones<br />
+- <strong>Optical (CD/DVD/Blu-ray)</strong> – data encoded as pits and lands on reflective disc; read by laser; portable and cheap per disc; fragile (scratches); limited capacity; declining use<br />
+- <strong>USB flash drive</strong> – flash memory in portable form; convenient; limited read/write cycles<br />
+- <strong>Choosing storage — key considerations:</strong> capacity needed, required access speed, portability, durability, cost per GB, whether access is sequential (tape/optical) or random (SSD/HDD)</p>
+<p><strong>Examples:</strong><br />
+- A smartphone uses flash storage (SSD) → no moving parts, battery-efficient, survives drops<br />
+- A data centre backing up petabytes of rarely-accessed data → uses magnetic tape (sequential, cheap per GB)<br />
+- A video editor needing fast read/write of large files → uses SSD for the project drive<br />
+- Distributing software in the 1990s → CD-ROM; today → USB drive or download</p>
+<hr />
+<h2>2.4 Operating Systems</h2>
+<p><strong>Gist:</strong> The operating system (OS) is the software layer between the hardware and the user's applications. Without it, applications could not run. The OS <em>manages all resources</em> — memory, processes, files, devices — and provides an interface for users and programs to interact with the hardware.</p>
+<p><strong>Key line-items:</strong><br />
+- <strong>OS core functions:</strong><br />
+  - <em>Memory management</em> – allocates RAM to processes; prevents one process accessing another's memory<br />
+  - <em>Process management / scheduling</em> – decides which process runs when; enables multitasking<br />
+  - <em>File management</em> – creates, reads, writes, deletes, and organises files and directories<br />
+  - <em>Device management</em> – uses drivers to communicate with hardware (keyboard, printer, etc.)<br />
+  - <em>User interface</em> – GUI (graphical: windows, icons) or CLI (text commands)<br />
+  - <em>Security and access control</em> – user authentication, permissions, encryption<br />
+- <strong>Types of OS:</strong><br />
+  - <em>Single-user</em> – one user at a time (e.g., Windows on a personal PC)<br />
+  - <em>Multi-user</em> – many users simultaneously via time-sharing (e.g., Linux server)<br />
+  - <em>Real-time OS (RTOS)</em> – guarantees response within a strict time limit (e.g., aircraft control, medical devices)<br />
+  - <em>Embedded OS</em> – minimal OS inside a dedicated device (e.g., router, microwave, smart TV)<br />
+- <strong>Scheduling</strong> – the OS decides which process gets CPU time (methods: FIFO, round-robin, priority scheduling)<br />
+- <strong>Deadlock</strong> – two or more processes each waiting for a resource held by the other; neither can proceed; the system stalls<br />
+- <strong>Spooling</strong> – queuing jobs for a slower device (e.g., print queue); CPU sends jobs to the spooler and continues other tasks instead of waiting</p>
+<p><strong>Examples:</strong><br />
+- Printing in the background while editing a document = spooling + OS process scheduling<br />
+- Process A holds the scanner, waits for the printer; Process B holds the printer, waits for the scanner → deadlock<br />
+- An air traffic control system must respond to pilot input within milliseconds → requires RTOS<br />
+- A washing machine controller runs a simple embedded OS with no user interface</p>
+<hr />
+<h2>2.5 Software Types</h2>
+<p><strong>Gist:</strong> Software is classified by its purpose and by how it runs. Understanding the distinction between system, application, and utility software — and the difference between compiled and interpreted languages — underpins how programs are written, distributed, and run.</p>
+<p><strong>Key line-items:</strong><br />
+- <strong>System software</strong> – manages hardware and provides platform for other software (OS, drivers, firmware)<br />
+- <strong>Application software</strong> – used directly by end-users to accomplish tasks (word processor, web browser, game, accounting software)<br />
+- <strong>Utility software</strong> – maintains and optimises the system (antivirus, disk defragmenter, backup tool, file compression)<br />
+- <strong>Compiled language</strong> – source code translated to machine code all at once <em>before</em> running; fast execution; platform-specific; errors found at compile time (e.g., C, C++, Java bytecode)<br />
+- <strong>Interpreted language</strong> – source code translated line-by-line <em>at runtime</em>; slower but portable; errors found at runtime (e.g., Python, JavaScript)<br />
+- <strong>Open source vs proprietary:</strong></p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>Open Source</th>
+<th>Proprietary</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Source code</td>
+<td>Publicly available</td>
+<td>Hidden</td>
+</tr>
+<tr>
+<td>Cost</td>
+<td>Usually free</td>
+<td>Usually paid</td>
+</tr>
+<tr>
+<td>Customisable</td>
+<td>Yes</td>
+<td>No</td>
+</tr>
+<tr>
+<td>Support</td>
+<td>Community-based</td>
+<td>Vendor-provided</td>
+</tr>
+<tr>
+<td>Examples</td>
+<td>Linux, Firefox, Python</td>
+<td>Windows, MS Office, macOS</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Examples:</strong><br />
+- Microsoft Word = application software; Windows Defender (antivirus) = utility software; Windows OS = system software<br />
+- Python scripts run in an interpreter → easy to test interactively but slower than compiled C++<br />
+- Android is open-source (AOSP); iOS is proprietary<br />
+- A school choosing free LibreOffice instead of Microsoft Office to save licensing costs → open source advantage</p>
+<hr />
+<h2>2.6 Binary and Data Representation</h2>
+<p><strong>Gist:</strong> All data inside a computer — numbers, text, images, audio, video — is stored and processed as binary (1s and 0s). This sub-topic covers <em>how</em> different types of data are encoded into binary and the trade-offs (quality vs file size) involved. Number base conversions and two's complement are regular Paper 1 calculation questions.</p>
+<p><strong>Key line-items:</strong><br />
+- <strong>Number systems:</strong></p>
+<table>
+<thead>
+<tr>
+<th>System</th>
+<th>Base</th>
+<th>Digits</th>
+<th>Used for</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Binary</td>
+<td>2</td>
+<td>0, 1</td>
+<td>All internal computer data</td>
+</tr>
+<tr>
+<td>Denary</td>
+<td>10</td>
+<td>0–9</td>
+<td>Human-readable numbers</td>
+</tr>
+<tr>
+<td>Hexadecimal</td>
+<td>16</td>
+<td>0–9, A–F</td>
+<td>Compact binary representation (colours, memory addresses)</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><strong>8-bit positional values:</strong> 128 · 64 · 32 · 16 · 8 · 4 · 2 · 1</li>
+<li><strong>Binary → Hex:</strong> group bits in 4s from right; convert each group (A=10, B=11, C=12, D=13, E=14, F=15)</li>
+<li><code>1011 0010</code> → <code>B2</code></li>
+<li><strong>Two's complement (negative numbers):</strong> invert all bits, then add 1; MSB=1 means negative</li>
+<li>−5 in 8-bit: 00000101 → invert → 11111010 → +1 → <strong>11111011</strong></li>
+<li><strong>Storage units:</strong> 1 byte = 8 bits · 1 KB = 1024 B · 1 MB = 1024 KB · 1 GB = 1024 MB · 1 TB = 1024 GB</li>
+<li><strong>Representing numbers:</strong></li>
+<li>n bits → 2ⁿ possible values; maximum unsigned value = 2ⁿ − 1</li>
+<li><strong>Colour representation:</strong></li>
+<li><em>RGB</em> – each channel (R, G, B) = 8 bits (0–255)</li>
+<li><em>16-bit colour</em> → 2¹⁶ = 65,536 colours</li>
+<li><em>24-bit (True colour)</em> → 2²⁴ = 16,777,216 colours</li>
+<li><em>32-bit</em> = 24-bit colour + 8-bit alpha (transparency channel)</li>
+<li>More bits per pixel → higher quality → larger file size</li>
+<li><strong>Text encoding:</strong></li>
+<li><em>ASCII</em> – 7-bit; 128 characters; English letters, digits, symbols only</li>
+<li><em>Unicode (UTF-8/16/32)</em> – up to 32 bits; covers all world languages, emoji, special symbols; backwards-compatible with ASCII</li>
+<li><strong>Sound (audio) representation:</strong></li>
+<li><em>Sampling</em> – measuring amplitude of sound wave at regular time intervals</li>
+<li><em>Sample rate</em> (Hz) – samples per second; higher = better quality, larger file (CD audio = 44,100 Hz)</li>
+<li><em>Bit depth</em> – bits per sample; more bits = more precise amplitude (CD audio = 16-bit)</li>
+<li>File size = sample rate × bit depth × duration (sec) × channels ÷ 8 = <strong>bytes</strong></li>
+<li><strong>Image representation:</strong></li>
+<li><em>Pixel</em> – smallest addressable element of an image; each stores a colour value</li>
+<li><em>Resolution</em> – total pixel dimensions (e.g., 1920 × 1080)</li>
+<li><em>Bitmap/raster</em> (BMP, JPG, PNG) – stored pixel by pixel; degrades when enlarged; file size = width × height × bit depth ÷ 8</li>
+<li><em>Vector</em> (SVG) – stored as mathematical paths; scales perfectly; used for logos and diagrams</li>
+</ul>
+<p><strong>Examples:</strong><br />
+- A 16-bit integer for colour → 2¹⁶ = 65,536 different colours (classic IB exam question)<br />
+- 32-bit vs 16-bit colour: advantage = more colours, smoother gradients; disadvantage = larger file size / more memory required<br />
+- <code>math.floor(1234.5678 * 100) / 100</code> = <code>math.floor(123456.78) / 100</code> = <code>123400 / 100</code> = <strong>1234.0</strong> (IB sample question)<br />
+- A 3-minute stereo audio clip at 44,100 Hz and 16-bit depth: 44100 × 16 × 180 × 2 ÷ 8 = ~31.75 MB uncompressed<br />
+- "Hello" in ASCII: H=72, e=101, l=108, l=108, o=111</p>
+<hr />
+<h1 class="topic-break">TOPIC 3 — Networks</h1>
+<hr />
+<h2>3.1 Network Types and Topologies</h2>
+<p><strong>Gist:</strong> A network connects computers to share data and resources. The <em>type</em> of network depends on geographic scale and ownership; the <em>topology</em> describes the physical or logical layout of connections. Choosing the right topology involves balancing cost, reliability, and performance.</p>
+<p><strong>Key line-items:</strong><br />
+- <strong>Network types:</strong><br />
+  - <em>LAN (Local Area Network)</em> – single building or campus; privately owned; high speed (Gbps over Ethernet); e.g., school network<br />
+  - <em>WAN (Wide Area Network)</em> – large geographic area; uses public/leased links; lower speed than LAN; e.g., the internet<br />
+  - <em>WLAN (Wireless LAN)</em> – LAN using Wi-Fi (IEEE 802.11 standard); no cables; susceptible to interference<br />
+  - <em>PAN (Personal Area Network)</em> – very short range; personal devices; e.g., Bluetooth connecting phone to earbuds<br />
+- <strong>Network topologies:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Topology</th>
+<th>Layout</th>
+<th>✓ Key advantage</th>
+<th>✗ Key disadvantage</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><em>Bus</em></td>
+<td>All on one cable</td>
+<td>Simple, cheap</td>
+<td>Cable failure brings down whole network</td>
+</tr>
+<tr>
+<td><em>Star</em></td>
+<td>All connect to central switch</td>
+<td>One device failure isolated</td>
+<td>Switch is single point of failure</td>
+</tr>
+<tr>
+<td><em>Ring</em></td>
+<td>Devices in a circle</td>
+<td>Predictable performance (token passing)</td>
+<td>One break disrupts entire ring</td>
+</tr>
+<tr>
+<td><em>Mesh</em></td>
+<td>Every device to every other</td>
+<td>Highly redundant and reliable</td>
+<td>Very expensive, complex cabling</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>In practice, most networks use <strong>star topology</strong> (Ethernet switches in offices/schools)</li>
+</ul>
+<p><strong>Examples:</strong><br />
+- A school building with 200 computers all connected to a central switch → LAN with star topology<br />
+- The internet connecting millions of networks across continents → WAN<br />
+- A student's phone connected to Bluetooth headphones → PAN<br />
+- A hospital connecting buildings across a city using leased fibre lines → WAN</p>
+<hr />
+<h2>3.2 Network Hardware</h2>
+<p><strong>Gist:</strong> Specific hardware devices are needed to build and operate networks. Each device has a specific role — some direct traffic, some convert signals, some enable wireless access. Knowing which device does what (especially router vs switch vs hub) is frequently tested.</p>
+<p><strong>Key line-items:</strong><br />
+- <strong>Router</strong> – directs data <em>between</em> different networks using IP addresses; connects a LAN to the internet; uses routing tables to find best path<br />
+- <strong>Switch</strong> – connects devices <em>within</em> a LAN; sends data only to the intended device using MAC addresses (more efficient than hub)<br />
+- <strong>Hub</strong> – sends incoming data to <em>all</em> connected devices regardless of destination; creates collisions; largely obsolete, replaced by switches<br />
+- <strong>Wireless Access Point (WAP)</strong> – allows wireless devices to connect to a wired network via Wi-Fi<br />
+- <strong>NIC (Network Interface Card)</strong> – hardware in each device that provides the physical connection to a network; has a unique MAC address<br />
+- <strong>Modem</strong> – converts between digital data (computer) and analogue signals (phone line / cable); needed for DSL and cable internet connections<br />
+- <strong>Firewall</strong> – hardware or software that monitors and filters network traffic based on security rules; sits between LAN and internet</p>
+<p><strong>Examples:</strong><br />
+- Home network: modem (ISP signal → digital) → router (assigns IP addresses, connects LAN to internet) → switch or WAP → devices<br />
+- A switch in a school network only sends a student's file to the teacher's computer, not all computers → efficient<br />
+- A hub in an old network sends every packet to every port → all devices process all traffic → slow and insecure</p>
+<hr />
+<h2>3.3 Protocols and Data Transmission</h2>
+<p><strong>Gist:</strong> For devices to communicate reliably, they must follow agreed-upon rules called <em>protocols</em>. This sub-topic covers the major protocols of the internet, how data is broken into packets and routed across networks, and the difference between connection-based (TCP) and connectionless (UDP) communication.</p>
+<p><strong>Key line-items:</strong><br />
+- <strong>Protocol</strong> – agreed set of rules governing communication between devices<br />
+- <strong>Key protocols:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Protocol</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>IP</td>
+<td>Addressing and routing of packets across networks</td>
+</tr>
+<tr>
+<td>TCP</td>
+<td>Reliable, ordered, error-checked delivery; connection-based</td>
+</tr>
+<tr>
+<td>UDP</td>
+<td>Fast, connectionless; no delivery guarantee</td>
+</tr>
+<tr>
+<td>HTTP</td>
+<td>Transferring web pages</td>
+</tr>
+<tr>
+<td>HTTPS</td>
+<td>HTTP encrypted with SSL/TLS</td>
+</tr>
+<tr>
+<td>FTP</td>
+<td>File transfer between computers</td>
+</tr>
+<tr>
+<td>SMTP</td>
+<td>Sending email</td>
+</tr>
+<tr>
+<td>POP3 / IMAP</td>
+<td>Receiving/accessing email</td>
+</tr>
+<tr>
+<td>DNS</td>
+<td>Translates domain names → IP addresses</td>
+</tr>
+<tr>
+<td>DHCP</td>
+<td>Automatically assigns IP addresses to devices on a network</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><strong>TCP vs UDP:</strong></li>
+<li><em>TCP</em> – establishes connection (3-way handshake); ensures packets arrive in order; error-checks; used for web, email, file transfer</li>
+<li>
+<p><em>UDP</em> – sends packets without establishing connection; no acknowledgement; faster; used for video/audio streaming, DNS, online gaming</p>
+</li>
+<li>
+<p><strong>Packet switching:</strong></p>
+</li>
+<li>Data broken into small <em>packets</em>; each contains a header (source/destination IP, packet number, TTL) + payload + trailer (checksum)</li>
+<li>Packets may travel different routes through the network</li>
+<li>Reassembled in correct order at destination</li>
+<li>
+<p>Advantage: efficient use of network links; resilient (packets rerouted if link fails)</p>
+</li>
+<li>
+<p><strong>IP addresses:</strong></p>
+</li>
+<li><em>IPv4</em> – 32-bit dotted decimal (e.g., 192.168.0.1); ~4.3 billion addresses; running out</li>
+<li><em>IPv6</em> – 128-bit hex (e.g., 2001:0db8::1); essentially unlimited; created to replace IPv4</li>
+<li>
+<p><em>MAC address</em> – unique 48-bit hardware address of a NIC (e.g., 00:1A:2B:3C:4D:5E); used within a LAN (switches); IP used between networks (routers)</p>
+</li>
+<li>
+<p><strong>Bandwidth</strong> – maximum data transfer rate (bps); higher = more data per second  </p>
+</li>
+<li>
+<p><strong>Latency</strong> – delay before data begins to arrive; affected by distance, congestion, routing</p>
+</li>
+<li>
+<p><strong>Transmission media:</strong></p>
+</li>
+<li><em>Twisted pair copper</em> – common, cheap; used in Ethernet; limited distance</li>
+<li><em>Fibre optic</em> – light pulses; very high speed; immune to electromagnetic interference; expensive</li>
+<li><em>Wireless</em> – radio waves (Wi-Fi), microwave (point-to-point), satellite (high latency)</li>
+</ul>
+<p><strong>Examples:</strong><br />
+- Streaming a Netflix film → UDP (some lost packets acceptable; low latency more important than perfect delivery)<br />
+- Downloading a software installer → TCP (every byte must arrive correctly)<br />
+- Typing google.com → DNS resolves it to 142.250.x.x → browser sends HTTP GET to that IP<br />
+- A packet from London to New York may travel: London → Paris → New York via Atlantic cable → destination</p>
+<hr />
+<h2>3.4 Network Security</h2>
+<p><strong>Gist:</strong> As networks connect everything, they also expose systems to threats. This sub-topic covers the main <em>types of attacks</em>, the <em>security measures</em> that counter them, and the principles of encryption and authentication. Every organisation with a network must deal with these issues — and IB Paper 1 regularly asks about them.</p>
+<p><strong>Key line-items:</strong><br />
+- <strong>Malware types:</strong><br />
+  - <em>Virus</em> – attaches to legitimate files; spreads when the file is shared; can damage or delete data<br />
+  - <em>Worm</em> – self-replicates across networks <em>without user action</em>; consumes bandwidth<br />
+  - <em>Trojan</em> – disguised as legitimate software; secretly installs a backdoor for attackers<br />
+  - <em>Ransomware</em> – encrypts victim's files; demands payment (cryptocurrency) for the decryption key<br />
+  - <em>Spyware</em> – secretly monitors activity; collects passwords, keystrokes, personal data</p>
+<ul>
+<li><strong>Attack types:</strong></li>
+<li><em>Phishing</em> – fraudulent emails or fake websites that trick users into revealing passwords or financial details</li>
+<li><em>DoS (Denial of Service)</em> – floods a server with requests, making it unavailable to legitimate users</li>
+<li><em>DDoS</em> – DoS using a botnet (many compromised devices)</li>
+<li><em>Man-in-the-middle</em> – attacker intercepts and possibly alters communication between two parties</li>
+<li><em>SQL injection</em> – malicious SQL code inserted into a web form input to manipulate or extract from a database</li>
+<li>
+<p><em>Brute force</em> – systematically tries every possible password until one works</p>
+</li>
+<li>
+<p><strong>Security measures:</strong></p>
+</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>Measure</th>
+<th>How it helps</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Firewall</td>
+<td>Filters incoming/outgoing traffic based on rules; blocks suspicious connections</td>
+</tr>
+<tr>
+<td>Encryption</td>
+<td>Scrambles data; only authorised parties with the key can read it</td>
+</tr>
+<tr>
+<td>Antivirus</td>
+<td>Scans for and removes known malware signatures</td>
+</tr>
+<tr>
+<td>VPN</td>
+<td>Creates encrypted tunnel over public internet; secures remote access</td>
+</tr>
+<tr>
+<td>Strong passwords / MFA</td>
+<td>Reduces risk of unauthorised access</td>
+</tr>
+<tr>
+<td>Software updates / patching</td>
+<td>Fixes known vulnerabilities exploited by attackers</td>
+</tr>
+<tr>
+<td>Access control (least privilege)</td>
+<td>Users only access what is needed for their role</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><strong>Encryption types:</strong></li>
+<li><em>Symmetric</em> – one shared key for both encryption and decryption; fast; key distribution is the challenge</li>
+<li>
+<p><em>Asymmetric (public key)</em> – public key encrypts; private key decrypts; used in HTTPS/TLS; no need to share the private key</p>
+</li>
+<li>
+<p><strong>Authentication factors:</strong></p>
+</li>
+<li>Something you <em>know</em> – password, PIN</li>
+<li>Something you <em>have</em> – phone/token/smart card</li>
+<li>Something you <em>are</em> – fingerprint, face, iris (biometrics)</li>
+<li><em>MFA</em> – requires two or more factors; significantly harder to compromise</li>
+</ul>
+<p><strong>Examples:</strong><br />
+- An email appearing to be from a bank asking you to "verify your details" → phishing<br />
+- WannaCry (2017): ransomware that encrypted hospitals' files globally, demanding Bitcoin → disrupted NHS services<br />
+- HTTPS on websites uses asymmetric encryption to establish a session, then switches to symmetric for speed<br />
+- A company requiring a password + a text message code to log in = two-factor authentication (2FA)<br />
+- SQL injection: entering <code>' OR '1'='1</code> in a login form to bypass authentication by making the SQL query always true</p>
+<hr />
+<h2>3.5 The Internet and World Wide Web</h2>
+<p><strong>Gist:</strong> Students often confuse the internet with the web — they are not the same. The internet is the global physical <em>infrastructure</em>; the web is a <em>service</em> running on top of it. This section covers how web pages are found and loaded, what DNS does, and the growing role of cloud computing.</p>
+<p><strong>Key line-items:</strong><br />
+- <strong>Internet</strong> – the global network of interconnected physical networks (routers, cables, satellites)<br />
+- <strong>World Wide Web (WWW)</strong> – a collection of web pages and resources accessed via HTTP/HTTPS; just one of many services on the internet (others: email, FTP, VoIP)<br />
+- <strong>URL structure:</strong> <code>https://www.example.com/page?query=value</code> — protocol · domain · path · query<br />
+- <strong>DNS (Domain Name System):</strong><br />
+  - Hierarchical, distributed database that maps domain names → IP addresses<br />
+  - Without DNS, users would need to memorise IP addresses<br />
+  - Lookup chain: browser cache → OS cache → DNS resolver → root server → TLD server → authoritative server → IP returned<br />
+- <strong>How a web page loads (simplified):</strong><br />
+  1. User enters URL<br />
+  2. DNS resolves domain to IP address<br />
+  3. Browser sends HTTP GET request to web server at that IP<br />
+  4. Server returns HTML, CSS, JavaScript files<br />
+  5. Browser parses and renders the page<br />
+- <strong>Web technologies:</strong><br />
+  - <em>HTML</em> – structure and content of a page<br />
+  - <em>CSS</em> – styling and layout<br />
+  - <em>JavaScript</em> – interactivity and dynamic content (runs in browser)<br />
+  - <em>Server-side scripting</em> (PHP, Python) – dynamic content generated on the server before sending HTML<br />
+- <strong>Cloud computing</strong> – storing data and running applications on remote servers accessed via the internet</p>
+<table>
+<thead>
+<tr>
+<th>✓ Cloud advantages</th>
+<th>✗ Cloud disadvantages</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Access from any device/location</td>
+<td>Requires internet connection</td>
+</tr>
+<tr>
+<td>Scalable on demand</td>
+<td>Privacy and data sovereignty concerns</td>
+</tr>
+<tr>
+<td>No local hardware to maintain</td>
+<td>Ongoing subscription costs</td>
+</tr>
+<tr>
+<td>Automatic backups</td>
+<td>Vendor lock-in; service outages</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Examples:</strong><br />
+- Typing <code>bbc.co.uk</code> → DNS returns 151.101.x.x → browser fetches HTML from that server → page renders<br />
+- Google Docs = cloud application; data stored on Google servers, not locally<br />
+- Netflix CDN (Content Delivery Network) caches video on servers near users to reduce latency<br />
+- An organisation storing backups on AWS S3 = cloud storage</p>
+<hr />
+<h1 class="topic-break">TOPIC 4 — Computational Thinking, Problem-Solving and Programming</h1>
+<hr />
+<h2>4.1 General Principles of Computational Thinking</h2>
+<p><strong>Gist:</strong> Computational thinking is the <em>foundation</em> of problem-solving in computer science — it is how programmers think before writing a single line of code. The four pillars (decomposition, pattern recognition, abstraction, algorithm design) are a framework for approaching <em>any</em> complex problem, not just programming ones.</p>
+<p><strong>Key line-items:</strong><br />
+- <strong>Decomposition</strong> – breaking a large, complex problem into smaller, more manageable sub-problems that can be solved independently; divide and conquer<br />
+- <strong>Pattern recognition</strong> – identifying similarities, trends, or repeated structures within or across problems; allows reuse of existing solutions<br />
+- <strong>Abstraction</strong> – stripping away irrelevant detail; focusing only on what matters for the current problem; creating simplified models<br />
+- <strong>Algorithm design</strong> – creating a precise, step-by-step, unambiguous set of instructions that solves the problem; can be expressed as pseudocode, flowchart, or natural language<br />
+- <strong>These four steps are typically sequential:</strong> decompose the problem → look for patterns → abstract away detail → design the algorithm</p>
+<p><strong>Examples:</strong><br />
+- Building a school management system: <em>decompose</em> into student records, timetabling, attendance, reports; each module solved separately<br />
+- Sorting algorithms all share the <em>pattern</em> of comparing and rearranging elements → same thinking applies to bubble, selection, insertion sort<br />
+- A map is an <em>abstraction</em> of the real world — roads shown, building interiors removed<br />
+- Writing pseudocode before coding = algorithm design before implementation</p>
+<hr />
+<h2>4.2 Thinking Procedurally, Logically and Ahead</h2>
+<p><strong>Gist:</strong> These three modes of thinking describe how a programmer approaches <em>designing</em> a solution. Procedural thinking is about sequence and order. Logical thinking is about conditions and decisions. Thinking ahead is about planning for inputs, outputs, and failure cases <em>before</em> writing code.</p>
+<p><strong>Key line-items:</strong><br />
+- <strong>Thinking procedurally:</strong> identifying the correct <em>sequence</em> of steps; determining sub-tasks and their order; assigning tasks to appropriate components<br />
+- <strong>Thinking logically:</strong> identifying conditions that affect program flow; writing correct Boolean expressions; understanding AND, OR, NOT; tracing decision trees<br />
+- <strong>Thinking ahead (concurrency / pre-conditions):</strong><br />
+  - Identifying inputs required and outputs produced<br />
+  - Defining <em>pre-conditions</em> – assumptions that must be true before an algorithm runs (e.g., "the list must not be empty", "N must be a positive integer")<br />
+  - Planning for edge cases (empty input, maximum values, invalid data)<br />
+  - Considering what happens if something goes wrong (error handling)<br />
+- <strong>Boolean logic operators:</strong><br />
+  - AND – true only if <em>both</em> conditions are true<br />
+  - OR – true if <em>at least one</em> condition is true<br />
+  - NOT – inverts a Boolean value</p>
+<p><strong>Examples:</strong><br />
+- Pre-condition for binary search: "the array must be sorted in ascending order"<br />
+- Pre-condition for factorial(N): "N must be a non-negative integer"<br />
+- Edge cases for a search algorithm: what if the array is empty? What if the target appears multiple times?<br />
+- <code>if age &gt;= 18 AND hasID = true then allow_entry</code> → logical thinking with AND</p>
+<hr />
+<h2>4.3 Pseudocode and IB Syntax</h2>
+<p><strong>Gist:</strong> IB Paper 1 uses a specific pseudocode style. You must be able to <em>read</em>, <em>trace</em>, and <em>write</em> pseudocode correctly. The syntax is not identical to any real programming language, so learning the IB conventions exactly is important.</p>
+<p><strong>Key line-items:</strong></p>
+<pre><code>// Assignment
+X = 5
+NAME = &quot;Alice&quot;
+
+// Output / Input
+output X
+output &quot;Hello &quot; + NAME
+input AGE
+
+// Conditional (if-else)
+if score &gt;= 50 then
+    output &quot;Pass&quot;
+else if score &gt;= 40 then
+    output &quot;Near miss&quot;
+else
+    output &quot;Fail&quot;
+end if
+
+// Count-controlled loop (inclusive on both ends)
+loop I from 1 to 10
+    output I
+end loop
+
+// While loop (pre-test)
+loop while count &lt; 5
+    count = count + 1
+end loop
+
+// Until loop (post-test — runs at least once)
+loop until found = true
+    // search body
+end loop
+
+// Arrays (commonly 0-indexed in IB examples)
+SCORES[0] = 85
+output SCORES[2]
+
+// 2D arrays
+GRID[0][1] = 42
+
+// Procedure (no return value)
+procedure displayName(NAME)
+    output &quot;Name: &quot; + NAME
+end procedure
+
+// Function (returns a value)
+function cube(N)
+    return N * N * N
+end function
+
+output cube(3)    // outputs 27
+</code></pre>
+<p><strong>Important IB pseudocode notes:</strong><br />
+- <code>div</code> = integer division (e.g., <code>7 div 2</code> = 3)<br />
+- <code>mod</code> = remainder (e.g., <code>7 mod 2</code> = 1)<br />
+- String operations: <code>LEN(S)</code>, <code>SUBSTR(S, start, length)</code>, <code>CONCAT(S1, S2)</code><br />
+- Arrays are typically accessed with square brackets; check question for 0 or 1-based indexing</p>
+<p><strong>Examples:</strong><br />
+- IB sample: <code>math.floor((n * 100) / 100)</code> with n = 1234.5678 → <code>math.floor(123456.78 / 100)</code> → <code>math.floor(1234.5678)</code> → <strong>1234.0</strong><br />
+- Reading a trace table: follow variable values step by step through each iteration</p>
+<hr />
+<h2>4.4 Searching Algorithms</h2>
+<p><strong>Gist:</strong> Searching is one of the most fundamental operations in computing. The two algorithms you must know are <em>linear search</em> (works on any data) and <em>binary search</em> (faster, but requires sorted data). You need to be able to write both in pseudocode, trace them on an example, and compare their efficiency.</p>
+<p><strong>Key line-items:</strong><br />
+- <strong>Linear search:</strong><br />
+  - Checks each element one at a time, from first to last<br />
+  - Works on <em>unsorted or sorted</em> data<br />
+  - Time complexity: <strong>O(n)</strong> — in worst case, checks all n elements</p>
+<pre><code>found = false
+loop I from 0 to N-1
+    if ARRAY[I] = target then
+        output I
+        found = true
+    end if
+end loop
+if found = false then
+    output &quot;Not found&quot;
+end if
+</code></pre>
+<ul>
+<li><strong>Binary search:</strong></li>
+<li>Compares target to <em>middle</em> element; discards half the remaining elements each step</li>
+<li>Only works on <em>sorted</em> data — this is a pre-condition</li>
+<li>Time complexity: <strong>O(log n)</strong> — far fewer comparisons than linear for large arrays</li>
+</ul>
+<pre><code>low = 0
+high = N - 1
+found = false
+loop while low &lt;= high and found = false
+    mid = (low + high) div 2
+    if ARRAY[mid] = target then
+        output mid
+        found = true
+    else if ARRAY[mid] &lt; target then
+        low = mid + 1
+    else
+        high = mid - 1
+    end if
+end loop
+</code></pre>
+<ul>
+<li><strong>Comparison:</strong></li>
+</ul>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>Linear Search</th>
+<th>Binary Search</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Pre-condition</td>
+<td>None</td>
+<td>Array must be sorted</td>
+</tr>
+<tr>
+<td>Time complexity</td>
+<td>O(n)</td>
+<td>O(log n)</td>
+</tr>
+<tr>
+<td>Best for</td>
+<td>Small / unsorted data</td>
+<td>Large sorted datasets</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Examples:</strong><br />
+- Binary search on [2, 5, 8, 12, 16, 23, 38, 56] for target 23:<br />
+  - mid = index 3 → value 12; 23 &gt; 12 → low = 4<br />
+  - mid = index 5 → value 23; found! → 3 comparisons total<br />
+- Linear search on same array would check 2, 5, 8, 12, 16, 23 → 6 comparisons</p>
+<hr />
+<h2>4.5 Sorting Algorithms</h2>
+<p><strong>Gist:</strong> Sorting is a prerequisite for binary search and is fundamental to organising data. The IB requires you to know <em>bubble sort</em> in detail (write it, trace it, evaluate it) and understand <em>selection sort</em> at a conceptual level. Both are O(n²) — inefficient for large data but simple to implement and understand.</p>
+<p><strong>Key line-items:</strong><br />
+- <strong>Bubble sort:</strong><br />
+  - Repeatedly compare adjacent elements; swap if out of order<br />
+  - After each <em>pass</em>, the largest unsorted element is in its correct position at the end<br />
+  - Requires n−1 passes for n elements; inner loop shrinks with each pass<br />
+  - Time complexity: <strong>O(n²)</strong></p>
+<pre><code>loop I from 0 to N-2
+    loop J from 0 to N-2-I
+        if ARRAY[J] &gt; ARRAY[J+1] then
+            temp = ARRAY[J]
+            ARRAY[J] = ARRAY[J+1]
+            ARRAY[J+1] = temp
+        end if
+    end loop
+end loop
+</code></pre>
+<ul>
+<li><strong>Selection sort:</strong></li>
+<li>Find the <em>minimum</em> element in the unsorted portion</li>
+<li>Swap it into the next position at the front</li>
+<li>Repeat; unsorted portion shrinks by one each pass</li>
+<li>
+<p>Time complexity: <strong>O(n²)</strong> — similar to bubble sort but fewer swaps</p>
+</li>
+<li>
+<p><strong>Evaluating sorts:</strong></p>
+</li>
+<li>Both are fine for small datasets (&lt; a few hundred elements)</li>
+<li>For large datasets, use faster algorithms like <em>merge sort</em> (O(n log n)) — not required in detail at SL</li>
+</ul>
+<p><strong>Examples:</strong><br />
+- Trace bubble sort on [5, 3, 8, 1]:<br />
+  - Pass 1: 5↔3 → [3,5,8,1] · 5&lt;8 · 8↔1 → <strong>[3,5,1,8]</strong><br />
+  - Pass 2: 3&lt;5 · 5↔1 → <strong>[3,1,5,8]</strong><br />
+  - Pass 3: 3↔1 → <strong>[1,3,5,8]</strong> ✓</p>
+<hr />
+<h2>4.6 Sub-programs</h2>
+<p><strong>Gist:</strong> Sub-programs (procedures and functions) are the building blocks of modular programming. They allow you to write a block of code once and reuse it many times. This is one of the key principles of good software design — and every IB paper includes questions about them.</p>
+<p><strong>Key line-items:</strong><br />
+- <strong>Procedure</strong> – a named block of code that performs a task; <em>does not return</em> a value; called by name<br />
+- <strong>Function</strong> – a named block of code that performs a task and <em>returns</em> a value to the caller<br />
+- <strong>Parameters</strong> – values passed <em>into</em> a sub-program when it is called<br />
+- <strong>Return value</strong> – value sent <em>back</em> from a function to the calling code<br />
+- <strong>Why use sub-programs?</strong><br />
+  - <em>Code reuse</em> – write once, call many times; reduces duplication<br />
+  - <em>Modularity</em> – break large programs into smaller, manageable pieces<br />
+  - <em>Easier debugging</em> – test each sub-program independently<br />
+  - <em>Readability</em> – named sub-programs make code self-documenting<br />
+  - <em>Teamwork</em> – different programmers can work on different sub-programs simultaneously<br />
+- <strong>Scope:</strong><br />
+  - <em>Local variable</em> – declared inside a sub-program; only accessible within it; created when called, destroyed when done<br />
+  - <em>Global variable</em> – declared outside all sub-programs; accessible everywhere; generally avoided because it makes debugging harder</p>
+<p><strong>Examples:</strong><br />
+- <code>function calculateTax(income)</code> returns <code>income * 0.2</code> — used for every employee's salary calculation → code reuse<br />
+- <code>procedure printReceipt(items, total)</code> displays the receipt — no value needs to be returned<br />
+- A local variable <code>count</code> inside a loop sub-program → each call starts fresh; doesn't interfere with the rest of the program</p>
+<hr />
+<h2>4.7 Arrays and 2D Arrays</h2>
+<p><strong>Gist:</strong> Arrays are the most fundamental data structure — an ordered, fixed-size collection accessed by index. You must be able to write code that processes arrays (find min/max, sum, average, count, search) and work with 2D arrays (grids, tables). Trace questions on arrays appear frequently.</p>
+<p><strong>Key line-items:</strong><br />
+- <strong>Array</strong> – fixed-size collection of elements of the <em>same type</em>; accessed by integer index (0-based in IB unless stated otherwise)<br />
+- <strong>Key array operations:</strong></p>
+<pre><code>// Find maximum
+max = ARRAY[0]
+loop I from 1 to N-1
+    if ARRAY[I] &gt; max then
+        max = ARRAY[I]
+    end if
+end loop
+
+// Sum and average
+sum = 0
+loop I from 0 to N-1
+    sum = sum + ARRAY[I]
+end loop
+average = sum / N
+
+// Count occurrences
+count = 0
+loop I from 0 to N-1
+    if ARRAY[I] = target then
+        count = count + 1
+    end if
+end loop
+</code></pre>
+<ul>
+<li><strong>2D array</strong> – a grid/table; accessed by <code>ARRAY[row][col]</code></li>
+</ul>
+<pre><code>// Traverse entire 2D array
+loop R from 0 to ROWS-1
+    loop C from 0 to COLS-1
+        output GRID[R][C]
+    end loop
+end loop
+</code></pre>
+<ul>
+<li><strong>Array limitations:</strong> fixed size at creation; cannot grow/shrink; use linked lists or dynamic structures for flexible size</li>
+</ul>
+<p><strong>Examples:</strong><br />
+- A 5-element array SCORES = [85, 72, 91, 60, 78]; find average → sum=386, average=77.2<br />
+- A 3×3 GRID represents a tic-tac-toe board; <code>GRID[1][1]</code> is the centre cell<br />
+- A class list of 30 student names → <code>NAMES[0]</code> to <code>NAMES[29]</code></p>
+<hr />
+<h2>4.8 Object-Oriented Programming (OOP)</h2>
+<p><strong>Gist:</strong> OOP is a programming paradigm that organises code around <em>objects</em> — entities that combine data (attributes) and behaviour (methods). The four pillars of OOP (encapsulation, inheritance, polymorphism, abstraction) allow large systems to be built in a modular, reusable, and maintainable way. OOP questions in Paper 1 often involve reading/drawing UML class diagrams.</p>
+<p><strong>Key line-items:</strong><br />
+- <strong>Class</strong> – a blueprint/template that defines the attributes and methods of a type of object<br />
+- <strong>Object</strong> – a specific <em>instance</em> of a class (e.g., the class is <code>Dog</code>; an object is <code>myDog</code>)<br />
+- <strong>Attribute</strong> – a variable belonging to an object, storing its state (e.g., <code>name</code>, <code>age</code>, <code>colour</code>)<br />
+- <strong>Method</strong> – a function belonging to an object, defining its behaviour (e.g., <code>bark()</code>, <code>eat()</code>)<br />
+- <strong>Constructor</strong> – a special method called automatically when an object is created; initialises its attributes</p>
+<p><strong>Four pillars:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Pillar</th>
+<th>Meaning</th>
+<th>Key benefit</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><em>Encapsulation</em></td>
+<td>Bundling data + methods; hiding internal state with access modifiers</td>
+<td>Protects data; reduces dependencies</td>
+</tr>
+<tr>
+<td><em>Inheritance</em></td>
+<td>Subclass inherits attributes/methods from superclass</td>
+<td>Code reuse; avoids duplication</td>
+</tr>
+<tr>
+<td><em>Polymorphism</em></td>
+<td>Same method name behaves differently in different classes</td>
+<td>Flexible, extensible code</td>
+</tr>
+<tr>
+<td><em>Abstraction</em></td>
+<td>Hiding complexity; exposing only necessary interface</td>
+<td>Simpler to use; implementation can change without breaking callers</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><strong>Access modifiers:</strong></li>
+<li><code>public</code> (+) – accessible from anywhere</li>
+<li><code>private</code> (−) – accessible only within the class</li>
+<li>
+<p><code>protected</code> (#) – accessible within class and subclasses</p>
+</li>
+<li>
+<p><strong>UML Class diagram:</strong></p>
+</li>
+</ul>
+<pre><code>+--------------------+
+| Animal             |
++--------------------+
+| - name : String    |
+| - age : Integer    |
++--------------------+
+| + speak() : void   |
+| + eat() : void     |
++--------------------+
+        ▲
+        |  (inheritance — hollow arrow from child to parent)
++--------------------+
+| Dog                |
++--------------------+
+| - breed : String   |
++--------------------+
+| + bark() : void    |
++--------------------+
+</code></pre>
+<p><strong>Examples:</strong><br />
+- <code>Dog</code> inherits <code>name</code>, <code>age</code>, <code>eat()</code> from <code>Animal</code>; adds <code>bark()</code> and <code>breed</code><br />
+- <code>speak()</code> in <code>Animal</code> says "..."; <code>Dog.speak()</code> overrides it to say "Woof!" → polymorphism<br />
+- <code>private balance</code> in a <code>BankAccount</code> class; only the class's own methods can change the balance → encapsulation<br />
+- <code>Shape</code> class with <code>calculateArea()</code> method; <code>Circle</code> and <code>Rectangle</code> both override it with their own formula → polymorphism</p>
+<hr />
+<h2>4.9 Recursion</h2>
+<p><strong>Gist:</strong> Recursion is a powerful technique where a function solves a problem by calling <em>itself</em> on a simpler version of the same problem. It is elegant for problems that are naturally self-similar (trees, fractals, divide-and-conquer). The two essential parts — base case and recursive case — must both be present or the function runs forever.</p>
+<p><strong>Key line-items:</strong><br />
+- <strong>Base case</strong> – the condition that <em>stops</em> recursion; returns a value directly without a further recursive call; without this, recursion is infinite (stack overflow)<br />
+- <strong>Recursive case</strong> – the function calls itself with a <em>modified argument</em> that moves closer to the base case<br />
+- <strong>Call stack</strong> – each recursive call adds a new stack frame; when base case is reached, frames are resolved in reverse order (LIFO)<br />
+- <strong>Stack overflow</strong> – occurs if recursion is too deep (no base case or base case never reached); crashes the program</p>
+<pre><code>// Factorial — n! = n × (n-1)!
+function factorial(N)
+    if N = 0 then
+        return 1               // base case
+    else
+        return N * factorial(N - 1)    // recursive case
+    end if
+end function
+
+// Fibonacci
+function fib(N)
+    if N &lt;= 1 then
+        return N               // base case
+    else
+        return fib(N-1) + fib(N-2)    // recursive case
+    end if
+end function
+</code></pre>
+<ul>
+<li><strong>Trace of factorial(4):</strong></li>
+</ul>
+<pre><code>factorial(4) → 4 × factorial(3)
+               3 × factorial(2)
+                   2 × factorial(1)
+                       1 × factorial(0) → 1
+               = 1 → 2 → 6 → 24
+</code></pre>
+<ul>
+<li><strong>Recursion vs Iteration:</strong></li>
+</ul>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>Recursion</th>
+<th>Iteration</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Code clarity</td>
+<td>Often elegant for self-similar problems</td>
+<td>More explicit for simple loops</td>
+</tr>
+<tr>
+<td>Memory</td>
+<td>Uses call stack (risk of overflow)</td>
+<td>Uses loop variable (constant memory)</td>
+</tr>
+<tr>
+<td>Performance</td>
+<td>Slower (function call overhead)</td>
+<td>Faster</td>
+</tr>
+<tr>
+<td>Best for</td>
+<td>Trees, divide-and-conquer, mathematically recursive definitions</td>
+<td>Simple repeated tasks</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Examples:</strong><br />
+- Factorial, Fibonacci, power (xⁿ), traversing a tree, searching a file directory<br />
+- Removing the base case from factorial → infinite recursion → stack overflow crash<br />
+- IB question: trace recursive calls and show the call stack / returned values</p>
+<hr />
+<h2>4.10 Stacks and Queues</h2>
+<p><strong>Gist:</strong> Stacks and queues are <em>abstract data types</em> — data structures defined by their behaviour, not their implementation. The key is knowing when each is appropriate and understanding the operations. Stacks are LIFO; queues are FIFO. Both appear in real systems (function call stacks, print queues) and in algorithm design (DFS uses a stack; BFS uses a queue).</p>
+<p><strong>Key line-items:</strong></p>
+<p><strong>Stack – LIFO (Last In, First Out):</strong><br />
+- <em>push(item)</em> – add item to the top<br />
+- <em>pop()</em> – remove and return the top item<br />
+- <em>peek() / top()</em> – view the top item without removing it<br />
+- <em>isEmpty()</em> – returns true if stack has no items<br />
+- <strong>Uses:</strong> undo/redo, function call stack, bracket matching, evaluating expressions, backtracking in mazes</p>
+<pre><code>PUSH 3 → stack: [3]
+PUSH 7 → stack: [3, 7]
+PUSH 1 → stack: [3, 7, 1]
+POP    → returns 1; stack: [3, 7]
+</code></pre>
+<p><strong>Queue – FIFO (First In, First Out):</strong><br />
+- <em>enqueue(item)</em> – add item to the back<br />
+- <em>dequeue()</em> – remove and return the front item<br />
+- <em>isEmpty()</em> – returns true if queue has no items<br />
+- <strong>Uses:</strong> print spooling, CPU scheduling, network packet buffers, breadth-first search (BFS)</p>
+<pre><code>ENQUEUE A → queue: [A]
+ENQUEUE B → queue: [A, B]
+ENQUEUE C → queue: [A, B, C]
+DEQUEUE   → returns A; queue: [B, C]
+</code></pre>
+<p><strong>Examples:</strong><br />
+- Browser back/forward history → stack (back = pop, visit = push)<br />
+- Call centre waiting queue → queue (first caller answered first)<br />
+- Recursion uses the call stack internally (each function call pushed, each return pops)<br />
+- Printer queue: first document sent is first document printed</p>
+<hr />
+<h2>4.11 Linked Lists</h2>
+<p><strong>Gist:</strong> Unlike arrays, linked lists are <em>dynamic</em> — they can grow and shrink at runtime. Instead of stored in consecutive memory locations, each element (node) contains the data and a pointer to the next node. This makes insertion and deletion efficient but random access slow. Understanding linked lists sets the foundation for more advanced data structures (trees, graphs).</p>
+<p><strong>Key line-items:</strong><br />
+- <strong>Node</strong> – the basic unit of a linked list; contains:<br />
+  - <em>Data</em> – the stored value<br />
+  - <em>Pointer/Next</em> – address of the next node (null at the end of the list)<br />
+- <strong>Head</strong> – pointer to the first node; entry point to the list<br />
+- <strong>Null pointer</strong> – marks the end of the list (no next node)</p>
+<ul>
+<li><strong>Operations:</strong></li>
+<li><em>Traverse</em> – follow pointers from head to null</li>
+<li><em>Insert</em> – create new node; update pointers (O(1) if position known)</li>
+<li>
+<p><em>Delete</em> – update pointer of previous node to skip the deleted node; free the node (O(1) if position known)</p>
+</li>
+<li>
+<p><strong>Linked list vs Array:</strong></p>
+</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>Array</th>
+<th>Linked List</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Size</td>
+<td>Fixed at creation</td>
+<td>Dynamic — grows/shrinks at runtime</td>
+</tr>
+<tr>
+<td>Access by index</td>
+<td>O(1) — direct</td>
+<td>O(n) — must traverse from head</td>
+</tr>
+<tr>
+<td>Insertion/deletion</td>
+<td>O(n) — shift elements</td>
+<td>O(1) — just change pointers</td>
+</tr>
+<tr>
+<td>Memory layout</td>
+<td>Contiguous blocks</td>
+<td>Non-contiguous; uses extra memory for pointers</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><strong>Types:</strong></li>
+<li><em>Singly linked</em> – each node points to next only</li>
+<li><em>Doubly linked</em> – each node has pointers to both next and previous (easier to traverse backwards)</li>
+<li><em>Circular</em> – last node points back to head</li>
+</ul>
+<p><strong>Examples:</strong><br />
+- Music playlist where you can add/remove songs without rearranging the whole list → linked list<br />
+- An array-based list removing element from the middle → must shift all subsequent elements; linked list just changes one pointer<br />
+- OS memory allocation uses linked lists to track free memory blocks of varying sizes</p>
+<hr />
+<h2>4.12 Binary Trees</h2>
+<p><strong>Gist:</strong> Trees are hierarchical data structures, unlike the linear structures of arrays and linked lists. A <em>binary tree</em> is the most important type for IB CS SL — each node has at most two children. The <em>binary search tree</em> (BST) provides efficient searching and sorting. Tree traversals (in-order, pre-order, post-order) determine the <em>order</em> in which nodes are visited, and each has a specific use.</p>
+<p><strong>Key line-items:</strong><br />
+- <strong>Binary tree terminology:</strong><br />
+  - <em>Root</em> – topmost node; has no parent<br />
+  - <em>Leaf</em> – a node with no children<br />
+  - <em>Parent / child / sibling</em> – relational terms<br />
+  - <em>Subtree</em> – a node and all its descendants<br />
+  - <em>Height/depth</em> – number of levels (root at level 0 or 1 depending on convention)<br />
+  - <em>Left child / Right child</em> – at most one of each per node</p>
+<ul>
+<li><strong>Binary Search Tree (BST) property:</strong></li>
+<li>All values in the <em>left</em> subtree &lt; parent node value</li>
+<li>All values in the <em>right</em> subtree &gt; parent node value</li>
+<li>
+<p>Supports efficient search, insert, delete — O(log n) on a balanced tree</p>
+</li>
+<li>
+<p><strong>Inserting into a BST:</strong> compare value to current node; go left if smaller, right if larger; repeat until null position found; insert there</p>
+</li>
+<li>
+<p><strong>Tree traversals:</strong></p>
+</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>Traversal</th>
+<th>Order</th>
+<th>Result for BST</th>
+<th>Common use</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><em>In-order</em></td>
+<td>Left → Root → Right</td>
+<td>Sorted ascending</td>
+<td>Printing BST in order</td>
+</tr>
+<tr>
+<td><em>Pre-order</em></td>
+<td>Root → Left → Right</td>
+<td>—</td>
+<td>Copying/serialising a tree</td>
+</tr>
+<tr>
+<td><em>Post-order</em></td>
+<td>Left → Right → Root</td>
+<td>—</td>
+<td>Deleting a tree; evaluating expression trees</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Examples:</strong><br />
+- BST containing [8, 3, 10, 1, 6, 14, 4, 7, 13]:<br />
+<code>8
+        /   \
+       3    10
+      / \     \
+     1   6    14
+        / \   /
+       4   7 13</code><br />
+- In-order traversal: 1, 3, 4, 6, 7, 8, 10, 13, 14 → sorted!<br />
+- Searching BST for 7: 7&lt;8 → go left; 7&gt;3 → go right; 7&gt;6 → go right; found! (4 comparisons vs up to 9 for linear)</p>
+<hr />
+<h1 class="topic-break">QUICK REFERENCE</h1>
+<h2>Command Terms</h2>
+<table>
+<thead>
+<tr>
+<th>Term</th>
+<th>What to write</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>State</strong></td>
+<td>Single fact; no explanation</td>
+</tr>
+<tr>
+<td><strong>Define</strong></td>
+<td>Precise meaning of a term</td>
+</tr>
+<tr>
+<td><strong>Identify</strong></td>
+<td>Name or recognise</td>
+</tr>
+<tr>
+<td><strong>Outline</strong></td>
+<td>Brief description; main points only</td>
+</tr>
+<tr>
+<td><strong>Describe</strong></td>
+<td>Detailed account of characteristics</td>
+</tr>
+<tr>
+<td><strong>Explain</strong></td>
+<td>Give reasons — use "because"</td>
+</tr>
+<tr>
+<td><strong>Construct</strong></td>
+<td>Build/create (algorithm, diagram)</td>
+</tr>
+<tr>
+<td><strong>Analyse</strong></td>
+<td>Break down and examine in detail</td>
+</tr>
+<tr>
+<td><strong>Evaluate</strong></td>
+<td>Weigh advantages and disadvantages; make a judgement</td>
+</tr>
+<tr>
+<td><strong>Suggest</strong></td>
+<td>Propose a reasonable answer (no single right answer)</td>
+</tr>
+<tr>
+<td><strong>Justify</strong></td>
+<td>Give evidence or reasons to support a claim</td>
+</tr>
+</tbody>
+</table>
+<h2>Key Calculations</h2>
+<table>
+<thead>
+<tr>
+<th>Calculation</th>
+<th>Formula</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Values from n bits</td>
+<td><strong>2ⁿ</strong></td>
+</tr>
+<tr>
+<td>Max unsigned value, n bits</td>
+<td><strong>2ⁿ − 1</strong></td>
+</tr>
+<tr>
+<td>Image file size</td>
+<td>width × height × bit depth ÷ 8 = bytes</td>
+</tr>
+<tr>
+<td>Audio file size</td>
+<td>sample rate × bit depth × seconds × channels ÷ 8 = bytes</td>
+</tr>
+<tr>
+<td>Binary → Hex</td>
+<td>Group into 4 bits from right; convert each group</td>
+</tr>
+</tbody>
+</table>
+<h2>Must-Know One-Line Definitions</h2>
+<table>
+<thead>
+<tr>
+<th>Term</th>
+<th>Definition</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Algorithm</td>
+<td>Finite, precise, step-by-step instructions to solve a problem</td>
+</tr>
+<tr>
+<td>Abstraction</td>
+<td>Removing unnecessary detail; focusing on essential features</td>
+</tr>
+<tr>
+<td>Decomposition</td>
+<td>Breaking a complex problem into smaller sub-problems</td>
+</tr>
+<tr>
+<td>Encapsulation</td>
+<td>Bundling data + methods; hiding internal state</td>
+</tr>
+<tr>
+<td>Inheritance</td>
+<td>Subclass acquires attributes/methods from a superclass</td>
+</tr>
+<tr>
+<td>Polymorphism</td>
+<td>Same method name, different behaviour in different classes</td>
+</tr>
+<tr>
+<td>Recursion</td>
+<td>A function that calls itself, with a base case to stop it</td>
+</tr>
+<tr>
+<td>Stack</td>
+<td>LIFO data structure — last in, first out</td>
+</tr>
+<tr>
+<td>Queue</td>
+<td>FIFO data structure — first in, first out</td>
+</tr>
+<tr>
+<td>Binary search</td>
+<td>Halves search space each step; requires sorted data</td>
+</tr>
+<tr>
+<td>Bubble sort</td>
+<td>Repeatedly swaps adjacent out-of-order elements; O(n²)</td>
+</tr>
+<tr>
+<td>Firewall</td>
+<td>Monitors and filters network traffic based on security rules</td>
+</tr>
+<tr>
+<td>Encryption</td>
+<td>Transforms data so only authorised parties can read it</td>
+</tr>
+<tr>
+<td>DNS</td>
+<td>Translates human domain names into IP addresses</td>
+</tr>
+<tr>
+<td>Packet switching</td>
+<td>Data split into packets, routed independently, reassembled at destination</td>
+</tr>
+<tr>
+<td>RAM</td>
+<td>Volatile, read/write primary memory; lost when power off</td>
+</tr>
+<tr>
+<td>ROM</td>
+<td>Non-volatile, read-only memory; stores firmware</td>
+</tr>
+<tr>
+<td>Validation</td>
+<td>Checking data is reasonable / within expected range</td>
+</tr>
+<tr>
+<td>Verification</td>
+<td>Checking data was entered correctly</td>
+</tr>
+<tr>
+<td>Parallel changeover</td>
+<td>Running old and new systems simultaneously during transition</td>
+</tr>
+<tr>
+<td>Legacy system</td>
+<td>Old system still in use; hard to maintain, security risks</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<p><em>Read the command term. Answer exactly what is asked. Use correct CS terminology. Good luck.</em></p>
+</div>
+
+<\!-- MINDMAP_SECTION_START -->
+<div class="mindmap-section">
+  <h1 class="topic-break">&#9654; Topic Mind Maps</h1>
+  <p style="font-family:var(--font-sans);font-size:0.85rem;margin-bottom:1.2rem;">
+    Each Paper 1 topic has its own diagram for readability.
+    Mermaid.js renders them in the browser &mdash; allow a few seconds before printing.
+  </p>
+  <div class="topic-map">
+    <h2 class="map-heading">Topic 1 &mdash; System Fundamentals</h2>
+    <p class="map-subs">1.1 Systems in Organisations &nbsp;&middot; 1.2 System Design &nbsp;&middot; 1.3 Human Interaction &nbsp;&middot; 1.4 Types of Systems</p>
+    <div class="mermaid-wrapper">
+      <div class="mermaid">
+mindmap
+  root((Topic 1
+    System
+    Fundamentals))
+
+    ST1_1(1.1 Systems in
+      Organisations)
+      LC[Lifecycle PADIEM
+        Plan · Analyse · Design
+        Implement · Evaluate · Maintain]
+      FS[Feasibility TELOS
+        Technical · Economic
+        Legal · Operational · Schedule]
+      SH[Stakeholders
+        users · managers
+        clients · developers]
+      REQ[Requirements
+        Functional = what it does
+        Non-functional = how well]
+      CS[Changeover Strategies
+        Direct = fast high risk
+        Parallel = safe expensive
+        Pilot = one location first
+        Phased = module by module]
+      LEG[Legacy Systems
+        hard to maintain
+        security risks
+        costly to replace]
+
+    ST1_2(1.2 System Design)
+      DFD[DFD Symbols
+        Rectangle = external entity
+        Circle = process
+        Open rect = data store
+        Arrow = data flow]
+      VAL[Validation vs Verification
+        Validation = reasonable range
+        Verification = entered correctly]
+      VTYPE[Validation Types
+        Range · Type · Presence
+        Length · Format · Check digit]
+      ERR[Data Entry Errors
+        Transcription = mistyped
+        Transposition = chars swapped]
+
+    ST1_3(1.3 Human Interaction)
+      USAB[Usability
+        learnability · efficiency
+        memorability · satisfaction]
+      ACC[Accessibility
+        screen readers
+        keyboard navigation
+        high contrast modes]
+      DOC[User Documentation
+        manuals · FAQs
+        tooltips · tutorials · wizards]
+      TRN[Training Methods
+        Self-instruction e-learning
+        Formal classroom
+        On-the-job mentoring]
+
+    ST1_4(1.4 Types of Systems)
+      TPS[TPS
+        routine daily transactions
+        ATM · POS terminal]
+      MIS[MIS
+        reports for managers
+        sales · inventory dashboards]
+      DSS[DSS
+        complex decisions
+        what-if analysis]
+      EXP[Expert System
+        Knowledge base = facts and rules
+        Inference engine = applies rules
+        User interface · Explanation facility]
+      PROC[Processing Types
+        Real-time = immediate response
+        Batch = scheduled bulk runs
+        Online = always available]
+      </div>
+    </div>
+  </div>
+
+  <div class="topic-map" style="page-break-before:always;">
+    <h2 class="map-heading">Topic 2 &mdash; Computer Organisation</h2>
+    <p class="map-subs">2.1 Architecture &nbsp;&middot; 2.2 Memory &nbsp;&middot; 2.3 Secondary Storage &nbsp;&middot; 2.4 OS &nbsp;&middot; 2.5 Software &nbsp;&middot; 2.6 Data Representation</p>
+    <div class="mermaid-wrapper">
+      <div class="mermaid">
+mindmap
+  root((Topic 2
+    Computer
+    Organisation))
+
+    ST2_1(2.1 CPU Architecture)
+      VON[Von Neumann
+        single shared memory
+        instructions processed sequentially]
+      CPU[CPU Components]
+        ALU[ALU
+          arithmetic and logic
+          AND OR NOT comparisons]
+        CU[Control Unit
+          fetch · decode · coordinate]
+        REGS[Registers
+          MAR = memory address
+          MDR = memory data
+          PC = next instruction
+          IR = current instruction
+          ACC = ALU result]
+        CACHE[Cache
+          L1 L2 L3 levels
+          fast · between CPU and RAM]
+      FEC[Fetch-Execute Cycle
+        Fetch = PC to MAR to MDR to IR
+        Decode = CU reads IR
+        Execute = ALU or CU acts
+        PC auto-incremented]
+      PERF[Performance Factors
+        Clock speed GHz
+        Number of cores
+        Cache size
+        Bus width · Word size]
+
+    ST2_2(2.2 Memory)
+      RAM[RAM
+        volatile · lost on power off
+        read-write · active programs]
+      ROM[ROM
+        non-volatile · survives power off
+        read-only · firmware BIOS]
+      HIER[Memory Hierarchy
+        Registers fastest smallest
+        Cache
+        RAM
+        Secondary Storage slowest largest]
+      VIRT[Virtual Memory
+        HDD used as RAM overflow
+        involves paging
+        much slower than RAM]
+
+    ST2_3(2.3 Secondary Storage)
+      HDD[HDD Magnetic
+        spinning platters + read-write head
+        cheap · large capacity · slow]
+      SSD[SSD Flash
+        NAND flash · no moving parts
+        fast · durable · expensive per GB]
+      OPT[Optical
+        CD DVD Blu-ray
+        laser reads pits and lands
+        portable · fragile · limited size]
+
+    ST2_4(2.4 Operating Systems)
+      FUNC[OS Functions
+        Memory management
+        Process scheduling
+        File management
+        Device drivers
+        Security and access control]
+      OTYPES[OS Types
+        Single-user desktop
+        Multi-user server
+        RTOS guaranteed response time
+        Embedded minimal dedicated]
+      DEAD[Deadlock
+        two processes wait for each other
+        neither can proceed]
+      SPOOL[Spooling
+        jobs queued for slow device
+        CPU freed to do other work
+        e.g. print queue]
+
+    ST2_5(2.5 Software)
+      STYPE[Software Types
+        System = manages hardware
+        Application = for end users
+        Utility = maintains system]
+      COMP[Compiled vs Interpreted
+        Compiled = all at once · faster
+        Interpreted = line by line · portable]
+      OPEN[Open Source vs Proprietary
+        Open = free visible customisable
+        Proprietary = paid hidden vendor support]
+
+    ST2_6(2.6 Data Representation)
+      NUM[Number Systems
+        Binary base 2
+        Denary base 10
+        Hex base 16 using A-F]
+      TWOS[Twos Complement
+        invert all bits then add 1
+        MSB = 1 means negative]
+      UNITS[Storage Units
+        8 bits = 1 byte
+        1024 bytes = 1 KB
+        1024 KB = 1 MB · 1024 MB = 1 GB]
+      COL[Colour
+        RGB = 8 bits per channel
+        16-bit = 65536 colours
+        24-bit = 16.7M true colour
+        32-bit = colour plus alpha]
+      TEXT[Text Encoding
+        ASCII = 7-bit 128 characters
+        Unicode = all world languages
+        UTF-8 UTF-16 UTF-32]
+      AV[Sound and Images
+        Sound = sample rate x bit depth
+        Bitmap = pixel by pixel raster
+        Vector = mathematical paths scales]
+      </div>
+    </div>
+  </div>
+
+  <div class="topic-map" style="page-break-before:always;">
+    <h2 class="map-heading">Topic 3 &mdash; Networks</h2>
+    <p class="map-subs">3.1 Types &amp; Topologies &nbsp;&middot; 3.2 Hardware &nbsp;&middot; 3.3 Protocols &nbsp;&middot; 3.4 Security &nbsp;&middot; 3.5 Internet &amp; WWW</p>
+    <div class="mermaid-wrapper">
+      <div class="mermaid">
+mindmap
+  root((Topic 3
+    Networks))
+
+    ST3_1(3.1 Types and
+      Topologies)
+      NTYPE[Network Types
+        LAN = local building or campus
+        WAN = wide geographic area
+        WLAN = wireless LAN via Wi-Fi
+        PAN = personal Bluetooth]
+      BUS[Bus Topology
+        all share one cable
+        simple and cheap
+        cable failure = whole network down]
+      STAR[Star Topology
+        all connect to central switch
+        most common in practice
+        switch = single point of failure]
+      RING[Ring Topology
+        devices in a circle
+        one break disrupts all]
+      MESH[Mesh Topology
+        every device to every other
+        highly redundant · very expensive]
+
+    ST3_2(3.2 Network Hardware)
+      ROUTER[Router
+        directs data between networks
+        uses IP addresses
+        connects LAN to internet]
+      SWITCH[Switch
+        connects devices within LAN
+        uses MAC addresses
+        sends only to intended device]
+      HUB[Hub
+        sends to all devices
+        obsolete · inefficient]
+      WAP[Wireless Access Point
+        connects wireless to wired network
+        IEEE 802.11 Wi-Fi standard]
+      NIC[NIC
+        hardware network interface
+        unique MAC address per device]
+      MODEM[Modem
+        converts digital to analogue
+        needed for DSL cable internet]
+
+    ST3_3(3.3 Protocols and
+      Transmission)
+      PROTO[Key Protocols
+        IP = routing and addressing
+        TCP = reliable ordered delivery
+        UDP = fast no guarantee
+        HTTP = web pages
+        HTTPS = encrypted HTTP
+        FTP = file transfer
+        SMTP = send email
+        DNS = name to IP address
+        DHCP = auto assign IP]
+      TCPUDP[TCP vs UDP
+        TCP = handshake guaranteed ordered
+        UDP = connectionless faster
+        TCP for web email files
+        UDP for streaming gaming DNS]
+      PKT[Packet Switching
+        data split into packets
+        packets travel independently
+        reassembled at destination
+        efficient and resilient]
+      ADDR[Addressing
+        IPv4 = 32-bit 4.3B addresses
+        IPv6 = 128-bit unlimited
+        MAC = 48-bit hardware address]
+      BW[Bandwidth vs Latency
+        Bandwidth = max data rate bps
+        Latency = delay before arrival]
+
+    ST3_4(3.4 Network Security)
+      MALWARE[Malware Types
+        Virus = attaches to files
+        Worm = self-replicates network
+        Trojan = disguised backdoor
+        Ransomware = encrypt and demand
+        Spyware = silent data collection]
+      ATTACK[Attack Types
+        Phishing = fake emails and sites
+        DoS = flood server with requests
+        DDoS = botnet coordinated flood
+        Man-in-middle = intercept comms
+        SQL injection = malicious SQL
+        Brute force = try all passwords]
+      DEFENCE[Defences
+        Firewall = filter traffic by rules
+        Encryption = scramble data
+        Antivirus = detect and remove
+        VPN = encrypted tunnel
+        Patching = fix vulnerabilities
+        Least privilege access control]
+      ENCR[Encryption
+        Symmetric = one shared key
+        Asymmetric = public plus private key
+        HTTPS uses both]
+      AUTH[Authentication
+        Know = password PIN
+        Have = token smart card
+        Are = biometrics fingerprint
+        MFA = two or more factors]
+
+    ST3_5(3.5 Internet and WWW)
+      DIFF[Internet vs WWW
+        Internet = global physical network
+        WWW = service on internet via HTTP]
+      DNS[DNS
+        translates domain to IP address
+        hierarchical distributed database
+        resolver root TLD authoritative]
+      LOAD[How a Page Loads
+        DNS resolves domain to IP
+        HTTP GET sent to server
+        server returns HTML CSS JS
+        browser parses and renders]
+      CLOUD[Cloud Computing
+        data and apps on remote servers
+        accessible from anywhere
+        scalable on demand
+        privacy concerns and cost]
+      </div>
+    </div>
+  </div>
+
+  <div class="topic-map" style="page-break-before:always;">
+    <h2 class="map-heading">Topic 4 &mdash; Computational Thinking, Problem-Solving &amp; Programming</h2>
+    <p class="map-subs">4.1-4.3 Foundations &nbsp;&middot; 4.4-4.5 Search &amp; Sort &nbsp;&middot; 4.6-4.7 Sub-programs &amp; Arrays &nbsp;&middot; 4.8 OOP &nbsp;&middot; 4.9-4.12 Data Structures</p>
+    <div class="mermaid-wrapper">
+      <div class="mermaid">
+mindmap
+  root((Topic 4
+    Computational
+    Thinking))
+
+    ST4_1(4.1 to 4.3
+      Foundations)
+      DECOMP[Decomposition
+        break problem into sub-problems
+        divide and conquer approach]
+      PATT[Pattern Recognition
+        find similarities and trends
+        reuse existing solutions]
+      ABSTR[Abstraction
+        remove unnecessary detail
+        focus on essentials only
+        e.g. maps classes functions]
+      LOGIC[Thinking Logically
+        conditions and Boolean logic
+        AND · OR · NOT]
+      AHEAD[Thinking Ahead
+        identify inputs and outputs
+        define pre-conditions
+        plan for edge cases]
+      PSEUDO[Pseudocode IB Syntax
+        assignment · output · input
+        if else end if
+        loop from to end loop
+        loop while · loop until
+        div = integer division
+        mod = remainder
+        procedure vs function]
+
+    ST4_2(4.4 and 4.5
+      Searching and Sorting)
+      LINEAR[Linear Search
+        check each element one by one
+        works on any order of data
+        time complexity O of n]
+      BINARY[Binary Search
+        halves search space each step
+        pre-condition = data must be sorted
+        time complexity O of log n]
+      SCOMP[Search Comparison
+        linear = no sort needed slower
+        binary = sorted required faster]
+      BUBBLE[Bubble Sort
+        compare and swap adjacent pairs
+        largest bubbles to end each pass
+        O of n squared · n-1 passes]
+      SELECT[Selection Sort
+        find minimum swap to front
+        O of n squared]
+      TRACE[Bubble Trace 5 3 8 1
+        Pass 1 = 3 5 1 8
+        Pass 2 = 3 1 5 8
+        Pass 3 = 1 3 5 8 sorted]
+
+    ST4_3(4.6 and 4.7
+      Sub-programs and Arrays)
+      PROC[Procedure
+        named block of code
+        no return value]
+      FUNC[Function
+        named block of code
+        returns a value]
+      WHY[Why Sub-programs
+        code reuse · modular
+        easier to debug and test
+        team collaboration]
+      SCOPE[Scope
+        local = inside sub-program only
+        global = everywhere avoid it]
+      ARR[Arrays
+        fixed-size · same type · indexed
+        find max · sum · average · count]
+      ARR2D[2D Arrays
+        grid accessed by row and col
+        nested loops to traverse]
+
+    ST4_4(4.8 OOP)
+      CORE[Core Terms
+        Class = blueprint template
+        Object = instance of class
+        Attribute = data property
+        Method = behaviour function
+        Constructor = initialises object]
+      ENCAP[Encapsulation
+        bundle data and methods
+        hide internal state
+        public private protected]
+      INHER[Inheritance
+        subclass from superclass
+        acquires attributes and methods
+        promotes code reuse]
+      POLY[Polymorphism
+        same method name
+        different behaviour per class]
+      ABST[Abstraction
+        hide complexity
+        expose only necessary interface]
+      UML[UML Class Diagram
+        plus = public · minus = private
+        hollow arrow = inheritance
+        child points to parent]
+
+    ST4_5(4.9 to 4.12
+      Data Structures)
+      RECUR[Recursion
+        Base case = stops recursion
+        Recursive case = calls itself
+        must always reach base case
+        call stack · risk of overflow]
+      FACT[Factorial Example
+        factorial 0 = 1 base case
+        factorial n = n x factorial n-1]
+      STACK[Stack LIFO
+        push = add to top
+        pop = remove from top
+        uses = undo · function calls]
+      QUEUE[Queue FIFO
+        enqueue = add to back
+        dequeue = remove from front
+        uses = print spool · scheduling]
+      LL[Linked List
+        node = data plus pointer to next
+        dynamic size vs fixed array
+        fast insert slow random access]
+      BST[Binary Search Tree
+        left child less than parent
+        right child greater than parent
+        O log n search on balanced tree]
+      TRAV[Tree Traversals
+        In-order = Left Root Right = sorted
+        Pre-order = Root Left Right = copy
+        Post-order = Left Right Root = delete]
+      </div>
+    </div>
+  </div>
+
+  <p style="font-family:var(--font-sans);font-size:0.75rem;color:#666;margin-top:0.5rem;font-style:italic;">
+    &#9432; Open in a browser, wait for all four maps to render, then File &rarr; Print.
+  </p>
+</div>
+
+<\!-- ── FOOTER ─────────────────────────────────────────────────────────── -->
+<div class="doc-footer">
+  IB Computer Science Standard Level &nbsp;&middot;&nbsp; Paper 1 Revision &nbsp;&middot;&nbsp;
+  Topics 1&ndash;4 &nbsp;&middot;&nbsp; For personal study use only
+</div>
+
+<script>
+  // Initialise Mermaid with B&W-friendly theme
+  mermaid.initialize({
+    startOnLoad: true,
+    theme: 'base',
+    themeVariables: {
+      primaryColor:       '#e8e8e8',
+      primaryTextColor:   '#000',
+      primaryBorderColor: '#000',
+      lineColor:          '#444',
+      secondaryColor:     '#f4f4f4',
+      tertiaryColor:      '#fff',
+      background:         '#fff',
+      mainBkg:            '#f4f4f4',
+      nodeBorder:         '#000',
+      clusterBkg:         '#f9f9f9',
+      fontFamily:         'Helvetica Neue, Arial, sans-serif',
+      fontSize:           '12px'
+    },
+    mindmap: {
+      padding: 16,
+      useMaxWidth: true
+    }
+  });
+</script>
+
+</body>
+</html>
