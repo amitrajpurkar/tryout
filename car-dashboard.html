@@ -1,0 +1,761 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Cars Dashboard</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.5.1" integrity="sha384-jb8JQMbMoBUzgWatfe6COACi2ljcDdZQ2OxczGA3bGNeWe+6DChMTBJemed7ZnvJ" crossorigin="anonymous"></script>
+  <style>
+    :root {
+      --ody: #1d4ed8;
+      --ody-bg: rgba(29,78,216,0.12);
+      --cor: #15803d;
+      --cor-bg: rgba(21,128,61,0.12);
+      --bg: #f0f4f8;
+      --card: #ffffff;
+      --text: #1a202c;
+      --muted: #718096;
+      --border: #e2e8f0;
+      --hdr: #0f172a;
+      --shadow: 0 1px 3px rgba(0,0,0,0.08), 0 1px 2px rgba(0,0,0,0.04);
+    }
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body { font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif; background:var(--bg); color:var(--text); line-height:1.5; font-size:14px; }
+    .wrap { max-width:1440px; margin:0 auto; padding:14px; }
+
+    /* ── Header ─────────────────────────────────────────────── */
+    .hdr {
+      background:var(--hdr); color:#fff;
+      border-radius:12px; padding:14px 20px;
+      margin-bottom:12px;
+      display:flex; justify-content:space-between; align-items:center; gap:12px; flex-wrap:wrap;
+    }
+    .hdr h1 { font-size:17px; font-weight:700; letter-spacing:-.3px; }
+    .hdr-sub { font-size:11px; color:rgba(255,255,255,.5); margin-top:2px; }
+    .filters { display:flex; gap:8px; align-items:center; flex-wrap:wrap; }
+    .flabel { font-size:11px; color:rgba(255,255,255,.5); }
+    .fsel {
+      padding:5px 9px; border:1px solid rgba(255,255,255,.2); border-radius:6px;
+      background:rgba(255,255,255,.1); color:#fff; font-size:12px; cursor:pointer;
+    }
+    .fsel option { background:#1e293b; }
+
+    /* ── Summary card ───────────────────────────────────────── */
+    .summary-card {
+      background:var(--card); border-radius:12px;
+      box-shadow:var(--shadow); margin-bottom:12px;
+      display:grid; grid-template-columns:1fr 1px 1fr;
+      overflow:hidden;
+    }
+    .sum-half { padding:16px 20px; }
+    .sum-half.ody { border-top:3px solid var(--ody); }
+    .sum-half.cor { border-top:3px solid var(--cor); }
+    .sum-divider { background:var(--border); }
+    .sum-badge {
+      display:inline-flex; align-items:center; gap:6px;
+      font-weight:700; font-size:13px; margin-bottom:12px;
+    }
+    .sum-badge span.dot {
+      width:10px; height:10px; border-radius:50%; flex-shrink:0;
+    }
+    .sum-stats { display:grid; grid-template-columns:repeat(4,1fr); gap:8px; }
+    .sum-stat .lbl { font-size:10px; color:var(--muted); text-transform:uppercase; letter-spacing:.5px; }
+    .sum-stat .val { font-size:20px; font-weight:700; margin-top:1px; }
+    .sum-stat .sub { font-size:10px; color:var(--muted); }
+
+    /* ── Main grid ──────────────────────────────────────────── */
+    .main-grid { display:grid; grid-template-columns:1fr 1fr; gap:14px; }
+    .car-col { display:flex; flex-direction:column; gap:12px; }
+
+    .col-hdr {
+      border-radius:10px; padding:10px 14px;
+      font-size:14px; font-weight:700; color:#fff;
+      display:flex; align-items:center; justify-content:space-between;
+    }
+    .col-hdr.ody { background:var(--ody); }
+    .col-hdr.cor { background:var(--cor); }
+    .col-hdr .plate { font-size:11px; font-weight:400; opacity:.8; }
+
+    /* ── Chart cards ────────────────────────────────────────── */
+    .chart-card {
+      background:var(--card); border-radius:10px;
+      padding:14px 16px; box-shadow:var(--shadow);
+    }
+    .card-title {
+      display:flex; justify-content:space-between; align-items:center;
+      font-size:12px; font-weight:600; color:var(--text); margin-bottom:10px;
+    }
+    .toggle-row { display:flex; gap:4px; }
+    .tbtn {
+      padding:3px 9px; border:1px solid var(--border); border-radius:5px;
+      font-size:11px; cursor:pointer; background:#fff; color:var(--muted);
+      transition:all .15s;
+    }
+    .tbtn.on-ody { background:var(--ody); color:#fff; border-color:var(--ody); }
+    .tbtn.on-cor { background:var(--cor); color:#fff; border-color:var(--cor); }
+    canvas { max-height:200px; }
+
+    /* ── Service card ───────────────────────────────────────── */
+    .svc-card {
+      background:var(--card); border-radius:10px;
+      padding:14px 16px; box-shadow:var(--shadow);
+    }
+    .svc-list { display:flex; flex-direction:column; gap:0; }
+    .svc-row {
+      display:flex; align-items:flex-start; gap:9px;
+      padding:8px 0; border-bottom:1px solid var(--border);
+    }
+    .svc-row:last-child { border-bottom:none; }
+    .svc-dot { width:7px; height:7px; border-radius:50%; flex-shrink:0; margin-top:5px; }
+    .svc-dot.ody { background:var(--ody); }
+    .svc-dot.cor { background:var(--cor); }
+    .svc-body { flex:1; min-width:0; }
+    .svc-title { font-size:12px; font-weight:600; }
+    .svc-meta { font-size:11px; color:var(--muted); margin-top:1px; }
+    .svc-note { font-size:10px; color:var(--muted); font-style:italic; margin-top:2px; }
+    .svc-cost { font-size:12px; font-weight:600; flex-shrink:0; }
+    .svc-cost.free { color:var(--muted); font-weight:400; }
+
+    .svc-footer {
+      display:grid; grid-template-columns:repeat(3,1fr);
+      border-top:1px solid var(--border); margin-top:10px; padding-top:10px;
+      text-align:center;
+    }
+    .svc-footer .val { font-size:16px; font-weight:700; }
+    .svc-footer .lbl { font-size:10px; color:var(--muted); }
+
+    /* ── Footer ─────────────────────────────────────────────── */
+    .foot { text-align:center; font-size:10px; color:var(--muted); margin-top:12px; padding-bottom:8px; }
+
+    @media(max-width:900px){
+      .main-grid { grid-template-columns:1fr; }
+      .sum-stats { grid-template-columns:repeat(2,1fr); }
+    }
+    @media(max-width:600px){
+      .summary-card { grid-template-columns:1fr; }
+      .sum-divider { width:100%; height:1px; }
+    }
+  </style>
+</head>
+<body>
+<div class="wrap">
+
+  <!-- Header -->
+  <header class="hdr">
+    <div>
+      <h1>🚗 My Cars Dashboard</h1>
+      <div class="hdr-sub">Honda Odyssey (2020) &amp; Toyota Corolla Hybrid (2023) · Jacksonville, FL</div>
+    </div>
+    <div class="filters">
+      <span class="flabel">Monthly year:</span>
+      <select class="fsel" id="yr" onchange="redraw()"></select>
+    </div>
+  </header>
+
+  <!-- Summary Card -->
+  <div class="summary-card">
+    <div class="sum-half ody">
+      <div class="sum-badge"><span class="dot" style="background:var(--ody)"></span>Honda Odyssey EX · 2020</div>
+      <div class="sum-stats">
+        <div class="sum-stat">
+          <div class="lbl">Odometer</div>
+          <div class="val" id="so-odo">—</div>
+          <div class="sub">miles</div>
+        </div>
+        <div class="sum-stat">
+          <div class="lbl">Total Gallons</div>
+          <div class="val" id="so-gal">—</div>
+          <div class="sub" id="so-spend">all time</div>
+        </div>
+        <div class="sum-stat">
+          <div class="lbl">Avg MPG</div>
+          <div class="val" id="so-mpg">—</div>
+          <div class="sub">est. lifetime</div>
+        </div>
+        <div class="sum-stat">
+          <div class="lbl">Fill-ups</div>
+          <div class="val" id="so-fills">—</div>
+          <div class="sub">recorded</div>
+        </div>
+      </div>
+    </div>
+    <div class="sum-divider"></div>
+    <div class="sum-half cor">
+      <div class="sum-badge"><span class="dot" style="background:var(--cor)"></span>Toyota Corolla Hybrid LE · 2023</div>
+      <div class="sum-stats">
+        <div class="sum-stat">
+          <div class="lbl">Odometer</div>
+          <div class="val" id="sc-odo">—</div>
+          <div class="sub">miles</div>
+        </div>
+        <div class="sum-stat">
+          <div class="lbl">Total Gallons</div>
+          <div class="val" id="sc-gal">—</div>
+          <div class="sub" id="sc-spend">all time</div>
+        </div>
+        <div class="sum-stat">
+          <div class="lbl">Avg MPG</div>
+          <div class="val" id="sc-mpg">—</div>
+          <div class="sub">est. lifetime</div>
+        </div>
+        <div class="sum-stat">
+          <div class="lbl">Fill-ups</div>
+          <div class="val" id="sc-fills">—</div>
+          <div class="sub">recorded</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Main Grid -->
+  <div class="main-grid">
+
+    <!-- ── LEFT: Odyssey ── -->
+    <div class="car-col">
+      <div class="col-hdr ody">
+        <span>🚐 Honda Odyssey</span>
+        <span class="plate">Plate: GGJF47 · VIN: 5FNRL6H5XLB056034</span>
+      </div>
+
+      <!-- Monthly -->
+      <div class="chart-card">
+        <div class="card-title">
+          Monthly Fuel Consumption
+          <div class="toggle-row">
+            <button class="tbtn on-ody" id="om-gal" onclick="setM('o','gallons',this)">Gallons</button>
+            <button class="tbtn" id="om-cost" onclick="setM('o','cost',this)">Cost $</button>
+          </div>
+        </div>
+        <canvas id="oMonthly"></canvas>
+      </div>
+
+      <!-- Yearly -->
+      <div class="chart-card">
+        <div class="card-title">
+          Yearly Fuel Consumption
+          <div class="toggle-row">
+            <button class="tbtn on-ody" id="oy-gal" onclick="setY('o','gallons',this)">Gallons</button>
+            <button class="tbtn" id="oy-cost" onclick="setY('o','cost',this)">Cost $</button>
+          </div>
+        </div>
+        <canvas id="oYearly"></canvas>
+      </div>
+
+      <!-- Service -->
+      <div class="svc-card">
+        <div class="card-title">🔧 Servicing Insights</div>
+        <div class="svc-list" id="oSvc"></div>
+        <div class="svc-footer">
+          <div><div class="val" id="osv-n" style="color:var(--ody)">—</div><div class="lbl">Events</div></div>
+          <div><div class="val" id="osv-cost" style="color:var(--ody)">—</div><div class="lbl">Total Cost</div></div>
+          <div><div class="val" id="osv-days" style="color:var(--ody)">—</div><div class="lbl">Since Last</div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── RIGHT: Corolla ── -->
+    <div class="car-col">
+      <div class="col-hdr cor">
+        <span>🚗 Toyota Corolla</span>
+        <span class="plate">Plate: IMT-G35 · VIN: JTDBCMFE0PJ009845</span>
+      </div>
+
+      <!-- Monthly -->
+      <div class="chart-card">
+        <div class="card-title">
+          Monthly Fuel Consumption
+          <div class="toggle-row">
+            <button class="tbtn on-cor" id="cm-gal" onclick="setM('c','gallons',this)">Gallons</button>
+            <button class="tbtn" id="cm-cost" onclick="setM('c','cost',this)">Cost $</button>
+          </div>
+        </div>
+        <canvas id="cMonthly"></canvas>
+      </div>
+
+      <!-- Yearly -->
+      <div class="chart-card">
+        <div class="card-title">
+          Yearly Fuel Consumption
+          <div class="toggle-row">
+            <button class="tbtn on-cor" id="cy-gal" onclick="setY('c','gallons',this)">Gallons</button>
+            <button class="tbtn" id="cy-cost" onclick="setY('c','cost',this)">Cost $</button>
+          </div>
+        </div>
+        <canvas id="cYearly"></canvas>
+      </div>
+
+      <!-- Service -->
+      <div class="svc-card">
+        <div class="card-title">🔧 Servicing Insights</div>
+        <div class="svc-list" id="cSvc"></div>
+        <div class="svc-footer">
+          <div><div class="val" id="csv-n" style="color:var(--cor)">—</div><div class="lbl">Events</div></div>
+          <div><div class="val" id="csv-cost" style="color:var(--cor)">—</div><div class="lbl">Total Cost</div></div>
+          <div><div class="val" id="csv-days" style="color:var(--cor)">—</div><div class="lbl">Since Last</div></div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="foot">Data source: Vehicle Data.xlsx (Google Drive) · Dashboard generated May 2026</div>
+</div>
+
+<script>
+// ═══════════════════════════════════════════════════════════════
+//  EMBEDDED DATA  [date, gallons, cost, odometer]
+// ═══════════════════════════════════════════════════════════════
+const O = [
+["2026-05-09",16,67.30,69432],["2026-05-04",9,40.82,69253],["2026-05-02",17,68.18,68868],
+["2026-04-19",16,63.25,68584],["2026-04-10",16,63.27,68290],
+["2026-03-31",16,58.33,67991],["2026-03-22",15,54.30,67713],["2026-03-21",11,41.11,67351],
+["2026-03-14",15,51.37,67137],["2026-03-13",3,10.94,67084],
+["2026-03-06",16,45.58,66827],["2026-03-05",1,5.01,66817],
+["2026-02-28",16,44.02,66521],["2026-02-18",15,46.52,66230],["2026-02-06",18,45.54,65955],
+["2026-01-30",12,35.51,65592],["2026-01-24",16,40.78,65393],
+["2026-01-13",17,41.42,65088],["2026-01-02",16,40.98,64789],
+["2025-12-26",17,44.25,64439],["2025-12-23",9,22.26,64047],
+["2025-12-21",16,40.17,63861],["2025-12-14",10,26.13,63529],["2025-12-06",17,46.09,63375],
+["2025-11-26",15,40.95,63055],["2025-11-15",8,21.61,62822],
+["2025-11-06",17,45.85,62686],["2025-11-02",15,40.27,62276],
+["2025-10-21",16,42.72,62039],["2025-10-13",16,44.19,61733],
+["2025-10-12",12,33.63,61372],["2025-10-11",5,14.30,61357],["2025-10-02",17,45.98,61071],
+["2025-09-21",16,45.38,60801],["2025-09-13",17,46.57,60515],["2025-09-04",17,47.62,60249],
+["2025-08-23",16,44.46,59952],["2025-08-12",17,47.66,59670],
+["2025-07-25",16,45.03,59370],["2025-07-23",14,38.39,58990],
+["2025-07-22",5,15.35,58954],["2025-07-20",7,20.00,58772],
+["2025-07-18",10,27.59,58423],["2025-07-07",13,38.87,58272],
+["2025-06-15",17.03,47.33,57937],["2025-06-12",11.97,33.99,57570],
+["2025-06-10",15.19,42.20,57280],["2025-06-08",14.33,39.81,56936],
+["2025-05-23",16.55,46.32,56670],["2025-05-10",14.51,39.46,56376],
+["2025-05-08",5.97,16.47,56041],["2025-05-04",15.85,44.37,55935],
+["2025-04-26",16.51,46.37,55632],["2025-04-18",17.43,49.30,55319],
+["2025-04-07",13.01,37.72,55006],
+["2025-03-29",16.02,45.48,54772],["2025-03-13",10.01,28.01,54438],["2025-03-06",16.18,45.28,54312],
+["2025-02-23",11.12,31.35,53994],["2025-02-14",16.12,46.08,53794],["2025-02-02",9.01,25.85,53490],
+["2025-01-26",13.03,37.76,53338],["2025-01-18",16.85,48.50,53107],["2025-01-04",16.21,45.05,52801],
+["2024-12-24",10.28,28.58,52455],["2024-12-23",14.06,38.78,52266],
+["2024-12-20",7.27,20.07,51935],["2024-12-14",16.59,45.76,51821],["2024-12-06",16.05,44.59,51535],
+["2024-11-24",16.55,46.00,51249],["2024-11-15",16.18,44.98,50964],["2024-11-03",16.63,47.05,50675],
+["2024-10-25",16.43,46.96,50369],["2024-10-15",9.56,27.44,50085],
+["2024-10-06",15.04,43.14,49913],["2024-10-04",14.28,40.97,49554],
+["2024-09-22",14.04,40.85,49307],["2024-09-20",13.28,38.63,48997],
+["2024-09-14",14.56,42.35,48747],["2024-09-07",10.91,32.07,48482],["2024-09-02",14.11,42.30,48293],
+["2024-08-24",10.01,30.72,48078],["2024-08-17",13.17,40.80,47905],
+["2024-08-11",8.03,24.87,47730],["2024-08-04",11.65,36.12,47579],["2024-08-01",16,54.38,47345],
+["2024-07-21",7.40,23.07,47020],["2024-07-10",16.78,52.67,46901],
+["2024-07-06",14.10,51.74,46527],["2024-07-06",2.71,10.02,46514],
+["2024-07-06",12.88,38.62,46083],["2024-07-04",15.36,44.53,45791],["2024-07-02",9.71,29.32,45436],
+["2024-06-30",15.08,44.16,45224],["2024-06-28",16.67,50.00,44898],
+["2024-06-27",15.73,47.81,44497],["2024-06-15",15.51,46.67,44209],
+["2024-06-13",16,51.66,43905],["2024-06-09",6.06,18.47,43605],["2024-06-01",12.10,38.48,43497],
+["2024-05-23",16.24,51.63,43294],["2024-05-21",6.91,25.01,43161],["2024-05-08",16.07,52.05,42883],
+["2024-04-24",18.23,60.31,42589],["2024-04-17",8.12,30.02,42417],["2024-04-08",16.38,53.04,42116],
+["2024-03-24",14.91,48.00,41835],["2024-03-20",14.55,46.53,41501],
+["2024-02-18",12.72,39.30,40954],["2024-02-15",3.34,10.30,40673],
+["2024-02-10",16.02,47.57,40621],["2024-02-04",13.02,39.06,40317],
+["2024-01-27",14.79,42.87,40084],["2024-01-26",5.07,15.85,40005],
+["2024-01-14",9.38,26.55,39720],["2024-01-07",13.11,36.43,39545],
+["2023-12-28",8.80,25.95,39247],["2023-12-27",12.01,34.92,39008],
+["2023-12-27",5.02,15.25,38698],["2023-12-25",14.32,43.80,38600],
+["2023-12-22",16.22,48.64,38250],["2023-12-21",7.26,22.94,37828],
+["2023-12-18",8.28,22.18,37699],["2023-12-13",16.02,44.03,37553],
+["2023-12-03",5.25,14.71,37261],["2023-12-01",16.56,46.35,37148],
+["2023-11-18",15.93,45.07,36853],["2023-11-11",11.61,32.83,36552],
+["2023-10-29",16.45,49.48,36325],["2023-10-28",11.74,35.32,35935],
+["2023-10-18",16.14,48.90,35704],["2023-10-15",3.13,10.00,35641],
+["2023-09-30",13,42.50,35334],["2023-09-16",16.36,55.43,35086],
+["2023-09-03",5.85,20.05,34752],["2023-08-27",14.04,48.14,34652],
+["2023-08-27",2.83,10.00,34641],["2023-08-08",15.80,55.59,34338],
+["2023-08-05",5.13,19.98,34245],["2023-08-05",8.22,28.27,33847],
+["2023-08-02",16.70,60.09,33671],["2023-08-01",14.66,51.60,33270],
+["2023-07-28",10.23,34.45,32950],["2023-07-27",6.81,25.05,32904],
+["2023-07-25",5.00,18.51,32838],["2023-07-23",10.74,35.00,32443],
+["2023-07-16",12.35,37.77,32251],["2023-07-16",6.00,20.04,32204],
+["2023-07-09",14.77,44.58,31879],["2023-07-04",8.54,26.22,31542],["2023-07-01",11.69,36.00,31337],
+["2023-06-25",14.45,44.48,31121],["2023-06-22",5.00,15.90,31052],
+["2023-06-17",16.24,50.01,30683],["2023-06-11",14.62,45.00,30364],
+["2023-06-11",1.44,5.05,30358],["2023-06-10",2.86,10.01,30297],
+["2023-06-04",9.21,30.03,30138],["2023-06-02",16.15,50.05,29759],
+["2023-05-31",3.18,10.00,29699],["2023-05-25",16.09,49.54,29366],
+["2023-05-23",16.13,49.81,28966],["2023-05-14",12.02,38.21,28636],
+["2023-05-07",9.86,32.02,28404],["2023-05-02",16.56,54.14,28233],
+["2023-04-22",16.14,52.92,27933],["2023-04-15",14.23,46.67,27625],
+["2023-04-08",15.38,49.81,27349],["2023-04-08",1.39,5.01,27343],
+["2023-04-07",2.07,7.44,27295],
+["2023-03-31",16.31,51.86,26958],["2023-03-23",15.30,47.40,26655],
+["2023-03-21",5.01,16.87,26573],["2023-03-17",10.53,32.20,26179],["2023-03-08",16.24,53.57,25986],
+["2023-02-25",15.99,47.79,25693],["2023-02-11",16.13,52.89,25415],
+["2023-01-29",8.11,26.52,25116],["2023-01-22",12.17,38.44,24987],
+["2023-01-21",5.01,16.92,24975],["2023-01-20",7.41,25.02,24551],
+["2023-01-14",16.21,47.31,24409],["2023-01-13",2.00,6.50,24380],["2023-01-01",16.79,53.05,24059],
+["2022-12-28",10.41,28.63,23674],["2022-12-23",10.01,29.42,23452],
+["2022-12-14",16.46,50.03,23289],["2022-12-04",15.76,50.73,22989],
+["2022-11-26",9.07,27.20,22682],["2022-11-25",7.84,26.33,22653],
+["2022-11-15",14.55,52.09,22351],["2022-11-11",16.43,59.14,22027],["2022-11-03",5.06,17.55,21624],
+["2022-10-30",14.60,47.43,21571],["2022-10-17",15.73,53.30,21289],
+["2022-10-15",7.14,24.27,20892],["2022-10-09",16.01,52.81,20747],
+["2022-09-28",8,27.19,20662],["2022-09-18",8.52,27.00,20302],
+["2022-09-10",16.14,53.73,20162],["2022-09-03",16.10,54.71,19844],
+["2022-08-25",16.06,57.79,19548],["2022-08-14",12.06,42.20,19235],
+["2022-08-07",15.42,55.48,19013],["2022-08-06",10.01,36.03,18637],
+["2022-07-30",13.14,48.86,18458],["2022-07-09",5.10,21.41,18245],
+["2022-07-04",6.51,25.76,18122],["2022-07-03",6.50,28.44,17982],["2022-07-02",7.74,34.52,17807],
+["2022-06-20",11.68,54.41,17625],["2022-06-19",11.50,53.81,17322],
+["2022-05-30",9.91,44.17,17096],["2022-05-28",15.62,69.02,16853],
+["2022-05-18",12.72,55.71,16500],["2022-05-03",14.14,56.84,16264],
+["2022-05-03",2.42,10.03,16256],["2022-04-30",15.25,61.00,15867],["2022-04-09",16.01,64.03,15578],
+["2022-03-20",17,67.98,15264],["2022-03-16",10,40.90,14800],
+["2022-03-06",11.52,44.80,14564],["2022-03-05",7.91,30.03,14492],
+["2022-02-16",16.08,53.85,14193],
+["2022-01-17",16.17,51.58,13913],["2022-01-09",15.65,49.11,13579],
+["2021-12-30",14.53,47.19,13201],["2021-12-26",12.68,38.02,12840],
+["2021-12-24",14.32,41.50,12507],["2021-12-23",15.42,45.98,12200],
+["2021-12-03",15.68,51.26,11911],["2021-11-25",16.46,55.11,11610],
+["2021-11-10",16.28,53.06,11307],["2021-10-30",15.74,51.28,11006],
+["2021-10-05",16,47.92,10721],["2021-09-24",3,9.30,10479],
+["2021-09-08",16.35,48.36,10395],["2021-09-05",13.76,40.98,9974],
+["2021-08-25",16.30,53.60,9726],["2021-08-16",6.96,19.84,9435],
+["2021-07-24",2.32,6.96,9385],["2021-06-13",6.41,18.45,9256],
+["2021-06-05",16.17,44.11,9109],["2021-05-31",17.05,50.27,8744],
+["2021-05-31",8.61,22.38,8338],["2021-05-29",5.04,12.90,8155],
+["2021-05-28",16.11,46.71,8034],["2021-05-28",10.68,29.88,7629],
+["2021-05-21",16.30,44.47,7446],["2021-05-12",16.01,44.01,7094],["2021-05-07",4.01,11.42,7060],
+["2021-04-28",14.01,37.81,6706],["2021-04-22",15.77,43.50,6397],
+["2021-04-20",3.34,10.00,6328],["2021-04-08",16.01,44.01,5961],
+["2021-04-03",14.35,38.72,5606],["2021-04-02",13.01,35.11,5254],
+["2021-04-02",13.09,36.25,4934],["2021-03-30",11.87,30.01,4634],
+["2021-03-25",15.60,44.74,4416],["2021-03-20",1.73,4.99,4394],
+["2021-03-12",14.19,40.01,4028],["2021-02-26",15.74,38.86,3712],
+["2021-01-18",16.61,39.84,3353],["2021-01-02",15.01,31.95,2963],
+["2020-12-27",9.31,18.88,2580],["2020-12-26",14.01,27.73,2386],
+["2020-12-05",16.02,33.63,2052],["2020-11-20",12.04,21.67,1703],
+["2020-11-07",14.46,25.73,1463],["2020-10-16",15.91,31.17,1175],
+["2020-08-09",13.73,28.28,856],["2020-07-20",16.00,34.55,568],["2020-07-19",8.76,18.38,163]
+];
+
+const C = [
+["2026-05-01",8,34.07,36259],["2026-04-19",3,13.49,35868],["2026-04-11",6,23.83,35662],
+["2026-03-31",7,26.22,35384],["2026-03-17",8,28.03,35067],
+["2026-03-01",5,14.79,34685],["2026-02-22",5,13.28,34420],
+["2026-02-14",8,22.07,34182],["2026-02-02",8,19.80,33741],
+["2026-01-24",8,20.33,33412],["2026-01-13",9,21.25,33045],
+["2025-12-23",9,23.92,32645],["2025-12-13",6,15.65,32162],["2025-12-06",9,25.48,31867],
+["2025-11-24",8,22.75,31418],["2025-11-20",2,6.77,30977],
+["2025-11-16",10,26.06,30857],["2025-11-13",10,25.62,30419],
+["2025-11-02",7,17.59,29977],["2025-10-24",10,25.96,29616],
+["2025-10-08",7,19.81,29148],["2025-09-27",9,25.04,28780],
+["2025-09-14",3,9.76,28382],["2025-09-05",9,25.75,28178],["2025-09-05",2,5.00,28151],
+["2025-08-24",7,19.25,27716],["2025-08-09",10,27.69,27346],
+["2025-07-18",4,11.18,26935],["2025-07-15",9,23.70,26731],["2025-07-03",8,22.35,26318],
+["2025-06-24",3.99,11.64,25741],["2025-06-19",9.09,25.80,25564],
+["2025-06-02",10.05,27.93,25114],["2025-05-17",7.29,20.12,24631],
+["2025-05-04",6.99,19.57,24276],["2025-04-21",8.72,24.68,23950],
+["2025-04-07",6.80,19.72,23526],["2025-04-05",3.17,10.00,23500],
+["2025-03-16",7.56,21.17,23055],["2025-03-05",8.94,25.02,22667],
+["2025-02-23",8.13,22.90,22300],["2025-02-15",8.02,22.59,21927],
+["2025-02-14",3.27,10.00,21890],["2025-02-02",9.15,26.25,21398],
+["2025-01-31",8.05,23.32,20979],["2025-01-19",7.84,22.57,20635],
+["2025-01-12",8.51,24.17,20247],["2025-01-02",8.80,24.29,19902],
+["2024-12-21",9.51,26.24,19471],["2024-12-07",7.37,20.48,19027],
+["2024-11-24",5.76,16.00,18692],["2024-11-14",8.45,23.49,18400],
+["2024-11-11",3.75,11.93,18223],["2024-10-26",5.03,14.37,17773],
+["2024-10-20",9.20,26.40,17522],["2024-10-09",2.96,9.18,17111],
+["2024-10-06",6.08,17.45,16938],["2024-09-25",5.11,14.57,16599],
+["2024-09-15",9.01,26.21,16353],["2024-09-02",7.92,23.75,15919],
+["2024-08-24",5.93,18.21,15549],["2024-08-22",3.03,10.00,15489],
+["2024-08-11",8.39,25.99,15087],["2024-07-31",9.30,31.34,14735],
+["2024-07-21",6.46,20.16,14317],["2024-07-16",7.62,27.44,14028],
+["2024-07-12",9.76,33.77,13630],["2024-07-12",4.05,14.41,13255],
+["2024-06-26",8.47,25.75,13043],["2024-06-15",6.01,18.08,12655],
+["2024-06-08",8.03,25.68,12420],["2024-06-07",4.36,13.48,12045],
+["2024-06-01",8.34,26.48,11833],["2024-05-21",9.61,30.66,11429],
+["2024-05-09",9.02,29.47,11002],["2024-05-01",5.49,20.00,10652],
+["2024-04-20",10,32.39,10286],["2024-04-08",7.06,22.86,9829],
+["2024-03-30",9.21,29.48,9451],["2024-03-18",9.06,28.88,9034],
+["2024-03-09",9.81,31.39,8589],["2024-02-13",8.35,24.80,7873],
+["2024-02-04",5.00,15.00,7478],["2024-01-28",9.14,26.69,7253],
+["2024-01-21",6.02,16.55,6829],["2024-01-15",6.02,17.03,6540],
+["2024-01-07",8.58,23.84,6263],
+["2023-12-21",7.33,20.08,5902],["2023-12-11",7.22,20.14,5572],
+["2023-12-02",8.70,24.34,5176],["2023-11-22",5.09,14.25,4815],
+["2023-11-17",9.33,26.39,4530],["2023-11-08",8.63,27.95,4105],
+["2023-10-28",8.84,26.58,3607],["2023-10-21",8.71,26.38,3187],
+["2023-10-08",7.92,25.35,2752],["2023-09-27",7.87,26.34,2336],
+["2023-09-17",8.54,28.86,1952],["2023-09-08",9.34,32.68,1569],
+["2023-08-25",8.68,32.96,1065],["2023-08-22",3.05,11.24,928],
+["2023-08-12",9.62,33.84,454]
+];
+
+// Service: [date, title, cost, shop, notes, odometer]
+const OS = [
+["2025-04-18","Servicing",279,"","",55289],
+["2024-04-17","Windshield",1588.32,"Coggins Honda Atlantic","935.43 glass · 301 calibration · 351.89 labor",42417],
+["2023-12-06","Callback Service",0,"","",0],
+["2023-06-08","Servicing",0,"Coggins Honda Atlantic","",0],
+["2023-06-05","Flat Tire",18,"Costco Towncenter","Front right tire flat, single puncture",30138],
+["2023-01-02","Servicing",200,"Coggins Honda Atlantic","Oil filter change · Tire rotation",24100],
+["2022-03-18","Servicing",0,"Coggins Honda Atlantic","",14884],
+["2021-08-14","Oil Change",0,"Coggins Honda Atlantic","",9411],
+["2021-06-15","Windshield",0,"Safelite Jacksonville","Big rock hit on I-95",9300]
+];
+
+const CS = [
+["2025-09-27","Servicing",0,"Beaver Toyota St Augustine","",28726],
+["2025-04-12","Servicing",173.38,"Beaver Toyota St Augustine","",0],
+["2023-11-07","First Service",0,"Beaver Toyota St Augustine","5K service: battery, wipers, tires, brakes inspected",4026]
+];
+
+// ═══════════════════════════════════════════════════════════════
+//  HELPERS
+// ═══════════════════════════════════════════════════════════════
+const MO = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+const ODY = "#1d4ed8", COR = "#15803d", MI_CLR = "#f97316";
+
+function parse(raw) {
+  return raw.map(r => ({
+    dt: new Date(r[0]), yr: +r[0].slice(0,4), mo: +r[0].slice(5,7),
+    gal: +r[1], cost: +r[2], odo: +r[3], miles: 0
+  }));
+}
+
+// Compute miles-since-last-fillup via consecutive odometer deltas, assign to each record
+function addMiles(rows) {
+  const byOdo = [...rows].filter(r=>r.odo>0).sort((a,b)=>a.odo-b.odo||a.dt-b.dt);
+  for (let i=1; i<byOdo.length; i++) {
+    const d = byOdo[i].odo - byOdo[i-1].odo;
+    byOdo[i].miles = (d>=0 && d<=1500) ? d : 0;
+  }
+  if (byOdo.length>0) byOdo[0].miles=0;
+}
+
+// Pre-parse once and enrich with miles
+const oRows = parse(O); addMiles(oRows);
+const cRows = parse(C); addMiles(cRows);
+
+function byMonth(rows, yr) {
+  const m={};
+  for(let i=1;i<=12;i++) m[i]={gal:0,cost:0,miles:0};
+  rows.filter(r=>r.yr===yr).forEach(r=>{
+    m[r.mo].gal   += r.gal;
+    m[r.mo].cost  += r.cost;
+    m[r.mo].miles += r.miles;
+  });
+  return m;
+}
+
+function byYear(rows) {
+  const y={};
+  rows.forEach(r=>{
+    if(!y[r.yr]) y[r.yr]={gal:0,cost:0,miles:0};
+    y[r.yr].gal   += r.gal;
+    y[r.yr].cost  += r.cost;
+    y[r.yr].miles += r.miles;
+  });
+  return y;
+}
+
+function mpg(rows) {
+  const totalMi  = rows.reduce((s,r)=>s+r.miles, 0);
+  const totalGal = rows.filter(r=>r.miles>0).reduce((s,r)=>s+r.gal, 0);
+  return totalGal>0 ? totalMi/totalGal : null;
+}
+
+function fmtN(n,d=0){ return n.toLocaleString(undefined,{minimumFractionDigits:d,maximumFractionDigits:d}); }
+function $N(n){ return '$'+fmtN(n,0); }
+
+// ═══════════════════════════════════════════════════════════════
+//  CHARTS  — combo: bars = fuel metric, line = miles driven
+// ═══════════════════════════════════════════════════════════════
+const charts={};
+
+function makeCombo(id, labels, barVals, milesVals, barColor, barFmt) {
+  const ctx = document.getElementById(id).getContext('2d');
+  if(charts[id]) charts[id].destroy();
+  charts[id] = new Chart(ctx, {
+    data:{
+      labels,
+      datasets:[
+        {
+          type:'bar', label:'Fuel', data:barVals,
+          backgroundColor:barColor+'BB', borderColor:barColor,
+          borderWidth:1, borderRadius:4, yAxisID:'y'
+        },
+        {
+          type:'line', label:'Miles Driven', data:milesVals,
+          borderColor:MI_CLR, backgroundColor:'rgba(249,115,22,0.07)',
+          borderWidth:2.5, pointRadius:3, pointHoverRadius:5,
+          tension:0.35, fill:false, yAxisID:'y1'
+        }
+      ]
+    },
+    options:{
+      responsive:true, maintainAspectRatio:false,
+      interaction:{ mode:'index', intersect:false },
+      plugins:{
+        legend:{
+          display:true, position:'top',
+          labels:{ boxWidth:11, font:{size:10}, padding:12, usePointStyle:true }
+        },
+        tooltip:{
+          callbacks:{
+            label: c => c.datasetIndex===0
+              ? '  '+barFmt(c.parsed.y)
+              : '  '+fmtN(c.parsed.y,0)+' mi driven'
+          }
+        }
+      },
+      scales:{
+        x:{ grid:{display:false}, ticks:{font:{size:10}} },
+        y:{
+          beginAtZero:true, position:'left',
+          ticks:{ callback:v=>barFmt(v), font:{size:10} },
+          grid:{ color:'rgba(0,0,0,0.05)' }
+        },
+        y1:{
+          beginAtZero:true, position:'right',
+          grid:{ drawOnChartArea:false },
+          ticks:{ callback:v=>fmtN(v,0), font:{size:10}, color:MI_CLR }
+        }
+      }
+    }
+  });
+}
+
+// State
+let state = { oMo:'gallons', cMo:'gallons', oYr:'gallons', cYr:'gallons' };
+
+function selYear(){ return +document.getElementById('yr').value; }
+
+function drawOMonthly(metric){
+  const yr=selYear(), d=byMonth(oRows,yr);
+  const bars  = MO.map((_,i)=>metric==='gallons'?d[i+1].gal:d[i+1].cost);
+  const miles = MO.map((_,i)=>d[i+1].miles);
+  const fmt   = metric==='gallons'?v=>fmtN(v,0)+' gal':v=>$N(v);
+  makeCombo('oMonthly',MO,bars,miles,ODY,fmt);
+}
+function drawCMonthly(metric){
+  const yr=selYear(), d=byMonth(cRows,yr);
+  const bars  = MO.map((_,i)=>metric==='gallons'?d[i+1].gal:d[i+1].cost);
+  const miles = MO.map((_,i)=>d[i+1].miles);
+  const fmt   = metric==='gallons'?v=>fmtN(v,0)+' gal':v=>$N(v);
+  makeCombo('cMonthly',MO,bars,miles,COR,fmt);
+}
+function drawOYearly(metric){
+  const d=byYear(oRows), yrs=Object.keys(d).sort();
+  const bars  = yrs.map(y=>metric==='gallons'?d[y].gal:d[y].cost);
+  const miles = yrs.map(y=>d[y].miles);
+  const fmt   = metric==='gallons'?v=>fmtN(v,0)+' gal':v=>$N(v);
+  makeCombo('oYearly',yrs,bars,miles,ODY,fmt);
+}
+function drawCYearly(metric){
+  const d=byYear(cRows), yrs=Object.keys(d).sort();
+  const bars  = yrs.map(y=>metric==='gallons'?d[y].gal:d[y].cost);
+  const miles = yrs.map(y=>d[y].miles);
+  const fmt   = metric==='gallons'?v=>fmtN(v,0)+' gal':v=>$N(v);
+  makeCombo('cYearly',yrs,bars,miles,COR,fmt);
+}
+
+function redraw(){
+  drawOMonthly(state.oMo); drawCMonthly(state.cMo);
+  drawOYearly(state.oYr); drawCYearly(state.cYr);
+}
+
+function setM(car,metric,btn){
+  const pfx=car==='o'?'o':'c';
+  document.querySelectorAll(`#${pfx}m-gal,#${pfx}m-cost`).forEach(b=>{ b.className='tbtn'; });
+  btn.className='tbtn on-'+(car==='o'?'ody':'cor');
+  if(car==='o'){state.oMo=metric; drawOMonthly(metric);}
+  else{state.cMo=metric; drawCMonthly(metric);}
+}
+function setY(car,metric,btn){
+  const pfx=car==='o'?'o':'c';
+  document.querySelectorAll(`#${pfx}y-gal,#${pfx}y-cost`).forEach(b=>{ b.className='tbtn'; });
+  btn.className='tbtn on-'+(car==='o'?'ody':'cor');
+  if(car==='o'){state.oYr=metric; drawOYearly(metric);}
+  else{state.cYr=metric; drawCYearly(metric);}
+}
+
+// ═══════════════════════════════════════════════════════════════
+//  SUMMARY
+// ═══════════════════════════════════════════════════════════════
+function renderSummary(){
+  const oGal  = oRows.reduce((s,r)=>s+r.gal,0);
+  const oCost = oRows.reduce((s,r)=>s+r.cost,0);
+  const oOdo  = Math.max(...oRows.map(r=>r.odo));
+  const oMpg  = mpg(oRows);
+
+  const cGal  = cRows.reduce((s,r)=>s+r.gal,0);
+  const cCost = cRows.reduce((s,r)=>s+r.cost,0);
+  const cOdo  = Math.max(...cRows.map(r=>r.odo));
+  const cMpg  = mpg(cRows);
+
+  document.getElementById('so-odo').textContent=fmtN(oOdo);
+  document.getElementById('so-gal').textContent=fmtN(oGal,0);
+  document.getElementById('so-spend').textContent=$N(oCost)+' total spent';
+  document.getElementById('so-mpg').textContent=oMpg?fmtN(oMpg,1):'—';
+  document.getElementById('so-fills').textContent=oRows.length;
+
+  document.getElementById('sc-odo').textContent=fmtN(cOdo);
+  document.getElementById('sc-gal').textContent=fmtN(cGal,0);
+  document.getElementById('sc-spend').textContent=$N(cCost)+' total spent';
+  document.getElementById('sc-mpg').textContent=cMpg?fmtN(cMpg,1):'—';
+  document.getElementById('sc-fills').textContent=cRows.length;
+}
+
+// ═══════════════════════════════════════════════════════════════
+//  SERVICE
+// ═══════════════════════════════════════════════════════════════
+function renderService(containerId, raw, cls, ids){
+  const rows=[...raw].sort((a,b)=>new Date(b[0])-new Date(a[0]));
+  const today=new Date();
+  let html='';
+  rows.forEach(r=>{
+    const dt=new Date(r[0]);
+    const dStr=dt.toLocaleDateString('en-US',{year:'numeric',month:'short',day:'numeric'});
+    const cost=parseFloat(r[2]);
+    const costStr=cost>0?$N(cost):'No charge';
+    const free=cost===0;
+    const odo=parseInt(r[5]);
+    const meta=[dStr, r[3]?r[3]:'', odo>0?fmtN(odo)+' mi':''].filter(Boolean).join(' · ');
+    html+=`<div class="svc-row">
+      <div class="svc-dot ${cls}"></div>
+      <div class="svc-body">
+        <div class="svc-title">${r[1]}</div>
+        <div class="svc-meta">${meta}</div>
+        ${r[4]?`<div class="svc-note">${r[4]}</div>`:''}
+      </div>
+      <div class="svc-cost${free?' free':''}">${costStr}</div>
+    </div>`;
+  });
+  document.getElementById(containerId).innerHTML=html;
+
+  const totalCost=raw.reduce((s,r)=>s+parseFloat(r[2]),0);
+  const lastDt=rows.length>0?new Date(rows[0][0]):null;
+  const days=lastDt?Math.floor((today-lastDt)/86400000):null;
+
+  document.getElementById(ids[0]).textContent=raw.length;
+  document.getElementById(ids[1]).textContent=$N(totalCost);
+  document.getElementById(ids[2]).textContent=days!==null?days+'d':'—';
+}
+
+// ═══════════════════════════════════════════════════════════════
+//  INIT
+// ═══════════════════════════════════════════════════════════════
+function init(){
+  // Populate year filter
+  const allYrs=[...new Set([...oRows.map(r=>r.yr),...cRows.map(r=>r.yr)])].sort().reverse();
+  const sel=document.getElementById('yr');
+  allYrs.forEach(y=>{ const o=document.createElement('option'); o.value=y; o.textContent=y; sel.appendChild(o); });
+  sel.value=allYrs[0];
+
+  renderSummary();
+  redraw();
+  renderService('oSvc',OS,'ody',['osv-n','osv-cost','osv-days']);
+  renderService('cSvc',CS,'cor',['csv-n','csv-cost','csv-days']);
+}
+
+init();
+</script>
+</body>
+</html>
